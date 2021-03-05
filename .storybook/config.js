@@ -3,7 +3,7 @@ import { setOptions } from "@storybook/addon-options";
 import { addReadme } from 'storybook-readme';
 
 setOptions({
-  name: 'My website',
+  name: '잡동사니 개발블로그',
   downPanelInRight: true
 });
 
