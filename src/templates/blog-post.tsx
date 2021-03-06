@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import { get } from "lodash";
 import { Header, Container, Segment, Icon, Label, Button, Grid, Card, Image, Item, Comment } from "semantic-ui-react";
 import { MarkdownRemark, ImageSharp, MarkdownRemarkConnection, Site } from "../graphql-types";
-import BlogTitle from "../components/BlogTitle";
+import PostHeader from "../components/PostHeader";
 import { DiscussionEmbed } from "disqus-react";
 import {withLayout, LayoutProps} from "../components/Layout";
 import { graphql } from "gatsby";
@@ -53,7 +53,7 @@ const BlogPostPage = (props: BlogPostProps) => {
   const cover = get(frontmatter, "image.children.0.fixed", {} );
   return (
     <Container>
-      <BlogTitle />
+      <PostHeader />
       <Segment vertical style={{ border: "none" }}>
         <Item.Group>
           <Item>

@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import { StaticQuery, graphql } from "gatsby";
 import { Header, Grid, Card, List, Container, Feed, Segment, Comment } from "semantic-ui-react";
 import { MarkdownRemarkConnection, ImageSharp } from "../graphql-types";
-import BlogTitle from "../components/BlogTitle";
+import PostHeader from "../components/PostHeader";
 import TagsCard from "../components/TagsCard/TagsCard";
 import BlogPagination from "../components/BlogPagination/BlogPagination";
 import { get } from "lodash";
@@ -77,7 +77,7 @@ const BlogPage = (props: BlogProps) => {
   return (
     <Container>
       {/* Title */}
-      <BlogTitle />
+      <PostHeader />
 
       {/* Content */}
       <Segment vertical>
