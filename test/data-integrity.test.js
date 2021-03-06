@@ -35,7 +35,6 @@ describe('data integrity', () => {
       {key: 'updatedDate', validator: val => _.isDate(new Date(val))},
       {key: 'author', validator: val => _.map(authors, 'id').includes(val)},
       {key: 'tags', validator: _.isArray},
-      {key: 'image', validator: (val, post) => fs.existsSync(`data/blog/${post}/${val}`)},
       {key: 'draft', validator: _.isBoolean}
     ];
 
