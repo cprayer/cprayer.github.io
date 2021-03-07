@@ -4,7 +4,7 @@ createdDate: '2020-02-05'
 updatedDate: '2020-02-05'
 author: cprayer
 tags:
-  - troubleshotting
+  - troubleshooting
   - network
 draft: false
 ---
@@ -17,7 +17,7 @@ draft: false
 
 꽤 많은 시간을 삽질하다가 그래도 원인을 몰라, 패킷 덤프를 통해 마지막 요청으로부터 5초 뒤 요청이 들어올 때 문제가 발생하는 것을 확인하고 관련 검색어로 구글링을 하여 원인을 찾았다.
 원인은 타이밍 이슈로 서버에서 일정 시간 커넥션에 인입이 없어 커넥션을 정리하는 도중에(이 때, 클라이언트는 아직 FIN 패킷을 받지 못해 커넥션이 유효하다고 판단하여) 클라이언트에서 요청을 보내 RST가 발생하였다.
-NodeJS의 http.Server.keepAliveTimeout라는 값이 있고 해당 값의 디폴트 값은 v12.14.1 기준 5초이다. (https://nodejs.org/api/http.html#http_server_keepalivetimeout)
+NodeJS의 http.Server.keepAliveTimeout라는 값이 있고 해당 값의 디폴트 값은 v12.14.1 기준 5초이다. (<https://nodejs.org/docs/v12.14.1/api/index.html>)
 
 > The number of milliseconds of inactivity a server needs to wait for additional incoming data, after it has finished writing the last response, before a socket will be destroyed. If the server receives new data before the keep-alive timeout has fired, it will reset the regular inactivity timeout (링크 본문 내용 중 일부)
 
