@@ -21,7 +21,7 @@ interface BlogProps extends LayoutProps {
 }
 
 const BlogPage = (props: BlogProps) => {
-  const tags = props.data.tags.group;
+  const tags = props.data.tags.group.sort((a, b) => b.totalCount - a.totalCount);
   const posts = props.data.posts.edges;
   const { pathname } = props.location;
   const pageCount = Math.ceil(props.data.posts.totalCount / 10);
