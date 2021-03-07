@@ -18,7 +18,7 @@ export const SidebarMenu = ({ items, pathname, Link, visible }: SidebarMenuProps
   const activeItem = items.find((item: MenuItem) => isActive(item)) || {} as MenuItem;
   return (
     <Sidebar as={Menu} animation="slide along" width="thin"
-      visible={visible} icon="labeled" vertical inverted={activeItem.inverted}>
+      visible={visible} icon="labeled" vertical inverted>
       {items.map((item) => {
         const active = isActive(item);
         return (

@@ -4,7 +4,7 @@ exports[`SidebarMenu component should render correctly 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "ui vertical labeled icon ui slide along left thin visible sidebar menu",
+      "class": "ui inverted vertical labeled icon ui slide along left thin visible sidebar menu",
     },
     "children": Array [
       Object {

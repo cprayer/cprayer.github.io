@@ -6,7 +6,6 @@ export interface MenuItem {
   path: string;
   exact: boolean;
   icon?: string;
-  inverted?: boolean;
 }
 
 export interface MenuProps extends React.HTMLProps<HTMLDivElement> {

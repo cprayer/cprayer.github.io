@@ -7,12 +7,13 @@ import "../css/styles.css";
 import "../css/responsive.css";
 import "../css/semantic.min.css";
 import "prismjs/themes/prism-okaidia.css";
+import { MenuItem } from "./Menu";
 import { Provider } from "react-redux";
 import { store } from "../store";
 
-export const menuItems = [
-  { name: "Main", path: "/", exact: true, icon: "archive", inverted: true },
-  { name: "About", path: "/about/", exact: true, icon: "address card", inverted: true },
+export const menuItems: MenuItem[] = [
+  { name: "Main", path: "/", exact: true, icon: "archive"},
+  { name: "About", path: "/about/", exact: true, icon: "address card"},
 ];
 
 export interface LayoutProps {
