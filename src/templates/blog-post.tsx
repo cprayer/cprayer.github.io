@@ -80,6 +80,7 @@ const BlogPostPage = (props: BlogPostProps) => {
         dangerouslySetInnerHTML={{
           __html: html,
         }}
+        size="big"
       />
       <Segment vertical>
         {tags}
