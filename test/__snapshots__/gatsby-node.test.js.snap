@@ -73,6 +73,33 @@ exports[`gatsby-node createPages should create blog posts 1`] = `
 Array [
   Array [
     Object {
+      "component": "base-path/src/templates/blog-post.tsx",
+      "context": Object {
+        "slug": "/posts/2017-04-18--welcoming/",
+      },
+      "path": "/posts/2017-04-18--welcoming/",
+    },
+  ],
+  Array [
+    Object {
+      "component": "base-path/src/templates/blog-post.tsx",
+      "context": Object {
+        "slug": "/posts/2017-05-02--article-2/",
+      },
+      "path": "/posts/2017-05-02--article-2/",
+    },
+  ],
+  Array [
+    Object {
+      "component": "base-path/src/templates/blog-post.tsx",
+      "context": Object {
+        "slug": "/posts/2017-05-02--article-1/",
+      },
+      "path": "/posts/2017-05-02--article-1/",
+    },
+  ],
+  Array [
+    Object {
       "component": "base-path/src/templates/blog-page.tsx",
       "context": Object {
         "skip": 0,

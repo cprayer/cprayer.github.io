@@ -23,21 +23,21 @@ describe('gatsby-node', () => {
                   {
                     node: {
                       fields: {
-                        slug: '/blog/2017-04-18--welcoming/'
+                        slug: '/posts/2017-04-18--welcoming/'
                       }
                     }
                   },
                   {
                     node: {
                       fields: {
-                        slug: '/blog/2017-05-02--article-2/'
+                        slug: '/posts/2017-05-02--article-2/'
                       }
                     }
                   },
                   {
                     node: {
                       fields: {
-                        slug: '/blog/2017-05-02--article-1/'
+                        slug: '/posts/2017-05-02--article-1/'
                       }
                     }
                   },
