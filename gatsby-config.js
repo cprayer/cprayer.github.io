@@ -2,8 +2,7 @@
 module.exports = {
   siteMetadata: {
     title: `잡동사니 개발블로그`,
-    googleVerification: `abcdefz`,
-    disqus: `cprayer-github-io`
+    googleVerification: `abcdefz`
   },
   mapping: {
     'MarkdownRemark.frontmatter.author': `AuthorJson`

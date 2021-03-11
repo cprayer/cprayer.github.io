@@ -2204,7 +2204,6 @@ export enum SiteFieldsEnum {
   internal___type = "internal___type",
   siteMetadata___title = "siteMetadata___title",
   siteMetadata___googleVerification = "siteMetadata___googleVerification",
-  siteMetadata___disqus = "siteMetadata___disqus",
   port = "port",
   host = "host",
   mapping___MarkdownRemark_frontmatter_author = "mapping___MarkdownRemark_frontmatter_author",
@@ -2883,13 +2882,11 @@ export type SiteSiteMetadata = {
   __typename?: "SiteSiteMetadata";
   title?: Maybe<Scalars["String"]>;
   googleVerification?: Maybe<Scalars["String"]>;
-  disqus?: Maybe<Scalars["String"]>;
 };
 
 export type SiteSiteMetadataFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   googleVerification?: Maybe<StringQueryOperatorInput>;
-  disqus?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SiteSortInput = {

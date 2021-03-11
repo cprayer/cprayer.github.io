@@ -4,7 +4,6 @@ import { get } from "lodash";
 import { Header, Container, Segment, Icon, Label, Button, Grid, Card, Image, Item, Comment } from "semantic-ui-react";
 import { MarkdownRemark, ImageSharp, MarkdownRemarkConnection, Site } from "../graphql-types";
 import PostHeader from "../components/PostHeader";
-import { DiscussionEmbed } from "disqus-react";
 import {withLayout, LayoutProps} from "../components/Layout";
 import { graphql } from "gatsby";
 
@@ -86,10 +85,6 @@ const BlogPostPage = (props: BlogPostProps) => {
       </Segment>
       {props.data.site
         && props.data.site.siteMetadata
-        && props.data.site.siteMetadata.disqus
-        && <Segment vertical>
-            <DiscussionEmbed shortname={props.data.site.siteMetadata.disqus} config={{}}/>
-        </Segment>
       }
       <Segment vertical>
         <Grid padded centered>
@@ -104,11 +99,6 @@ export default withLayout(BlogPostPage);
 
 export const pageQuery = graphql`
   query TemplateBlogPost($slug: String!) {
-  site: site {
-    siteMetadata {
-        disqus
-    }
-  }
   post: markdownRemark(fields: {slug: {eq: $slug}}) {
     html
     excerpt
