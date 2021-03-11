@@ -10,7 +10,6 @@ configure({ adapter: new Adapter() });
 const items = [
   { name: "Main", path: "/", exact: true },
   { name: "About", path: "/about/", exact: true },
-  { name: "Blog", path: "/blog/", exact: false },
 ];
 
 const LinkStub = (props: any) => <div {...props} />;
@@ -40,12 +39,12 @@ describe("HeaderMenu component", () => {
     expect(wrapper.find({ name: "About" }).prop("active")).toBeTruthy();
   });
 
-  it("should have blog as active (match not exact)", () => {
+  it("should have post as active (match not exact)", () => {
     const wrapper = shallow(
       <HeaderMenu
         Link={LinkStub}
         items={items}
-        pathname="/blog/toto"
+        pathname="/posts/toto"
         dispatch={dispatchStub}
       />,
     );
@@ -57,7 +56,7 @@ describe("HeaderMenu component", () => {
       <HeaderMenu
         Link={LinkStub}
         items={items}
-        pathname="/blog/toto"
+        pathname="/posts/toto"
         dispatch={dispatchStub}
         inverted
       />,

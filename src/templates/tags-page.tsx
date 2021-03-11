@@ -22,7 +22,7 @@ query TemplateTagPage($tag: String) {
         draft: { ne: true }
         tags: { in: [$tag] }
       },
-      fileAbsolutePath: { regex: "/blog/" }
+      fileAbsolutePath: { regex: "/posts/" }
     }
   ) {
     totalCount

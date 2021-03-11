@@ -21,7 +21,7 @@ query TemplateBlogPage($skip: Int) {
       frontmatter: {
         draft: { ne: true }
       },
-      fileAbsolutePath: { regex: "/blog/" }
+      fileAbsolutePath: { regex: "/posts/" }
     }
     limit: 10,
     skip: $skip

@@ -66,7 +66,7 @@ exports.createPages = ({graphql, actions}) => {
 
       // Create blog pages
       posts
-        .filter(post => post.fields.slug.startsWith('/blog/'))
+        .filter(post => post.fields.slug.startsWith('/posts/'))
         .forEach(post => {
           createPage({
             path: post.fields.slug,
@@ -84,7 +84,7 @@ exports.createPages = ({graphql, actions}) => {
         , [])
         .forEach(tag => {
           createPage({
-            path: `/blog/tags/${tag}/`,
+            path: `/tags/${tag}/`,
             component: slash(templates.tagsPage),
             context: {
               tag
@@ -96,7 +96,7 @@ exports.createPages = ({graphql, actions}) => {
       const pageCount = Math.ceil(posts.length / POSTS_PER_PAGE);
       times(pageCount, index => {
         createPage({
-          path: `/blog/page/${index + 1}/`,
+          path: `/page/${index + 1}/`,
           component: slash(templates.blogPage),
           context: {
             skip: index * POSTS_PER_PAGE

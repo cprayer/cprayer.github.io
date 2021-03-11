@@ -114,7 +114,7 @@ query PageBlog {
     sort: { order: DESC, fields: [frontmatter___updatedDate] },
     filter: {
       frontmatter: { draft: { ne: true } },
-      fileAbsolutePath: { regex: "/blog/" }
+      fileAbsolutePath: { regex: "/posts/" }
     },
     limit: 10
   ) {
