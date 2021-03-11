@@ -1,8 +1,7 @@
 /* eslint-disable quotes */
 module.exports = {
   siteMetadata: {
-    title: `잡동사니 개발블로그`,
-    googleVerification: `abcdefz`
+    title: `잡동사니 개발블로그`
   },
   mapping: {
     'MarkdownRemark.frontmatter.author': `AuthorJson`
