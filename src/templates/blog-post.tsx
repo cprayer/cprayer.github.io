@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Link } from "gatsby";
 import { get } from "lodash";
-import { Header, Container, Segment, Icon, Label, Button, Grid, Card, Image, Item, Comment } from "semantic-ui-react";
+import { Header, Container, Segment, Label, Grid, Card, Image, Item, Comment } from "semantic-ui-react";
 import { MarkdownRemark, ImageSharp, MarkdownRemarkConnection, Site } from "../graphql-types";
-import PostHeader from "../components/PostHeader";
 import {withLayout, LayoutProps} from "../components/Layout";
+import { Comments } from "../components/Comments";
 import { graphql } from "gatsby";
 
 interface BlogPostProps extends LayoutProps {
@@ -83,9 +83,7 @@ const BlogPostPage = (props: BlogPostProps) => {
       <Segment vertical>
         {tags}
       </Segment>
-      {props.data.site
-        && props.data.site.siteMetadata
-      }
+      <Comments/>
       <Segment vertical>
         <Grid padded centered>
           {recents}

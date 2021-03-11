@@ -97,3 +97,7 @@ pre {
   border-radius: 0.3em;
   background: #272822;
 }
+
+.utterances {
+  max-width: 100%;
+}
