@@ -83,7 +83,7 @@ describe('gatsby-node', () => {
                   {
                     node: {
                       fields: {
-                        slug: '/blog/2017-04-18--welcoming/'
+                        slug: '/posts/2017-04-18--welcoming/'
                       },
                       frontmatter: {
                         tags: [
@@ -96,7 +96,7 @@ describe('gatsby-node', () => {
                   {
                     node: {
                       fields: {
-                        slug: '/blog/2017-05-02--article-2/'
+                        slug: '/posts/2017-05-02--article-2/'
                       },
                       frontmatter: {
                         tags: [
@@ -108,7 +108,7 @@ describe('gatsby-node', () => {
                   {
                     node: {
                       fields: {
-                        slug: '/blog/2017-05-02--article-1/'
+                        slug: '/posts/2017-05-02--article-1/'
                       },
                       frontmatter: {
                         tags: [
@@ -120,7 +120,7 @@ describe('gatsby-node', () => {
                   {
                     node: {
                       fields: {
-                        slug: '/blog/2017-05-02--article-0/'
+                        slug: '/posts/2017-05-02--article-0/'
                       },
                       frontmatter: {
                         tags: null
@@ -145,7 +145,7 @@ describe('gatsby-node', () => {
         const edges = [...new Array(n)].map((val, i) => ({
           node: {
             fields: {
-              slug: `/blog/2017-04-18--article-${i + 1}/`
+              slug: `/posts/2017-04-18--article-${i + 1}/`
             }
           }
         }));
@@ -158,7 +158,7 @@ describe('gatsby-node', () => {
         return createPages({graphql, actions})
           .then(() => {
             const pages = actions.createPage.mock.calls
-              .filter(d => d[0].path && d[0].path.startsWith('/blog/page/'));
+              .filter(d => d[0].path && d[0].path.startsWith('/page/'));
             expect(pages).toMatchSnapshot();
           });
       });
@@ -168,7 +168,7 @@ describe('gatsby-node', () => {
         return createPages({graphql, actions})
           .then(() => {
             const pages = actions.createPage.mock.calls
-              .filter(d => d[0].path && d[0].path.startsWith('/blog/page/'));
+              .filter(d => d[0].path && d[0].path.startsWith('/page/'));
             expect(pages).toMatchSnapshot();
           });
       });
@@ -178,7 +178,7 @@ describe('gatsby-node', () => {
         return createPages({graphql, actions})
           .then(() => {
             const pages = actions.createPage.mock.calls
-              .filter(d => d[0].path && d[0].path.startsWith('/blog/page/'));
+              .filter(d => d[0].path && d[0].path.startsWith('/page/'));
             expect(pages).toMatchSnapshot();
           });
       });
@@ -196,7 +196,7 @@ describe('gatsby-node', () => {
     it('should create slugs for MarkdownRemark file', () => {
       getNode.mockReturnValue(
         {
-          relativePath: 'blog/2017-04-18--welcoming/index.md'
+          relativePath: 'posts/2017-04-18--welcoming/index.md'
         }
       );
       const node = {
@@ -213,7 +213,7 @@ describe('gatsby-node', () => {
     it('should do nothing on unknown type', () => {
       getNode.mockReturnValue(
         {
-          relativePath: 'blog/2017-04-18--welcoming/index.md'
+          relativePath: 'posts/2017-04-18--welcoming/index.md'
         }
       );
       const node = {

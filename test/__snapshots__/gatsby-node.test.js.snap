@@ -8,7 +8,7 @@ Array [
       "context": Object {
         "skip": 0,
       },
-      "path": "/blog/page/1/",
+      "path": "/page/1/",
     },
   ],
 ]
@@ -22,7 +22,7 @@ Array [
       "context": Object {
         "skip": 0,
       },
-      "path": "/blog/page/1/",
+      "path": "/page/1/",
     },
   ],
   Array [
@@ -31,7 +31,7 @@ Array [
       "context": Object {
         "skip": 10,
       },
-      "path": "/blog/page/2/",
+      "path": "/page/2/",
     },
   ],
 ]
@@ -45,7 +45,7 @@ Array [
       "context": Object {
         "skip": 0,
       },
-      "path": "/blog/page/1/",
+      "path": "/page/1/",
     },
   ],
   Array [
@@ -54,7 +54,7 @@ Array [
       "context": Object {
         "skip": 10,
       },
-      "path": "/blog/page/2/",
+      "path": "/page/2/",
     },
   ],
   Array [
@@ -63,7 +63,7 @@ Array [
       "context": Object {
         "skip": 20,
       },
-      "path": "/blog/page/3/",
+      "path": "/page/3/",
     },
   ],
 ]
@@ -73,38 +73,11 @@ exports[`gatsby-node createPages should create blog posts 1`] = `
 Array [
   Array [
     Object {
-      "component": "base-path/src/templates/blog-post.tsx",
-      "context": Object {
-        "slug": "/blog/2017-04-18--welcoming/",
-      },
-      "path": "/blog/2017-04-18--welcoming/",
-    },
-  ],
-  Array [
-    Object {
-      "component": "base-path/src/templates/blog-post.tsx",
-      "context": Object {
-        "slug": "/blog/2017-05-02--article-2/",
-      },
-      "path": "/blog/2017-05-02--article-2/",
-    },
-  ],
-  Array [
-    Object {
-      "component": "base-path/src/templates/blog-post.tsx",
-      "context": Object {
-        "slug": "/blog/2017-05-02--article-1/",
-      },
-      "path": "/blog/2017-05-02--article-1/",
-    },
-  ],
-  Array [
-    Object {
       "component": "base-path/src/templates/blog-page.tsx",
       "context": Object {
         "skip": 0,
       },
-      "path": "/blog/page/1/",
+      "path": "/page/1/",
     },
   ],
 ]
@@ -116,36 +89,36 @@ Array [
     Object {
       "component": "base-path/src/templates/blog-post.tsx",
       "context": Object {
-        "slug": "/blog/2017-04-18--welcoming/",
+        "slug": "/posts/2017-04-18--welcoming/",
       },
-      "path": "/blog/2017-04-18--welcoming/",
+      "path": "/posts/2017-04-18--welcoming/",
     },
   ],
   Array [
     Object {
       "component": "base-path/src/templates/blog-post.tsx",
       "context": Object {
-        "slug": "/blog/2017-05-02--article-2/",
+        "slug": "/posts/2017-05-02--article-2/",
       },
-      "path": "/blog/2017-05-02--article-2/",
+      "path": "/posts/2017-05-02--article-2/",
     },
   ],
   Array [
     Object {
       "component": "base-path/src/templates/blog-post.tsx",
       "context": Object {
-        "slug": "/blog/2017-05-02--article-1/",
+        "slug": "/posts/2017-05-02--article-1/",
       },
-      "path": "/blog/2017-05-02--article-1/",
+      "path": "/posts/2017-05-02--article-1/",
     },
   ],
   Array [
     Object {
       "component": "base-path/src/templates/blog-post.tsx",
       "context": Object {
-        "slug": "/blog/2017-05-02--article-0/",
+        "slug": "/posts/2017-05-02--article-0/",
       },
-      "path": "/blog/2017-05-02--article-0/",
+      "path": "/posts/2017-05-02--article-0/",
     },
   ],
   Array [
@@ -154,7 +127,7 @@ Array [
       "context": Object {
         "tag": "starter",
       },
-      "path": "/blog/tags/starter/",
+      "path": "/tags/starter/",
     },
   ],
   Array [
@@ -163,7 +136,7 @@ Array [
       "context": Object {
         "tag": "gatsby",
       },
-      "path": "/blog/tags/gatsby/",
+      "path": "/tags/gatsby/",
     },
   ],
   Array [
@@ -172,7 +145,7 @@ Array [
       "context": Object {
         "tag": "test",
       },
-      "path": "/blog/tags/test/",
+      "path": "/tags/test/",
     },
   ],
   Array [
@@ -181,7 +154,7 @@ Array [
       "context": Object {
         "skip": 0,
       },
-      "path": "/blog/page/1/",
+      "path": "/page/1/",
     },
   ],
 ]
@@ -198,7 +171,7 @@ Array [
         },
         "parent": "parent",
       },
-      "value": "/blog/2017-04-18--welcoming/",
+      "value": "/posts/2017-04-18--welcoming/",
     },
   ],
 ]

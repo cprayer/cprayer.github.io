@@ -28,7 +28,7 @@ describe('data integrity', () => {
   });
 
   describe('blog posts', () => {
-    const posts = fs.readdirSync('data/blog');
+    const posts = fs.readdirSync('data/posts');
     const validators = [
       {key: 'title', validator: _.isString},
       {key: 'createdDate', validator: val => _.isDate(new Date(val))},
@@ -40,7 +40,7 @@ describe('data integrity', () => {
 
     posts.forEach(post => {
       describe(`${post}`, () => {
-        const {data} = matter.read(`data/blog/${post}/index.md`);
+        const {data} = matter.read(`data/posts/${post}/index.md`);
         validators.forEach(field => {
           it(`should have correct format for ${field.key}`, () => {
             expect(field.validator(data[field.key], post)).toBeTruthy();

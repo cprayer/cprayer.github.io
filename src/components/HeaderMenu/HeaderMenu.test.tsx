@@ -39,18 +39,6 @@ describe("HeaderMenu component", () => {
     expect(wrapper.find({ name: "About" }).prop("active")).toBeTruthy();
   });
 
-  it("should have post as active (match not exact)", () => {
-    const wrapper = shallow(
-      <HeaderMenu
-        Link={LinkStub}
-        items={items}
-        pathname="/posts/toto"
-        dispatch={dispatchStub}
-      />,
-    );
-    expect(wrapper.find({ name: "Blog" }).prop("active")).toBeTruthy();
-  });
-
   it("should have inverted style", () => {
     const wrapper = shallow(
       <HeaderMenu
