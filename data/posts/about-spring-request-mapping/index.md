@@ -27,9 +27,9 @@ spring webmvc documentation의 위 그림과 같이 front controller(dispatchSer
 
 ## RequestMappingHandlerMapping & RequestMappingHandlerAdapter
 
-RequestMapping을 처리하기 위해 RequestMappingHandlerMapping & RequestMappingHandlerAdapter 클래스를 사용하는데요. 해당 클래스들은 WebMvcConfigurationSupport에 @Bean으로 등록되어 있고 EnableWebMvc, Configuration 어노테이션을 설정하는 것을 통해 빈으로 등록됩니다. (그 이외에도 다른 빈들이 같이 있습니다.)
+RequestMapping을 처리하기 위해 RequestMappingHandlerMapping & RequestMappingHandlerAdapter 클래스를 사용하는데요. 해당 클래스들은 WebMvcConfigurationSupport에 빈으로 등록되어 있고 EnableWebMvc, Configuration 어노테이션을 설정하는 것을 통해 빈으로 등록됩니다. (그 이외에도 다른 빈들이 같이 있습니다.)
 
-먼저 우리가 controller(RestController) 어노테이션을 붙여 작성한 클래스는 IoC Conta다iner에 의해 빈으로 등록됩니다.
+먼저 우리가 controller(RestController) 어노테이션을 붙여 작성한 클래스는 IoC Container에 의해 빈으로 등록됩니다.
 그 후, 해당 클래스의 정보와 해당 클래스에 RequestMapping이 달린 메소드들은 RequestMappingHandlerMapping 객체의 mappingRegistry 필드에 HandlerMethod로 등록됩니다. \
 RequestMappingInfo은 우리가 RequestMapping을 사용할 때 url pattern, request method, consume, produce 정보 등을 통해 해당 요청을 처리할 수 있는 메소드인지 파악할 때 사용되는 클래스입니다.
 
