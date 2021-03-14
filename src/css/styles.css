@@ -91,6 +91,23 @@
     margin-top: 0.5em;
     font-size: 1.5em;
   }
+
+  .ui.vertical.segment h1 {
+    font-size: 1.5em;
+  }
+
+  .ui.vertical.segment h2 {
+    font-size: 1.35em;
+  }
+
+  .ui.vertical.segment p {
+    font-size: 0.875em;
+    line-height: 1.7rem;
+  }
+
+  .gatsby-highlight code[class*="language-"] {
+    font-size: 0.7em;
+  }
 }
 
 /* Code blocks (Fix a strange bug with prismjs) */
