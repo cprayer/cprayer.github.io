@@ -27,6 +27,10 @@
   font-weight: normal;
 }
 
+.ui.vertical.segment p {
+  line-height: 1.6em;
+}
+
 .ui.vertical.stripe {
   padding: 8em 0;
 }
