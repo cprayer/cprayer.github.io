@@ -1,4 +1,6 @@
 /* eslint-disable quotes */
+const path = require('path');
+
 module.exports = {
   siteMetadata: {
     title: `잡동사니 개발블로그`
@@ -12,7 +14,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `data`,
-        path: `${__dirname}/data`
+        path: path.join(__dirname, `data`)
       }
     },
 
@@ -36,7 +38,8 @@ module.exports = {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 690,
-              backgroundColor: `#f7f0eb`
+              backgroundColor: `#f7f0eb`,
+              linkImagesToOriginal: false
             }
           },
           `gatsby-remark-prismjs`,
