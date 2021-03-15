@@ -60,8 +60,8 @@
     })
   </script><link rel="icon" href="/icons/icon-48x48.png?v=fff64bde26f711d429f500058c587289"/><link rel="manifest" href="/manifest.webmanifest"/><meta name="theme-color" content="#191919"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=fff64bde26f711d429f500058c587289"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=fff64bde26f711d429f500058c587289"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=fff64bde26f711d429f500058c587289"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=fff64bde26f711d429f500058c587289"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=fff64bde26f711d429f500058c587289"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=fff64bde26f711d429f500058c587289"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=fff64bde26f711d429f500058c587289"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=fff64bde26f711d429f500058c587289"/><link as="script" rel="preload" href="/webpack-runtime-7e2bafda61e5ce401d3a.js"/><link as="script" rel="preload" href="/app-cb42372b569f7c7e45b5.js"/><link as="script" rel="preload" href="/styles-b85bbeb84256c81729e5.js"/><link as="script" rel="preload" href="/commons-e2a1f0f9e1c08dac9cff.js"/><link as="script" rel="preload" href="/component---src-templates-blog-post-tsx-2cd6db705b0ef8865123.js"/><link as="fetch" rel="preload" href="/page-data/posts/about-spring-request-mapping/page-data.json" crossorigin="anonymous"/><title>잡동사니 개발블로그</title><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/><title data-react-helmet="true"></title></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group" id="gatsby-focus-wrapper"><div class="ui segment pushable"><div class="ui inverted vertical labeled icon ui slide along left thin sidebar menu"><a class="item" href="/"><i aria-hidden="true" class="archive icon"></i>Main</a><a class="item" href="/about/"><i aria-hidden="true" class="address card icon"></i>About</a></div><div style="min-height:100vh" class="pusher"><div class="ui container"><div class="ui large pointing secondary menu"><a class="icon item mobile only"><i aria-hidden="true" class="sidebar icon"></i></a><div class="item mobile hidden"></div><a class="item mobile hidden" href="/">Main</a><a class="item mobile hidden" href="/about/">About</a></div></div><div style="padding-bottom:60px"><div class="ui container"><div style="border:none" class="ui vertical segment"><div class="ui items"><div class="item"><div class="ui tiny circular image"><img src="/static/5d0fd80a1d7df4f6a3adf452cc763c07/7ca4f/cprayer.jpg" srcSet="/static/5d0fd80a1d7df4f6a3adf452cc763c07/7ca4f/cprayer.jpg 1x,
 /static/5d0fd80a1d7df4f6a3adf452cc763c07/236eb/cprayer.jpg 1.5x,
-/static/5d0fd80a1d7df4f6a3adf452cc763c07/30e6d/cprayer.jpg 2x"/></div><div class="content"><div class="description">cprayer</div><div class="meta"></div><div class="extra">Mar 9, 2021<!-- --> - <!-- -->7<!-- --> min read</div></div></div></div><h1 class="ui header">spring의 RequestMapping 어노테이션 내부 처리 과정</h1></div><img class="ui fluid image"/><div style="border:none" class="ui large vertical segment"><p>본 포스트는 spring 5.3.4을 기준으로 포스팅 되었습니다.</p>
-<p>java &#x26; spring으로 API 개발을 하시는 개발자 분들이라면, RequestMapping 어노테이션을 많이 사용해 본 경험이 있지 않으시나요? 우리가 해당 어노테이션을 사용하여 작성한 클래스와 메소드는 적절히 spring framework에 의해 호출되어 요청에 맞는 응답을 생성합니다. 이 과정은 어떻게 진행되는 걸까요?</p>
+/static/5d0fd80a1d7df4f6a3adf452cc763c07/30e6d/cprayer.jpg 2x"/></div><div class="content"><div class="description">cprayer</div><div class="meta"></div><div class="extra">Mar 9, 2021<!-- --> - <!-- -->8<!-- --> min read</div></div></div></div><h1 class="ui header">Spring의 RequestMapping 어노테이션 내부 처리 과정</h1></div><img class="ui fluid image"/><div style="border:none" class="ui large vertical segment"><p>본 포스트는 spring 5.3.4을 기준으로 포스팅 되었습니다.</p>
+<p>java &#x26; Spring으로 API 개발을 하시는 개발자 분들이라면, RequestMapping 어노테이션을 많이 사용해 본 경험이 있지 않으시나요? 우리가 해당 어노테이션을 사용하여 작성한 클래스와 메소드는 적절히 Spring Framework에 의해 호출되어 요청에 맞는 응답을 생성합니다. 이 과정은 어떻게 진행되는 걸까요?</p>
 <p>아, 참고로 GetMapping, PostMapping 등의 경우 RequestMapping 어노테이션의 method 필드에 값을 지정한 경우를 사용하기 편하게 만든 것입니다.</p>
 <p><span
       class="gatsby-resp-image-wrapper"
@@ -84,7 +84,7 @@
         loading="lazy"
       />
     </span></p>
-<h2 id="spring-webmvc-구조"><a href="#spring-webmvc-%EA%B5%AC%EC%A1%B0" aria-label="spring webmvc 구조 permalink" class="anchor"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>spring webmvc 구조</h2>
+<h2 id="spring-web-mvc-구조"><a href="#spring-web-mvc-%EA%B5%AC%EC%A1%B0" aria-label="spring web mvc 구조 permalink" class="anchor"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Spring Web MVC 구조</h2>
 <p><span
       class="gatsby-resp-image-wrapper"
       style="position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 690px;"
@@ -95,8 +95,8 @@
   ></span>
   <img
         class="gatsby-resp-image-image"
-        alt="mvc"
-        title="mvc"
+        alt="MVC"
+        title="MVC"
         src="/static/3e8d63e9e0c5e5816be1da7c6cb2edcf/36727/mvc.png"
         srcset="/static/3e8d63e9e0c5e5816be1da7c6cb2edcf/acf4b/mvc.png 173w,
 /static/3e8d63e9e0c5e5816be1da7c6cb2edcf/fc834/mvc.png 345w,
@@ -106,13 +106,13 @@
         loading="lazy"
       />
     </span></p>
-<p>Spring Webmvc Documentation의 위 그림과 같이 Front Controller(DispatchServlet)을 이용하여 tomcat이 받은 모든 요청을 DispatcherServlet에서 넘긴 후 URL pattern 및 각종 컨디션에 따라 적절히 우리가 작성한 컨트롤러 클래스의 메소드를 호출해줍니다. DispatcherServlet의 경우 이름에서 알 수 있듯이 servlet spec에 해당되는 servlet interface를 구현하고 있어 tomcat이 DispatcherServlet으로 요청을 위임하는 것이 가능합니다. <br>
+<p>Spring Web MVC Documentation의 위 그림과 같이 Front Controller(DispatchServlet)을 이용하여 tomcat이 받은 모든 요청을 DispatcherServlet에서 넘긴 후 URL pattern 및 각종 컨디션에 따라 적절히 우리가 작성한 컨트롤러 클래스의 메소드를 호출해줍니다. DispatcherServlet의 경우 이름에서 알 수 있듯이 servlet spec에 해당되는 servlet interface를 구현하고 있어 tomcat이 DispatcherServlet으로 요청을 위임하는 것이 가능합니다. <br>
 그렇다면 우리가 작성한 코드는 어떻게 관리가 되고 호출되는걸까요?</p>
 <h2 id="requestmappinghandlermapping--requestmappinghandleradapter"><a href="#requestmappinghandlermapping--requestmappinghandleradapter" aria-label="requestmappinghandlermapping  requestmappinghandleradapter permalink" class="anchor"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>RequestMappingHandlerMapping &#x26; RequestMappingHandlerAdapter</h2>
 <p>RequestMapping을 처리하기 위해 RequestMappingHandlerMapping &#x26; RequestMappingHandlerAdapter 클래스를 사용하는데요. 해당 클래스들은 WebMvcConfigurationSupport에 빈으로 등록되어 있고 EnableWebMvc, Configuration 어노테이션을 설정하는 것을 통해 빈으로 등록됩니다. (그 이외에도 다른 빈들이 같이 있습니다.)</p>
-<p>먼저 우리가 controller(RestController) 어노테이션을 붙여 작성한 클래스는 IoC Container에 의해 빈으로 등록됩니다.
-그 후, 해당 클래스의 정보와 해당 클래스에 RequestMapping이 달린 메소드들은 RequestMappingHandlerMapping 객체의 mappingRegistry 필드에 매핑 정보를 저장하는 RequestMappingInfo와 빈의 이름, 메소드를 저장하는 HandlerMethod로 등록됩니다. <br>
-RequestMappingInfo는 우리가 RequestMapping을 사용할 때 url pattern, request method, consume, produce 정보 등을 통해 해당 요청을 처리할 수 있는 메소드인지 파악할 때 사용되는 클래스이고 RequestMapping 어노테이션에 작성된 정보를 통해 만들어집니다.</p>
+<p>먼저 우리가 Controller(RestController) 어노테이션을 붙여 작성한 클래스는 IoC Container에 의해 빈으로 등록됩니다.
+그 후, Controller나 RequestMapping 어노테이션이 달린 클래스에서 RequestMapping이 달린 메소드들은 RequestMappingHandlerMapping 객체의 mappingRegistry 필드에 매핑 정보를 저장하는 RequestMappingInfo와 빈의 이름, 메소드를 저장하는 HandlerMethod(이후 handler로 호칭)로 등록됩니다. <br>
+RequestMappingInfo는 우리가 RequestMapping을 사용할 때 uri pattern, request method, consume, produce 정보 등을 통해 해당 요청을 처리할 수 있는 메소드인지 파악할 때 사용되는 클래스이고 RequestMapping 어노테이션에 작성된 정보를 통해 만들어집니다.</p>
 <p><span
       class="gatsby-resp-image-wrapper"
       style="position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 519px;"
@@ -153,7 +153,7 @@ RequestMappingInfo는 우리가 RequestMapping을 사용할 때 url pattern, req
       processedRequest <span class="token operator">=</span> <span class="token function">checkMultipart</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">;</span>
       multipartRequestParsed <span class="token operator">=</span> <span class="token punctuation">(</span>processedRequest <span class="token operator">!=</span> request<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-      <span class="token comment">// (1) - handlerMethod 반환(우리가 작성한 메소드와 빈 정보 반환)</span>
+      <span class="token comment">// (1) - handler 반환(우리가 작성한 메소드와 빈 이름 반환)</span>
       mappedHandler <span class="token operator">=</span> <span class="token function">getHandler</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">)</span><span class="token punctuation">;</span> 
       <span class="token keyword">if</span> <span class="token punctuation">(</span>mappedHandler <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token function">noHandlerFound</span><span class="token punctuation">(</span>processedRequest<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -215,7 +215,7 @@ RequestMappingInfo는 우리가 RequestMapping을 사용할 때 url pattern, req
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre></div>
-<p>getHandler에서는 DispatcherServlet에 등록된 HandleMapping를 순회합니다. HandlerMapping에서 getHandler 메소드를 통해 RequestMappingInfo 정보를 확인하며 해당 요청을 처리할 수 있고, intercepter가 포함된 HandlerExecutionChain을 반환합니다. 여기서는 RequestMappingHandlerMapping에 의해 등록된 handler 중 하나가 반환되었다고 가정하겠습니다.</p>
+<p>getHandler에서는 DispatcherServlet에 등록된 HandleMapping를 순회합니다. HandlerMapping에서 getHandler 메소드를 통해 RequestMappingInfo 정보를 확인하며 해당 요청을 처리할 수 있는 handler에 intercepter 정보가 포함된 HandlerExecutionChain을 반환합니다. 여기서는 RequestMappingHandlerMapping에 의해 등록된 handler 중 하나가 반환되었다고 가정하겠습니다.</p>
 <p>이후 getHandlerAdapter 메소드를 통해 해당하는 handler에 맞는 handlerAdapter를 반환합니다.</p>
 <div class="gatsby-highlight" data-language="java"><pre class="language-java"><code class="language-java"><span class="token comment">// org.springframework.web.servlet.DispatcherServlet</span>
 <span class="token keyword">protected</span> <span class="token class-name">HandlerAdapter</span> <span class="token function">getHandlerAdapter</span><span class="token punctuation">(</span><span class="token class-name">Object</span> handler<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">ServletException</span> <span class="token punctuation">{</span>
@@ -231,7 +231,7 @@ RequestMappingInfo는 우리가 RequestMapping을 사용할 때 url pattern, req
 <span class="token punctuation">}</span></code></pre></div>
 <p>각 adapter는 자신이 해당 handler를 처리할 수 있는지 여부를 supports 메소드를 호출하여 판단합니다. 마찬가지로 RequestMappingHandlerAdapter가 반환되었다고 가정하겠습니다. <br>
 참고로 RequestMappingHandlerAdapter의 경우 모든 handler를 어떤 형식으로든 자신이 처리 가능하다고 보고 supports 메소드에서 supportsInternal 메소드를 거쳐 true를 반환합니다.</p>
-<p>handlerAdapter의 handle 메소드로 servlet 요청과 응답, 그리고 우리가 작성한 handlerMethod가 파라미터가 넘어갑니다. 그 이후 handleInternal - invokeHandlerMethod 메소드를 거치고 invokeHandlerMethod에서 핸들러는 ServletInvocableHandlerMethod으로 변환되어 invokeAndHandle 메소드를 호출합니다.</p>
+<p>handlerAdapter의 handle 메소드로 servlet 요청과 응답, 그리고 우리가 작성한 메소드가 포함되어 있는 handler가 파라미터가 넘어갑니다. 그 이후 handleInternal - invokeHandlerMethod 메소드를 거치고 invokeHandlerMethod에서 핸들러는 ServletInvocableHandlerMethod으로 변환되어 invokeAndHandle 메소드를 호출합니다.</p>
 <div class="gatsby-highlight" data-language="java"><pre class="language-java"><code class="language-java"><span class="token comment">// org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod</span>
 <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">invokeAndHandle</span><span class="token punctuation">(</span><span class="token class-name">ServletWebRequest</span> webRequest<span class="token punctuation">,</span> <span class="token class-name">ModelAndViewContainer</span> mavContainer<span class="token punctuation">,</span>
   <span class="token class-name">Object</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> providedArgs<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
@@ -268,8 +268,8 @@ RequestMappingInfo는 우리가 RequestMapping을 사용할 때 url pattern, req
     <span class="token keyword">throw</span> ex<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre></div>
-<p>이제 거의 다 왔습니다! invokeForRequest 메소드는 getMethodArgumentValues 메소드를 통해 등록된 argumentResolver를 이용하여 우리가 작성한 메소드 arugment에 맞게 resolving을 시도하고 doInvoke 메소드를 통해 우리가 작성한 메소드를 호출합니다. <br>
-우리가 작성한 메소드의 리턴값의 타입 등으로 이제 등록되어 있는 HandlerMethodReturnValueHandler에 따라 적절한 후처리 작업을 거칩니다. 이 과정에서 ModelAndViewContainer의 setRequestHandled를 true view rendering 진행 유무가 결정됩니다. <br>
+<p>이제 거의 다 왔습니다! invokeForRequest 메소드는 getMethodArgumentValues 메소드를 통해 등록된 ArgumentResolver를 이용하여 우리가 작성한 메소드 arugment에 맞게 resolving을 시도하고 doInvoke 메소드를 통해 우리가 작성한 메소드를 호출합니다. <br>
+우리가 작성한 메소드의 리턴값의 타입 등으로 등록되어 있는 HandlerMethodReturnValueHandler에 따라 적절한 후처리 작업을 거칩니다. 이 과정에서 ModelAndViewContainer의 setRequestHandled를 true로 설정 유무에 따라 view rendering 진행 유무가 결정됩니다. <br>
 org.springframework.web.method.annotation와 org.springframework.web.servlet.mvc.method.annotation 패키지를 보시면 우리가 자주 사용하는 어노테이션과 관련된 argumentResolver 및 MethodReturnValueHandler를 볼 수 있습니다.</p>
 <div class="gatsby-highlight" data-language="java"><pre class="language-java"><code class="language-java"><span class="token comment">// org.springframework.web.method.support.InvocableHandlerMethod</span>
 <span class="token annotation punctuation">@Nullable</span>
