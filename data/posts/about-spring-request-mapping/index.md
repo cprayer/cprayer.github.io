@@ -1,5 +1,5 @@
 ---
-title: spring의 RequestMapping 어노테이션 내부 처리 과정
+title: Spring의 RequestMapping 어노테이션 내부 처리 과정
 createdDate: '2021-03-09'
 updatedDate: '2021-03-09'
 author: cprayer
@@ -12,26 +12,26 @@ draft: false
 
 본 포스트는 spring 5.3.4을 기준으로 포스팅 되었습니다.
 
-java & spring으로 API 개발을 하시는 개발자 분들이라면, RequestMapping 어노테이션을 많이 사용해 본 경험이 있지 않으시나요? 우리가 해당 어노테이션을 사용하여 작성한 클래스와 메소드는 적절히 spring framework에 의해 호출되어 요청에 맞는 응답을 생성합니다. 이 과정은 어떻게 진행되는 걸까요?
+java & Spring으로 API 개발을 하시는 개발자 분들이라면, RequestMapping 어노테이션을 많이 사용해 본 경험이 있지 않으시나요? 우리가 해당 어노테이션을 사용하여 작성한 클래스와 메소드는 적절히 Spring Framework에 의해 호출되어 요청에 맞는 응답을 생성합니다. 이 과정은 어떻게 진행되는 걸까요?
 
 아, 참고로 GetMapping, PostMapping 등의 경우 RequestMapping 어노테이션의 method 필드에 값을 지정한 경우를 사용하기 편하게 만든 것입니다.
 
 ![get-mapping](./get-mapping.png)
 
-## spring webmvc 구조
+## Spring Web MVC 구조
 
-![mvc](./mvc.png)
+![MVC](./mvc.png)
 
-Spring Webmvc Documentation의 위 그림과 같이 Front Controller(DispatchServlet)을 이용하여 tomcat이 받은 모든 요청을 DispatcherServlet에서 넘긴 후 URL pattern 및 각종 컨디션에 따라 적절히 우리가 작성한 컨트롤러 클래스의 메소드를 호출해줍니다. DispatcherServlet의 경우 이름에서 알 수 있듯이 servlet spec에 해당되는 servlet interface를 구현하고 있어 tomcat이 DispatcherServlet으로 요청을 위임하는 것이 가능합니다. \
+Spring Web MVC Documentation의 위 그림과 같이 Front Controller(DispatchServlet)을 이용하여 tomcat이 받은 모든 요청을 DispatcherServlet에서 넘긴 후 URL pattern 및 각종 컨디션에 따라 적절히 우리가 작성한 컨트롤러 클래스의 메소드를 호출해줍니다. DispatcherServlet의 경우 이름에서 알 수 있듯이 servlet spec에 해당되는 servlet interface를 구현하고 있어 tomcat이 DispatcherServlet으로 요청을 위임하는 것이 가능합니다. \
 그렇다면 우리가 작성한 코드는 어떻게 관리가 되고 호출되는걸까요?
 
 ## RequestMappingHandlerMapping & RequestMappingHandlerAdapter
 
 RequestMapping을 처리하기 위해 RequestMappingHandlerMapping & RequestMappingHandlerAdapter 클래스를 사용하는데요. 해당 클래스들은 WebMvcConfigurationSupport에 빈으로 등록되어 있고 EnableWebMvc, Configuration 어노테이션을 설정하는 것을 통해 빈으로 등록됩니다. (그 이외에도 다른 빈들이 같이 있습니다.)
 
-먼저 우리가 controller(RestController) 어노테이션을 붙여 작성한 클래스는 IoC Container에 의해 빈으로 등록됩니다.
-그 후, 해당 클래스의 정보와 해당 클래스에 RequestMapping이 달린 메소드들은 RequestMappingHandlerMapping 객체의 mappingRegistry 필드에 매핑 정보를 저장하는 RequestMappingInfo와 빈의 이름, 메소드를 저장하는 HandlerMethod로 등록됩니다. \
-RequestMappingInfo는 우리가 RequestMapping을 사용할 때 url pattern, request method, consume, produce 정보 등을 통해 해당 요청을 처리할 수 있는 메소드인지 파악할 때 사용되는 클래스이고 RequestMapping 어노테이션에 작성된 정보를 통해 만들어집니다.
+먼저 우리가 Controller(RestController) 어노테이션을 붙여 작성한 클래스는 IoC Container에 의해 빈으로 등록됩니다.
+그 후, Controller나 RequestMapping 어노테이션이 달린 클래스에서 RequestMapping이 달린 메소드들은 RequestMappingHandlerMapping 객체의 mappingRegistry 필드에 매핑 정보를 저장하는 RequestMappingInfo와 빈의 이름, 메소드를 저장하는 HandlerMethod(이후 handler로 호칭)로 등록됩니다. \
+RequestMappingInfo는 우리가 RequestMapping을 사용할 때 uri pattern, request method, consume, produce 정보 등을 통해 해당 요청을 처리할 수 있는 메소드인지 파악할 때 사용되는 클래스이고 RequestMapping 어노테이션에 작성된 정보를 통해 만들어집니다.
 
 ![request-mapping-info](./request-mapping-info.png)
 
@@ -60,7 +60,7 @@ protected void doDispatch(HttpServletRequest request, HttpServletResponse respon
       processedRequest = checkMultipart(request);
       multipartRequestParsed = (processedRequest != request);
 
-      // (1) - handlerMethod 반환(우리가 작성한 메소드와 빈 정보 반환)
+      // (1) - handler 반환(우리가 작성한 메소드와 빈 이름 반환)
       mappedHandler = getHandler(processedRequest); 
       if (mappedHandler == null) {
         noHandlerFound(processedRequest, response);
@@ -124,7 +124,7 @@ protected void doDispatch(HttpServletRequest request, HttpServletResponse respon
 }
 ```
 
-getHandler에서는 DispatcherServlet에 등록된 HandleMapping를 순회합니다. HandlerMapping에서 getHandler 메소드를 통해 RequestMappingInfo 정보를 확인하며 해당 요청을 처리할 수 있고, intercepter가 포함된 HandlerExecutionChain을 반환합니다. 여기서는 RequestMappingHandlerMapping에 의해 등록된 handler 중 하나가 반환되었다고 가정하겠습니다.
+getHandler에서는 DispatcherServlet에 등록된 HandleMapping를 순회합니다. HandlerMapping에서 getHandler 메소드를 통해 RequestMappingInfo 정보를 확인하며 해당 요청을 처리할 수 있는 handler에 intercepter 정보가 포함된 HandlerExecutionChain을 반환합니다. 여기서는 RequestMappingHandlerMapping에 의해 등록된 handler 중 하나가 반환되었다고 가정하겠습니다.
 
 이후 getHandlerAdapter 메소드를 통해 해당하는 handler에 맞는 handlerAdapter를 반환합니다.
 
@@ -146,7 +146,7 @@ protected HandlerAdapter getHandlerAdapter(Object handler) throws ServletExcepti
 각 adapter는 자신이 해당 handler를 처리할 수 있는지 여부를 supports 메소드를 호출하여 판단합니다. 마찬가지로 RequestMappingHandlerAdapter가 반환되었다고 가정하겠습니다. \
 참고로 RequestMappingHandlerAdapter의 경우 모든 handler를 어떤 형식으로든 자신이 처리 가능하다고 보고 supports 메소드에서 supportsInternal 메소드를 거쳐 true를 반환합니다.
 
-handlerAdapter의 handle 메소드로 servlet 요청과 응답, 그리고 우리가 작성한 handlerMethod가 파라미터가 넘어갑니다. 그 이후 handleInternal - invokeHandlerMethod 메소드를 거치고 invokeHandlerMethod에서 핸들러는 ServletInvocableHandlerMethod으로 변환되어 invokeAndHandle 메소드를 호출합니다.
+handlerAdapter의 handle 메소드로 servlet 요청과 응답, 그리고 우리가 작성한 메소드가 포함되어 있는 handler가 파라미터가 넘어갑니다. 그 이후 handleInternal - invokeHandlerMethod 메소드를 거치고 invokeHandlerMethod에서 핸들러는 ServletInvocableHandlerMethod으로 변환되어 invokeAndHandle 메소드를 호출합니다.
 
 ```java
 // org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod
@@ -187,8 +187,8 @@ public void invokeAndHandle(ServletWebRequest webRequest, ModelAndViewContainer 
 }
 ```
 
-이제 거의 다 왔습니다! invokeForRequest 메소드는 getMethodArgumentValues 메소드를 통해 등록된 argumentResolver를 이용하여 우리가 작성한 메소드 arugment에 맞게 resolving을 시도하고 doInvoke 메소드를 통해 우리가 작성한 메소드를 호출합니다. \
-우리가 작성한 메소드의 리턴값의 타입 등으로 이제 등록되어 있는 HandlerMethodReturnValueHandler에 따라 적절한 후처리 작업을 거칩니다. 이 과정에서 ModelAndViewContainer의 setRequestHandled를 true view rendering 진행 유무가 결정됩니다. \
+이제 거의 다 왔습니다! invokeForRequest 메소드는 getMethodArgumentValues 메소드를 통해 등록된 ArgumentResolver를 이용하여 우리가 작성한 메소드 arugment에 맞게 resolving을 시도하고 doInvoke 메소드를 통해 우리가 작성한 메소드를 호출합니다. \
+우리가 작성한 메소드의 리턴값의 타입 등으로 등록되어 있는 HandlerMethodReturnValueHandler에 따라 적절한 후처리 작업을 거칩니다. 이 과정에서 ModelAndViewContainer의 setRequestHandled를 true로 설정 유무에 따라 view rendering 진행 유무가 결정됩니다. \
 org.springframework.web.method.annotation와 org.springframework.web.servlet.mvc.method.annotation 패키지를 보시면 우리가 자주 사용하는 어노테이션과 관련된 argumentResolver 및 MethodReturnValueHandler를 볼 수 있습니다.
 
 ```java
