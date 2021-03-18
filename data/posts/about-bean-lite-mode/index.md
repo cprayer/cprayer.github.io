@@ -10,7 +10,7 @@ tags:
 draft: false
 ---
 
-bean annotation 문서를 보던 도중, bean lite mode라는 친구가 있었습니다. 이와 반대되는 친구로는 bean full mode가 있는데요. \
+bean annotation 문서를 보던 도중, bean lite mode라는 키워드를 봤습니다. 검색해보니 이와 반대되는 친구로는 bean full mode가 있는데요. \
 bean full mode의 경우에는 우리가 평소 사용하는 방식입니다.(Configuration 어노테이션에 별도 설정없이 사용) 그렇다면 bean lite mode는 무엇이고, 어떻게 설정하고, 무슨 용도로 사용되는걸까요?
 
 ## bean lite mode란
@@ -124,5 +124,5 @@ public class DispatcherServletAutoConfiguration {
 
 ## 결론
 
-규모가 큰 프로젝트이고, bean 생성으로 인해 startup에 걸리는 시간이 크다면 bean lite mode 사용을 고려해보는 것도 나쁘지 않을 것으로 보입니다. \
+규모가 큰 프로젝트이고, bean 초기화 및 생성으로 인해 startup에 걸리는 시간이 크다면 bean lite mode 사용을 고려해보는 것도 나쁘지 않을 것으로 보입니다. \
 그 이외의 경우라면 찾기 어려운 버그를 발생시킬 수 있는 bean lite mode 대신 bean full mode를 사용하는 것이 좋습니다.
