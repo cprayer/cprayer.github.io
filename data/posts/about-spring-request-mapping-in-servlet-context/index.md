@@ -1,5 +1,5 @@
 ---
-title: Spring의 RequestMapping 어노테이션 내부 처리 과정
+title: Servlet Context 내에서 Spring의 RequestMapping 어노테이션 내부 처리 과정
 createdDate: '2021-03-09'
 updatedDate: '2021-03-09'
 author: cprayer
