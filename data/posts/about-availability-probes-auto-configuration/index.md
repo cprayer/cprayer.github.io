@@ -42,7 +42,7 @@ readinessProbe:
 
 > Spring Boot manages your Application Availability State out-of-the-box. If deployed in a Kubernetes environment, actuator will gather the "Liveness" and "Readiness" information from the ApplicationAvailability interface and use that information in dedicated Health Indicators: LivenessStateHealthIndicator and ReadinessStateHealthIndicator. These indicators will be shown on the global health endpoint ("/actuator/health"). They will also be exposed as separate HTTP Probes using Health Groups: "/actuator/health/liveness" and "/actuator/health/readiness".
  
-문서에는 다음과 같이 쿠버네티스 환경인 경우에는 readiness, readiness에 필요한 정보를 수집하고 엔드포인트를 수집한다고 나와 있습니다. \
+위의 링크가 걸린 스프링 부트 문서 아래를 보면 다음과 같이 쿠버네티스 환경인 경우에는 readiness, readiness에 필요한 정보를 수집하고 엔드포인트를 수집한다고 나와 있습니다. \
 그렇다면 어떤 환경일 때 어떻게 등록되는걸까요? 관련된 정보를 찾던 도중 AvailablityProbesAutoConfiguration을 찾게 되었습니다.
 
 ## AvailabilityProbesAutoConfiguration 코드를 확인해보자
@@ -114,7 +114,8 @@ static class ProbesCondition extends SpringBootCondition {
 }
 ```
 
-해당 소스 코드를 보면 **CloudPlatform.getActive(environment) == CloudPlatform.KUBERNETES** 라는 부분이 관련이 있을 것 같습니다. 해당 부분을 좀 더 확인해보겠습니다.
+해당 소스 코드를 보면 먼저 management.endpoint.health.probes.enabled 프로퍼티와 management.health.probes.enabled 값이 false 이외의 값으로 설정되어 있는지 확인합니다. 
+그 후 **CloudPlatform.getActive(environment) == CloudPlatform.KUBERNETES** 인지 확인하는 로직이 있습니다. 해당 부분을 좀 더 확인해보겠습니다.
 
 ```java
 public enum CloudPlatform {
@@ -232,11 +233,11 @@ public enum CloudPlatform {
 
 isDetected 메소드의 경우 추상 메소드로 정의되어 있는데요. 이는 각 enum 필드마다 override하여 각자 자기의 클라우드 플랫폼인지 여부를 detect합니다.
 
-쿠버네티스 플랫폼의 경우 KUBERNETES_SERVICE_HOST, KUBERNETES_SERVICE_PORT 환경 변수가 존재하는지, environmentPropertySource가 순회 가능하다면 동일한 이름을 가지고 _SERVICE_HOST, _SERVICE_PORT를 접미사로 가지는 환경변수가 존재하는지 여부로 판단합니다.
+쿠버네티스 플랫폼의 경우 `KUBERNETES_SERVICE_HOST`, `KUBERNETES_SERVICE_PORT` 환경 변수가 존재하는지, environmentPropertySource가 순회 가능하다면 `A_SERVICE_HOST`, `A_SERVICE_PORT`처럼 동일한 이름에 `_SERVICE_HOST`, `_SERVICE_PORT`를 접미사로 가지는 환경변수가 존재하는지 여부로 판단합니다.
 
 ## 정리 및 결론
 
-* Conditional 어노테이션을 달고 있는 auto configuration 클래스는 Conditional 어노테이션에 등록된 condition 클래스의 matches 메소드가 참을 반환하면 해당 configuration 클래스 내의 빈을 등록하고 아니라면 등록하지 않습니다.
+* Conditional 어노테이션을 달고 있는 auto configuration 클래스는 Conditional 어노테이션에 등록된 condition 클래스의 matches 메소드가 참을 반환하면 해당 configuration 클래스 내의 빈을 등록하고 아니라면 등록하지 않습니다. 
 * 쿠버네티스 환경인 경우 자동적으로 /actuator/health/liveness, /actuator/health/readiness 엔드포인트가 활성화됩니다.
-* 로컬에서도 활성화시키고 싶은 경우 management.endpoint.health.probes.enabled 프로퍼티의 값을 true로 설정해주시면 됩니다. (사실 false 이외의 값이라면 뭐든지 가능합니다)
+* 로컬에서도 활성화시키고 싶은 경우 management.endpoint.health.probes.enabled 프로퍼티의 값을 true로 설정해주시면 됩니다. (false 이외의 값이라면 뭐든지 가능합니다)
 * 간헐적으로 타임아웃이 발생한 원인은 timeout second가 타이트하여 발생했던 것으로 추정됩니다. (default 1초) 현재는 이와 같은 문제가 발생하지 않는데요. 관련해서는 추후 더 알아볼 예정입니다.
