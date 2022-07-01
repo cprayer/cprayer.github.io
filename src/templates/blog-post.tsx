@@ -38,7 +38,7 @@ const BlogPostPage = (props: BlogPostProps) => {
       );
 
       return (
-        <div key={node.fields.slug} style={{ paddingBottom: "1em" }}>
+        <div key={node.fields.slug} style={{ paddingBottom: "1em", wordBreak: "break-all" }}>
           <Card as={Link}
             to={node.fields.slug}
             image={recentCover}
