@@ -3,7 +3,7 @@ const slash = require('slash');
 const {kebabCase, uniq, get, compact, times} = require('lodash');
 
 // Don't forget to update hard code values into:
-// - `templates/blog-page.tsx:23`
+// - `templates-page.tsx:23`
 // - `pages/blog.tsx:26`
 // - `pages/blog.tsx:121`
 const POSTS_PER_PAGE = 10;

@@ -10,7 +10,7 @@ process.argv.slice(3).forEach(dirtyPath => {
   const path = slash(dirtyPath);
 
   // Only parse blog posts
-  if (!path.includes('/data/blog/')) {
+  if (!path.includes('/data')) {
     return;
   }
 

@@ -11,7 +11,7 @@ interface BlogPaginationProps extends React.HTMLProps<HTMLDivElement> {
 
 export default (props: BlogPaginationProps) => {
   if (props.pageCount === 1) { return null; }
-  const activeItem = props.pathname.startsWith("/blog/page/")
+  const activeItem = props.pathname.startsWith("/page/")
     ? props.pathname.split("/")[3]
     : "1";
 
@@ -30,7 +30,7 @@ export default (props: BlogPaginationProps) => {
               key={pageIndex}
               style={{ cursor: "pointer" }}
               as={props.Link}
-              to={`/blog/page/${pageIndex}/`}
+              to={`/page/${pageIndex}/`}
               name={pageIndex}
               active={activeItem === pageIndex}
             />
