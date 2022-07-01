@@ -63,7 +63,7 @@
 /static/5d0fd80a1d7df4f6a3adf452cc763c07/30e6d/cprayer.jpg 2x"/></div><div class="content"><div class="description">cprayer</div><div class="meta"></div><div class="extra">Sep 23, 2021<!-- --> - <!-- -->4<!-- --> min read</div></div></div></div><h1 class="ui header">dbcp2 pool idle configuration이 있는데도 communicationsException 발생 원인 파악</h1></div><img class="ui fluid image"/><div style="border:none" class="ui large vertical segment"><p>db 커넥션은 연결 및 해제하는데 많은 비용이 들어갑니다. 따라서 하나의 쿼리를 날릴 때 커넥션을 연결하고 쿼리를 날린 뒤 해제하는 것이 아니라 해당 커넥션을 재사용하기 위해 커넥션 풀을 사용하는데요. 해당 기능이 구현되어 있는 라이브러리 중 하나인 dbcp2를 회사 프로젝트에서 사용하고 있습니다.</p>
 <p>현재 운영하고 있는 서비스는 서비스 특성상 순간적으로 많은 트래픽이 발생하여 순간적으로 많은 커넥션이 필요한 경우가 있는데요. <br>
 이 때, 순간적으로 많은 커넥션이 생성되는 것이 아닌 기존에 생성해둔 커넥션을 사용하기 위해 minIdle 값을 높게 설정하여 풀 내에 가용 가능한 커넥션을 많이 준비해두었습니다. <br>
-또 minIdle 커넥션으로 부족한 경우를 위해 maxTotal</p>
+또 minIdle 커넥션으로 부족한 경우를 위해 maxTotal 값을 minIdle 값보다 크게 설정해두었습니다</p>
 <p>dbcp2의 경우 pool에 커넥션을 넣고 꺼낼 때 default로 lifo(last in first out)를 사용하여 최근에 사용한 커넥션이 다시 재사용됩니다. 이 경우 커넥션 풀에서 장시간 사용되지 않는 커넥션이 발생할 수 있는데요. 이 경우 (현재 회사에서 사용하고 있는 rdb인) mysql은 wait_timeout 설정 값동안 커넥션에서 쿼리가 발생하지 않는 경우 해당 커넥션을 정리합니다.</p>
 <p>위 로직에 의해 서버에서 커넥션을 정리하지 않도록 하기 위해 testWhileIdle를 true로 하여 주기적으로 evictor에 의해 validation query가 날라갈 수 있도록 DataSource 설정을 해두었습니다.</p>
 <center>
