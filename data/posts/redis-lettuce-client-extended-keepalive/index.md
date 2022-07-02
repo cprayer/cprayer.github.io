@@ -36,5 +36,6 @@ lettuce는 기본적으로 keepalive 옵션을 키면 os의 keepalive을 따라�
 
 ## 여담
 
-lettuce extended keepalive 옵션을 사용해도, 커넥션이 유효하지 않은 상태가 있을 수 있다. 이 때 페일오버가 발생하고 후에 커넥션이 복구되어도 이벤트가 발생하기 전까지 센티널로부터 레디스 정보를 가져오지 않기에 관련되어 이슈를 제보한 상황이다([관련 링크](https://github.com/lettuce-io/lettuce-core/issues/2007)) \
+lettuce extended keepalive 옵션을 사용해도, 커넥션이 유효하지 않은 상태가 있을 수 있다. 이 때 페일오버가 발생하고 후에 커넥션이 복구되어도 페일오버 관련되어 레디스 정보를 갱신하지 않는다. \
+즉, 새로운 이벤트가 발생하기 전까지 센티널로부터 레디스 정보를 가져오지 않기에 관련되어 이슈를 제보한 상황이다([관련 링크](https://github.com/lettuce-io/lettuce-core/issues/2007)) \
 이를 처리할 방법이 어려울 것 같다고 계속 open되어 있는 상황이다
