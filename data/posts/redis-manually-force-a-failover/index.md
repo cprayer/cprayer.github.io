@@ -15,7 +15,7 @@ draft: false
 
 ## 본문
 
-레디스 센티널은 내부적으로 마스터가 fail 상태일 때, replicaof no one 명령어를 통해 레플리카를 마스터로 승격시킨다 
+레디스 센티널은 내부적으로 마스터가 odown으로 판단되었을 때, replicaof no one 명령어를 통해 페일오버를 수행하여 레플리카를 마스터로 승격시킨다 
 
 > For a failover to be considered successful, it requires that the Sentinel was able to send the REPLICAOF NO ONE command to the selected replica, and that the switch to master was later observed in the INFO output of the master.
 ([관련 링크](https://redis.io/docs/manual/sentinel/#configuration-propagation))
