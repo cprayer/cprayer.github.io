@@ -22,7 +22,7 @@ hbase sharded client 1.2에는 hbase.resolve.hostnames.on.failure 옵션이 있�
 왜 이렇게 도메인 질의가 많이 발생한걸까?
 
 이것저것 삽질을 해보니 원인을 파악할 수 있었다 \
-원인은 hbase shareded client 1.1부터 들어간 코드였다([HBASE-13067](https://issues.apache.org/jira/browse/HBASE-13067)) \
+원인은 hbase sharded client 1.1부터 들어간 코드였다([HBASE-13067](https://issues.apache.org/jira/browse/HBASE-13067)) \
 리전 서버가 hbase 클러스터에서 하드웨어 이슈로 잠시 제외되었다가 동일 호스트명에 ip가 바뀌어서 투입되면 바뀐 ip를 인지하지 못해 stub key를 구할 때 dns 질의를 하도록 코드가 변경되었다 \
 따라서 hbase로 매 요청을 날릴 때마다 요청에 맞는 리전 서버의 스텁을 찾기 위해 stub key를 구하고 이 때마다 dns 질의가 발생했던 것이다 \
 1.2에서는 동일 호스트명에 ip가 바뀌는 케이스가 없는 경우에는 불필요한 질의를 막기 위해 hbase.resolve.hostnames.on.failure 옵션을 추가하였다([HBASE-14544](https://issues.apache.org/jira/browse/HBASE-14544))
