@@ -1,5 +1,5 @@
 ---
-title: hbase shared client 1.2 dns 과다 질의 이슈
+title: hbase sharded client 1.2 dns 과다 질의 이슈
 createdDate: '2022-07-02'
 updatedDate: '2022-07-02'
 author: cprayer
