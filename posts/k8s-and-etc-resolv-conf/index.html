@@ -166,7 +166,7 @@ Address: 142.250.76.142
 Name:	google.com
 Address: 2404:6800:400a:80e::200e</code></pre></div>
 <p>사실 google.com의 경우 클러스터 내부의 서비스나 pod과는 무관하기에 서치 도메인과는 아무런 관련이 없다 <br>
-이런 케이스의 경우 불필요한 질의가 발생하지 않게 하려면 도메인의 끝에 .을 붙여 absolute fdqn로 강제하면 된다 <br>
+이런 케이스의 경우 불필요한 질의가 발생하지 않게 하려면 도메인의 끝에 .을 붙여 fdqn로 강제하면 된다 <br>
 다음은 nslookup -debug google.com.을 수행한 결과이다</p>
 <div class="gatsby-highlight" data-language="text"><pre class="language-text"><code class="language-text">Server:		10.96.0.10
 Address:	10.96.0.10#53
