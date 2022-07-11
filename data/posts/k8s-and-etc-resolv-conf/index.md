@@ -20,7 +20,7 @@ k8s는 클러스터 내부에 등록된 도메인 리졸빙을 위해 pod의 /et
 
 ## 본문
 
-pod의 dnsPolicy가 None으로 설정하지 않은 경우 pod의 /etc/resolv.conf를 보면 다음과 같이 설정되어 있는 것을 확인할 수 있다 \
+pod의 dnsPolicy가 ClusterFirst인 경우 pod의 /etc/resolv.conf를 보면 다음과 같이 설정되어 있는 것을 확인할 수 있다 \
 이 글에서는 mac docker desktop 4.3.2의 로컬 k8s 1.22.4를 기준으로 한다
 
 ```
