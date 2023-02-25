@@ -25,7 +25,7 @@
   "dependencies": {
     "@graphql-codegen/add": "^1.2.0",
     "@graphql-codegen/cli": "^2.16.2",
-    "@graphql-codegen/typescript": "^1.2.0",
+    "@graphql-codegen/typescript": "^1.9.0",
     "babel-eslint": "^10.0.1",
     "change-case": "^3.1.0",
     "codeclimate-test-reporter": "^0.5.1",
