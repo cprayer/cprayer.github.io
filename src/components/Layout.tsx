@@ -5,7 +5,7 @@ import SidebarMenu from "./SidebarMenu/SidebarMenu";
 import { Segment, Icon, Container, Sidebar } from "semantic-ui-react";
 import "../css/responsive.css";
 import "../css/semantic.min.css";
-import "prismjs/themes/prism-okaidia.css";
+import "prismjs/themes/prism-coy.css";
 import "../css/styles.css";
 import { MenuItem } from "./Menu";
 import { Provider } from "react-redux";
