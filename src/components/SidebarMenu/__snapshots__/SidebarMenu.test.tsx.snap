@@ -2,26 +2,26 @@
 
 exports[`SidebarMenu component should render correctly 1`] = `
 initialize {
-  "0": Object {
-    "attribs": Object {
+  "0": {
+    "attribs": {
       "class": "ui inverted vertical labeled icon ui slide along left thin visible sidebar menu",
     },
-    "children": Array [
-      Object {
-        "attribs": Object {
+    "children": [
+      {
+        "attribs": {
           "class": "active item",
           "to": "/",
         },
-        "children": Array [
-          Object {
-            "attribs": Object {
+        "children": [
+          {
+            "attribs": {
               "aria-hidden": "true",
               "class": "icon",
             },
-            "children": Array [],
+            "children": [],
             "name": "i",
             "namespace": "http://www.w3.org/1999/xhtml",
-            "next": Object {
+            "next": {
               "data": "Main",
               "next": null,
               "parent": [Circular],
@@ -31,36 +31,36 @@ initialize {
             "parent": [Circular],
             "prev": null,
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "aria-hidden": undefined,
               "class": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "aria-hidden": undefined,
               "class": undefined,
             },
           },
-          Object {
+          {
             "data": "Main",
             "next": null,
             "parent": [Circular],
-            "prev": Object {
-              "attribs": Object {
+            "prev": {
+              "attribs": {
                 "aria-hidden": "true",
                 "class": "icon",
               },
-              "children": Array [],
+              "children": [],
               "name": "i",
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": [Circular],
               "parent": [Circular],
               "prev": null,
               "type": "tag",
-              "x-attribsNamespace": Object {
+              "x-attribsNamespace": {
                 "aria-hidden": undefined,
                 "class": undefined,
               },
-              "x-attribsPrefix": Object {
+              "x-attribsPrefix": {
                 "aria-hidden": undefined,
                 "class": undefined,
               },
@@ -70,21 +70,21 @@ initialize {
         ],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
+        "next": {
+          "attribs": {
             "class": "item",
             "to": "/about/",
           },
-          "children": Array [
-            Object {
-              "attribs": Object {
+          "children": [
+            {
+              "attribs": {
                 "aria-hidden": "true",
                 "class": "icon",
               },
-              "children": Array [],
+              "children": [],
               "name": "i",
               "namespace": "http://www.w3.org/1999/xhtml",
-              "next": Object {
+              "next": {
                 "data": "About",
                 "next": null,
                 "parent": [Circular],
@@ -94,36 +94,36 @@ initialize {
               "parent": [Circular],
               "prev": null,
               "type": "tag",
-              "x-attribsNamespace": Object {
+              "x-attribsNamespace": {
                 "aria-hidden": undefined,
                 "class": undefined,
               },
-              "x-attribsPrefix": Object {
+              "x-attribsPrefix": {
                 "aria-hidden": undefined,
                 "class": undefined,
               },
             },
-            Object {
+            {
               "data": "About",
               "next": null,
               "parent": [Circular],
-              "prev": Object {
-                "attribs": Object {
+              "prev": {
+                "attribs": {
                   "aria-hidden": "true",
                   "class": "icon",
                 },
-                "children": Array [],
+                "children": [],
                 "name": "i",
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": [Circular],
                 "parent": [Circular],
                 "prev": null,
                 "type": "tag",
-                "x-attribsNamespace": Object {
+                "x-attribsNamespace": {
                   "aria-hidden": undefined,
                   "class": undefined,
                 },
-                "x-attribsPrefix": Object {
+                "x-attribsPrefix": {
                   "aria-hidden": undefined,
                   "class": undefined,
                 },
@@ -137,11 +137,11 @@ initialize {
           "parent": [Circular],
           "prev": [Circular],
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "to": undefined,
           },
@@ -149,30 +149,30 @@ initialize {
         "parent": [Circular],
         "prev": null,
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "to": undefined,
         },
       },
-      Object {
-        "attribs": Object {
+      {
+        "attribs": {
           "class": "item",
           "to": "/about/",
         },
-        "children": Array [
-          Object {
-            "attribs": Object {
+        "children": [
+          {
+            "attribs": {
               "aria-hidden": "true",
               "class": "icon",
             },
-            "children": Array [],
+            "children": [],
             "name": "i",
             "namespace": "http://www.w3.org/1999/xhtml",
-            "next": Object {
+            "next": {
               "data": "About",
               "next": null,
               "parent": [Circular],
@@ -182,36 +182,36 @@ initialize {
             "parent": [Circular],
             "prev": null,
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "aria-hidden": undefined,
               "class": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "aria-hidden": undefined,
               "class": undefined,
             },
           },
-          Object {
+          {
             "data": "About",
             "next": null,
             "parent": [Circular],
-            "prev": Object {
-              "attribs": Object {
+            "prev": {
+              "attribs": {
                 "aria-hidden": "true",
                 "class": "icon",
               },
-              "children": Array [],
+              "children": [],
               "name": "i",
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": [Circular],
               "parent": [Circular],
               "prev": null,
               "type": "tag",
-              "x-attribsNamespace": Object {
+              "x-attribsNamespace": {
                 "aria-hidden": undefined,
                 "class": undefined,
               },
-              "x-attribsPrefix": Object {
+              "x-attribsPrefix": {
                 "aria-hidden": undefined,
                 "class": undefined,
               },
@@ -223,21 +223,21 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": null,
         "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
+        "prev": {
+          "attribs": {
             "class": "active item",
             "to": "/",
           },
-          "children": Array [
-            Object {
-              "attribs": Object {
+          "children": [
+            {
+              "attribs": {
                 "aria-hidden": "true",
                 "class": "icon",
               },
-              "children": Array [],
+              "children": [],
               "name": "i",
               "namespace": "http://www.w3.org/1999/xhtml",
-              "next": Object {
+              "next": {
                 "data": "Main",
                 "next": null,
                 "parent": [Circular],
@@ -247,36 +247,36 @@ initialize {
               "parent": [Circular],
               "prev": null,
               "type": "tag",
-              "x-attribsNamespace": Object {
+              "x-attribsNamespace": {
                 "aria-hidden": undefined,
                 "class": undefined,
               },
-              "x-attribsPrefix": Object {
+              "x-attribsPrefix": {
                 "aria-hidden": undefined,
                 "class": undefined,
               },
             },
-            Object {
+            {
               "data": "Main",
               "next": null,
               "parent": [Circular],
-              "prev": Object {
-                "attribs": Object {
+              "prev": {
+                "attribs": {
                   "aria-hidden": "true",
                   "class": "icon",
                 },
-                "children": Array [],
+                "children": [],
                 "name": "i",
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": [Circular],
                 "parent": [Circular],
                 "prev": null,
                 "type": "tag",
-                "x-attribsNamespace": Object {
+                "x-attribsNamespace": {
                   "aria-hidden": undefined,
                   "class": undefined,
                 },
-                "x-attribsPrefix": Object {
+                "x-attribsPrefix": {
                   "aria-hidden": undefined,
                   "class": undefined,
                 },
@@ -290,21 +290,21 @@ initialize {
           "parent": [Circular],
           "prev": null,
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "to": undefined,
           },
         },
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "to": undefined,
         },
@@ -315,9 +315,9 @@ initialize {
     "next": null,
     "parent": null,
     "prev": null,
-    "root": Object {
-      "attribs": Object {},
-      "children": Array [
+    "root": {
+      "attribs": {},
+      "children": [
         [Circular],
       ],
       "name": "root",
@@ -326,20 +326,20 @@ initialize {
       "parent": null,
       "prev": null,
       "type": "root",
-      "x-attribsNamespace": Object {},
-      "x-attribsPrefix": Object {},
+      "x-attribsNamespace": {},
+      "x-attribsPrefix": {},
     },
     "type": "tag",
-    "x-attribsNamespace": Object {
+    "x-attribsNamespace": {
       "class": undefined,
     },
-    "x-attribsPrefix": Object {
+    "x-attribsPrefix": {
       "class": undefined,
     },
   },
   "_root": [Circular],
   "length": 1,
-  "options": Object {
+  "options": {
     "decodeEntities": true,
     "normalizeWhitespace": false,
     "withDomLvl1": true,

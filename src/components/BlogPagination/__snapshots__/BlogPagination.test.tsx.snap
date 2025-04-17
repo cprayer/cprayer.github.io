@@ -2,19 +2,19 @@
 
 exports[`BlogPagination component should have first link active if no match 1`] = `
 initialize {
-  "0": Object {
-    "attribs": Object {
+  "0": {
+    "attribs": {
       "class": "ui pagination menu",
     },
-    "children": Array [
-      Object {
-        "attribs": Object {
+    "children": [
+      {
+        "attribs": {
           "class": "active item",
           "style": "cursor:pointer",
           "to": "/page/1/",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "1",
             "next": null,
             "parent": [Circular],
@@ -24,14 +24,14 @@ initialize {
         ],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
+        "next": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/2/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "2",
               "next": null,
               "parent": [Circular],
@@ -41,14 +41,14 @@ initialize {
           ],
           "name": "div",
           "namespace": "http://www.w3.org/1999/xhtml",
-          "next": Object {
-            "attribs": Object {
+          "next": {
+            "attribs": {
               "class": "item",
               "style": "cursor:pointer",
               "to": "/page/3/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "3",
                 "next": null,
                 "parent": [Circular],
@@ -58,12 +58,12 @@ initialize {
             ],
             "name": "div",
             "namespace": "http://www.w3.org/1999/xhtml",
-            "next": Object {
-              "attribs": Object {
+            "next": {
+              "attribs": {
                 "class": "disabled item",
               },
-              "children": Array [
-                Object {
+              "children": [
+                {
                   "data": "...",
                   "next": null,
                   "parent": [Circular],
@@ -73,14 +73,14 @@ initialize {
               ],
               "name": "div",
               "namespace": "http://www.w3.org/1999/xhtml",
-              "next": Object {
-                "attribs": Object {
+              "next": {
+                "attribs": {
                   "class": "item",
                   "style": "cursor:pointer",
                   "to": "/page/10/",
                 },
-                "children": Array [
-                  Object {
+                "children": [
+                  {
                     "data": "10",
                     "next": null,
                     "parent": [Circular],
@@ -94,12 +94,12 @@ initialize {
                 "parent": [Circular],
                 "prev": [Circular],
                 "type": "tag",
-                "x-attribsNamespace": Object {
+                "x-attribsNamespace": {
                   "class": undefined,
                   "style": undefined,
                   "to": undefined,
                 },
-                "x-attribsPrefix": Object {
+                "x-attribsPrefix": {
                   "class": undefined,
                   "style": undefined,
                   "to": undefined,
@@ -108,22 +108,22 @@ initialize {
               "parent": [Circular],
               "prev": [Circular],
               "type": "tag",
-              "x-attribsNamespace": Object {
+              "x-attribsNamespace": {
                 "class": undefined,
               },
-              "x-attribsPrefix": Object {
+              "x-attribsPrefix": {
                 "class": undefined,
               },
             },
             "parent": [Circular],
             "prev": [Circular],
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
@@ -132,12 +132,12 @@ initialize {
           "parent": [Circular],
           "prev": [Circular],
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
@@ -146,25 +146,25 @@ initialize {
         "parent": [Circular],
         "prev": null,
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
       },
-      Object {
-        "attribs": Object {
+      {
+        "attribs": {
           "class": "item",
           "style": "cursor:pointer",
           "to": "/page/2/",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "2",
             "next": null,
             "parent": [Circular],
@@ -174,14 +174,14 @@ initialize {
         ],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
+        "next": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/3/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "3",
               "next": null,
               "parent": [Circular],
@@ -191,12 +191,12 @@ initialize {
           ],
           "name": "div",
           "namespace": "http://www.w3.org/1999/xhtml",
-          "next": Object {
-            "attribs": Object {
+          "next": {
+            "attribs": {
               "class": "disabled item",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "...",
                 "next": null,
                 "parent": [Circular],
@@ -206,14 +206,14 @@ initialize {
             ],
             "name": "div",
             "namespace": "http://www.w3.org/1999/xhtml",
-            "next": Object {
-              "attribs": Object {
+            "next": {
+              "attribs": {
                 "class": "item",
                 "style": "cursor:pointer",
                 "to": "/page/10/",
               },
-              "children": Array [
-                Object {
+              "children": [
+                {
                   "data": "10",
                   "next": null,
                   "parent": [Circular],
@@ -227,12 +227,12 @@ initialize {
               "parent": [Circular],
               "prev": [Circular],
               "type": "tag",
-              "x-attribsNamespace": Object {
+              "x-attribsNamespace": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
-              "x-attribsPrefix": Object {
+              "x-attribsPrefix": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
@@ -241,36 +241,36 @@ initialize {
             "parent": [Circular],
             "prev": [Circular],
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
             },
           },
           "parent": [Circular],
           "prev": [Circular],
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
+        "prev": {
+          "attribs": {
             "class": "active item",
             "style": "cursor:pointer",
             "to": "/page/1/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "1",
               "next": null,
               "parent": [Circular],
@@ -284,37 +284,37 @@ initialize {
           "parent": [Circular],
           "prev": null,
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
       },
-      Object {
-        "attribs": Object {
+      {
+        "attribs": {
           "class": "item",
           "style": "cursor:pointer",
           "to": "/page/3/",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "3",
             "next": null,
             "parent": [Circular],
@@ -324,12 +324,12 @@ initialize {
         ],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
+        "next": {
+          "attribs": {
             "class": "disabled item",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "...",
               "next": null,
               "parent": [Circular],
@@ -339,14 +339,14 @@ initialize {
           ],
           "name": "div",
           "namespace": "http://www.w3.org/1999/xhtml",
-          "next": Object {
-            "attribs": Object {
+          "next": {
+            "attribs": {
               "class": "item",
               "style": "cursor:pointer",
               "to": "/page/10/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "10",
                 "next": null,
                 "parent": [Circular],
@@ -360,12 +360,12 @@ initialize {
             "parent": [Circular],
             "prev": [Circular],
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
@@ -374,22 +374,22 @@ initialize {
           "parent": [Circular],
           "prev": [Circular],
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
           },
         },
         "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
+        "prev": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/2/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "2",
               "next": null,
               "parent": [Circular],
@@ -401,14 +401,14 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": [Circular],
           "parent": [Circular],
-          "prev": Object {
-            "attribs": Object {
+          "prev": {
+            "attribs": {
               "class": "active item",
               "style": "cursor:pointer",
               "to": "/page/1/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "1",
                 "next": null,
                 "parent": [Circular],
@@ -422,47 +422,47 @@ initialize {
             "parent": [Circular],
             "prev": null,
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
           },
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
       },
-      Object {
-        "attribs": Object {
+      {
+        "attribs": {
           "class": "disabled item",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "...",
             "next": null,
             "parent": [Circular],
@@ -472,14 +472,14 @@ initialize {
         ],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
+        "next": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/10/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "10",
               "next": null,
               "parent": [Circular],
@@ -493,26 +493,26 @@ initialize {
           "parent": [Circular],
           "prev": [Circular],
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
+        "prev": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/3/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "3",
               "next": null,
               "parent": [Circular],
@@ -524,14 +524,14 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": [Circular],
           "parent": [Circular],
-          "prev": Object {
-            "attribs": Object {
+          "prev": {
+            "attribs": {
               "class": "item",
               "style": "cursor:pointer",
               "to": "/page/2/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "2",
                 "next": null,
                 "parent": [Circular],
@@ -543,14 +543,14 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": [Circular],
             "parent": [Circular],
-            "prev": Object {
-              "attribs": Object {
+            "prev": {
+              "attribs": {
                 "class": "active item",
                 "style": "cursor:pointer",
                 "to": "/page/1/",
               },
-              "children": Array [
-                Object {
+              "children": [
+                {
                   "data": "1",
                   "next": null,
                   "parent": [Circular],
@@ -564,57 +564,57 @@ initialize {
               "parent": [Circular],
               "prev": null,
               "type": "tag",
-              "x-attribsNamespace": Object {
+              "x-attribsNamespace": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
-              "x-attribsPrefix": Object {
+              "x-attribsPrefix": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
             },
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
           },
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
         },
       },
-      Object {
-        "attribs": Object {
+      {
+        "attribs": {
           "class": "item",
           "style": "cursor:pointer",
           "to": "/page/10/",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "10",
             "next": null,
             "parent": [Circular],
@@ -626,12 +626,12 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": null,
         "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
+        "prev": {
+          "attribs": {
             "class": "disabled item",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "...",
               "next": null,
               "parent": [Circular],
@@ -643,14 +643,14 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": [Circular],
           "parent": [Circular],
-          "prev": Object {
-            "attribs": Object {
+          "prev": {
+            "attribs": {
               "class": "item",
               "style": "cursor:pointer",
               "to": "/page/3/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "3",
                 "next": null,
                 "parent": [Circular],
@@ -662,14 +662,14 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": [Circular],
             "parent": [Circular],
-            "prev": Object {
-              "attribs": Object {
+            "prev": {
+              "attribs": {
                 "class": "item",
                 "style": "cursor:pointer",
                 "to": "/page/2/",
               },
-              "children": Array [
-                Object {
+              "children": [
+                {
                   "data": "2",
                   "next": null,
                   "parent": [Circular],
@@ -681,14 +681,14 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": [Circular],
               "parent": [Circular],
-              "prev": Object {
-                "attribs": Object {
+              "prev": {
+                "attribs": {
                   "class": "active item",
                   "style": "cursor:pointer",
                   "to": "/page/1/",
                 },
-                "children": Array [
-                  Object {
+                "children": [
+                  {
                     "data": "1",
                     "next": null,
                     "parent": [Circular],
@@ -702,56 +702,56 @@ initialize {
                 "parent": [Circular],
                 "prev": null,
                 "type": "tag",
-                "x-attribsNamespace": Object {
+                "x-attribsNamespace": {
                   "class": undefined,
                   "style": undefined,
                   "to": undefined,
                 },
-                "x-attribsPrefix": Object {
+                "x-attribsPrefix": {
                   "class": undefined,
                   "style": undefined,
                   "to": undefined,
                 },
               },
               "type": "tag",
-              "x-attribsNamespace": Object {
+              "x-attribsNamespace": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
-              "x-attribsPrefix": Object {
+              "x-attribsPrefix": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
             },
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
           },
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
           },
         },
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
@@ -763,9 +763,9 @@ initialize {
     "next": null,
     "parent": null,
     "prev": null,
-    "root": Object {
-      "attribs": Object {},
-      "children": Array [
+    "root": {
+      "attribs": {},
+      "children": [
         [Circular],
       ],
       "name": "root",
@@ -774,20 +774,20 @@ initialize {
       "parent": null,
       "prev": null,
       "type": "root",
-      "x-attribsNamespace": Object {},
-      "x-attribsPrefix": Object {},
+      "x-attribsNamespace": {},
+      "x-attribsPrefix": {},
     },
     "type": "tag",
-    "x-attribsNamespace": Object {
+    "x-attribsNamespace": {
       "class": undefined,
     },
-    "x-attribsPrefix": Object {
+    "x-attribsPrefix": {
       "class": undefined,
     },
   },
   "_root": [Circular],
   "length": 1,
-  "options": Object {
+  "options": {
     "decodeEntities": true,
     "normalizeWhitespace": false,
     "withDomLvl1": true,
@@ -798,19 +798,19 @@ initialize {
 
 exports[`BlogPagination component should render correctly 5 pages 1`] = `
 initialize {
-  "0": Object {
-    "attribs": Object {
+  "0": {
+    "attribs": {
       "class": "ui pagination menu",
     },
-    "children": Array [
-      Object {
-        "attribs": Object {
+    "children": [
+      {
+        "attribs": {
           "class": "item",
           "style": "cursor:pointer",
           "to": "/page/1/",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "1",
             "next": null,
             "parent": [Circular],
@@ -820,14 +820,14 @@ initialize {
         ],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
+        "next": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/2/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "2",
               "next": null,
               "parent": [Circular],
@@ -837,14 +837,14 @@ initialize {
           ],
           "name": "div",
           "namespace": "http://www.w3.org/1999/xhtml",
-          "next": Object {
-            "attribs": Object {
+          "next": {
+            "attribs": {
               "class": "item",
               "style": "cursor:pointer",
               "to": "/page/3/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "3",
                 "next": null,
                 "parent": [Circular],
@@ -854,14 +854,14 @@ initialize {
             ],
             "name": "div",
             "namespace": "http://www.w3.org/1999/xhtml",
-            "next": Object {
-              "attribs": Object {
+            "next": {
+              "attribs": {
                 "class": "item",
                 "style": "cursor:pointer",
                 "to": "/page/4/",
               },
-              "children": Array [
-                Object {
+              "children": [
+                {
                   "data": "4",
                   "next": null,
                   "parent": [Circular],
@@ -871,14 +871,14 @@ initialize {
               ],
               "name": "div",
               "namespace": "http://www.w3.org/1999/xhtml",
-              "next": Object {
-                "attribs": Object {
+              "next": {
+                "attribs": {
                   "class": "item",
                   "style": "cursor:pointer",
                   "to": "/page/5/",
                 },
-                "children": Array [
-                  Object {
+                "children": [
+                  {
                     "data": "5",
                     "next": null,
                     "parent": [Circular],
@@ -892,12 +892,12 @@ initialize {
                 "parent": [Circular],
                 "prev": [Circular],
                 "type": "tag",
-                "x-attribsNamespace": Object {
+                "x-attribsNamespace": {
                   "class": undefined,
                   "style": undefined,
                   "to": undefined,
                 },
-                "x-attribsPrefix": Object {
+                "x-attribsPrefix": {
                   "class": undefined,
                   "style": undefined,
                   "to": undefined,
@@ -906,12 +906,12 @@ initialize {
               "parent": [Circular],
               "prev": [Circular],
               "type": "tag",
-              "x-attribsNamespace": Object {
+              "x-attribsNamespace": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
-              "x-attribsPrefix": Object {
+              "x-attribsPrefix": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
@@ -920,12 +920,12 @@ initialize {
             "parent": [Circular],
             "prev": [Circular],
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
@@ -934,12 +934,12 @@ initialize {
           "parent": [Circular],
           "prev": [Circular],
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
@@ -948,25 +948,25 @@ initialize {
         "parent": [Circular],
         "prev": null,
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
       },
-      Object {
-        "attribs": Object {
+      {
+        "attribs": {
           "class": "item",
           "style": "cursor:pointer",
           "to": "/page/2/",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "2",
             "next": null,
             "parent": [Circular],
@@ -976,14 +976,14 @@ initialize {
         ],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
+        "next": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/3/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "3",
               "next": null,
               "parent": [Circular],
@@ -993,14 +993,14 @@ initialize {
           ],
           "name": "div",
           "namespace": "http://www.w3.org/1999/xhtml",
-          "next": Object {
-            "attribs": Object {
+          "next": {
+            "attribs": {
               "class": "item",
               "style": "cursor:pointer",
               "to": "/page/4/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "4",
                 "next": null,
                 "parent": [Circular],
@@ -1010,14 +1010,14 @@ initialize {
             ],
             "name": "div",
             "namespace": "http://www.w3.org/1999/xhtml",
-            "next": Object {
-              "attribs": Object {
+            "next": {
+              "attribs": {
                 "class": "item",
                 "style": "cursor:pointer",
                 "to": "/page/5/",
               },
-              "children": Array [
-                Object {
+              "children": [
+                {
                   "data": "5",
                   "next": null,
                   "parent": [Circular],
@@ -1031,12 +1031,12 @@ initialize {
               "parent": [Circular],
               "prev": [Circular],
               "type": "tag",
-              "x-attribsNamespace": Object {
+              "x-attribsNamespace": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
-              "x-attribsPrefix": Object {
+              "x-attribsPrefix": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
@@ -1045,12 +1045,12 @@ initialize {
             "parent": [Circular],
             "prev": [Circular],
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
@@ -1059,26 +1059,26 @@ initialize {
           "parent": [Circular],
           "prev": [Circular],
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
+        "prev": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/1/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "1",
               "next": null,
               "parent": [Circular],
@@ -1092,37 +1092,37 @@ initialize {
           "parent": [Circular],
           "prev": null,
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
       },
-      Object {
-        "attribs": Object {
+      {
+        "attribs": {
           "class": "item",
           "style": "cursor:pointer",
           "to": "/page/3/",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "3",
             "next": null,
             "parent": [Circular],
@@ -1132,14 +1132,14 @@ initialize {
         ],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
+        "next": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/4/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "4",
               "next": null,
               "parent": [Circular],
@@ -1149,14 +1149,14 @@ initialize {
           ],
           "name": "div",
           "namespace": "http://www.w3.org/1999/xhtml",
-          "next": Object {
-            "attribs": Object {
+          "next": {
+            "attribs": {
               "class": "item",
               "style": "cursor:pointer",
               "to": "/page/5/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "5",
                 "next": null,
                 "parent": [Circular],
@@ -1170,12 +1170,12 @@ initialize {
             "parent": [Circular],
             "prev": [Circular],
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
@@ -1184,26 +1184,26 @@ initialize {
           "parent": [Circular],
           "prev": [Circular],
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
+        "prev": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/2/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "2",
               "next": null,
               "parent": [Circular],
@@ -1215,14 +1215,14 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": [Circular],
           "parent": [Circular],
-          "prev": Object {
-            "attribs": Object {
+          "prev": {
+            "attribs": {
               "class": "item",
               "style": "cursor:pointer",
               "to": "/page/1/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "1",
                 "next": null,
                 "parent": [Circular],
@@ -1236,49 +1236,49 @@ initialize {
             "parent": [Circular],
             "prev": null,
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
           },
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
       },
-      Object {
-        "attribs": Object {
+      {
+        "attribs": {
           "class": "item",
           "style": "cursor:pointer",
           "to": "/page/4/",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "4",
             "next": null,
             "parent": [Circular],
@@ -1288,14 +1288,14 @@ initialize {
         ],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
+        "next": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/5/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "5",
               "next": null,
               "parent": [Circular],
@@ -1309,26 +1309,26 @@ initialize {
           "parent": [Circular],
           "prev": [Circular],
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
+        "prev": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/3/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "3",
               "next": null,
               "parent": [Circular],
@@ -1340,14 +1340,14 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": [Circular],
           "parent": [Circular],
-          "prev": Object {
-            "attribs": Object {
+          "prev": {
+            "attribs": {
               "class": "item",
               "style": "cursor:pointer",
               "to": "/page/2/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "2",
                 "next": null,
                 "parent": [Circular],
@@ -1359,14 +1359,14 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": [Circular],
             "parent": [Circular],
-            "prev": Object {
-              "attribs": Object {
+            "prev": {
+              "attribs": {
                 "class": "item",
                 "style": "cursor:pointer",
                 "to": "/page/1/",
               },
-              "children": Array [
-                Object {
+              "children": [
+                {
                   "data": "1",
                   "next": null,
                   "parent": [Circular],
@@ -1380,61 +1380,61 @@ initialize {
               "parent": [Circular],
               "prev": null,
               "type": "tag",
-              "x-attribsNamespace": Object {
+              "x-attribsNamespace": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
-              "x-attribsPrefix": Object {
+              "x-attribsPrefix": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
             },
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
           },
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
       },
-      Object {
-        "attribs": Object {
+      {
+        "attribs": {
           "class": "item",
           "style": "cursor:pointer",
           "to": "/page/5/",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "5",
             "next": null,
             "parent": [Circular],
@@ -1446,14 +1446,14 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": null,
         "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
+        "prev": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/4/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "4",
               "next": null,
               "parent": [Circular],
@@ -1465,14 +1465,14 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": [Circular],
           "parent": [Circular],
-          "prev": Object {
-            "attribs": Object {
+          "prev": {
+            "attribs": {
               "class": "item",
               "style": "cursor:pointer",
               "to": "/page/3/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "3",
                 "next": null,
                 "parent": [Circular],
@@ -1484,14 +1484,14 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": [Circular],
             "parent": [Circular],
-            "prev": Object {
-              "attribs": Object {
+            "prev": {
+              "attribs": {
                 "class": "item",
                 "style": "cursor:pointer",
                 "to": "/page/2/",
               },
-              "children": Array [
-                Object {
+              "children": [
+                {
                   "data": "2",
                   "next": null,
                   "parent": [Circular],
@@ -1503,14 +1503,14 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": [Circular],
               "parent": [Circular],
-              "prev": Object {
-                "attribs": Object {
+              "prev": {
+                "attribs": {
                   "class": "item",
                   "style": "cursor:pointer",
                   "to": "/page/1/",
                 },
-                "children": Array [
-                  Object {
+                "children": [
+                  {
                     "data": "1",
                     "next": null,
                     "parent": [Circular],
@@ -1524,60 +1524,60 @@ initialize {
                 "parent": [Circular],
                 "prev": null,
                 "type": "tag",
-                "x-attribsNamespace": Object {
+                "x-attribsNamespace": {
                   "class": undefined,
                   "style": undefined,
                   "to": undefined,
                 },
-                "x-attribsPrefix": Object {
+                "x-attribsPrefix": {
                   "class": undefined,
                   "style": undefined,
                   "to": undefined,
                 },
               },
               "type": "tag",
-              "x-attribsNamespace": Object {
+              "x-attribsNamespace": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
-              "x-attribsPrefix": Object {
+              "x-attribsPrefix": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
             },
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
           },
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
@@ -1589,9 +1589,9 @@ initialize {
     "next": null,
     "parent": null,
     "prev": null,
-    "root": Object {
-      "attribs": Object {},
-      "children": Array [
+    "root": {
+      "attribs": {},
+      "children": [
         [Circular],
       ],
       "name": "root",
@@ -1600,20 +1600,20 @@ initialize {
       "parent": null,
       "prev": null,
       "type": "root",
-      "x-attribsNamespace": Object {},
-      "x-attribsPrefix": Object {},
+      "x-attribsNamespace": {},
+      "x-attribsPrefix": {},
     },
     "type": "tag",
-    "x-attribsNamespace": Object {
+    "x-attribsNamespace": {
       "class": undefined,
     },
-    "x-attribsPrefix": Object {
+    "x-attribsPrefix": {
       "class": undefined,
     },
   },
   "_root": [Circular],
   "length": 1,
-  "options": Object {
+  "options": {
     "decodeEntities": true,
     "normalizeWhitespace": false,
     "withDomLvl1": true,
@@ -1624,19 +1624,19 @@ initialize {
 
 exports[`BlogPagination component should render correctly 10 pages 1`] = `
 initialize {
-  "0": Object {
-    "attribs": Object {
+  "0": {
+    "attribs": {
       "class": "ui pagination menu",
     },
-    "children": Array [
-      Object {
-        "attribs": Object {
+    "children": [
+      {
+        "attribs": {
           "class": "item",
           "style": "cursor:pointer",
           "to": "/page/1/",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "1",
             "next": null,
             "parent": [Circular],
@@ -1646,14 +1646,14 @@ initialize {
         ],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
+        "next": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/2/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "2",
               "next": null,
               "parent": [Circular],
@@ -1663,12 +1663,12 @@ initialize {
           ],
           "name": "div",
           "namespace": "http://www.w3.org/1999/xhtml",
-          "next": Object {
-            "attribs": Object {
+          "next": {
+            "attribs": {
               "class": "disabled item",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "...",
                 "next": null,
                 "parent": [Circular],
@@ -1678,14 +1678,14 @@ initialize {
             ],
             "name": "div",
             "namespace": "http://www.w3.org/1999/xhtml",
-            "next": Object {
-              "attribs": Object {
+            "next": {
+              "attribs": {
                 "class": "item",
                 "style": "cursor:pointer",
                 "to": "/page/10/",
               },
-              "children": Array [
-                Object {
+              "children": [
+                {
                   "data": "10",
                   "next": null,
                   "parent": [Circular],
@@ -1699,12 +1699,12 @@ initialize {
               "parent": [Circular],
               "prev": [Circular],
               "type": "tag",
-              "x-attribsNamespace": Object {
+              "x-attribsNamespace": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
-              "x-attribsPrefix": Object {
+              "x-attribsPrefix": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
@@ -1713,22 +1713,22 @@ initialize {
             "parent": [Circular],
             "prev": [Circular],
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
             },
           },
           "parent": [Circular],
           "prev": [Circular],
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
@@ -1737,25 +1737,25 @@ initialize {
         "parent": [Circular],
         "prev": null,
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
       },
-      Object {
-        "attribs": Object {
+      {
+        "attribs": {
           "class": "item",
           "style": "cursor:pointer",
           "to": "/page/2/",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "2",
             "next": null,
             "parent": [Circular],
@@ -1765,12 +1765,12 @@ initialize {
         ],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
+        "next": {
+          "attribs": {
             "class": "disabled item",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "...",
               "next": null,
               "parent": [Circular],
@@ -1780,14 +1780,14 @@ initialize {
           ],
           "name": "div",
           "namespace": "http://www.w3.org/1999/xhtml",
-          "next": Object {
-            "attribs": Object {
+          "next": {
+            "attribs": {
               "class": "item",
               "style": "cursor:pointer",
               "to": "/page/10/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "10",
                 "next": null,
                 "parent": [Circular],
@@ -1801,12 +1801,12 @@ initialize {
             "parent": [Circular],
             "prev": [Circular],
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
@@ -1815,22 +1815,22 @@ initialize {
           "parent": [Circular],
           "prev": [Circular],
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
           },
         },
         "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
+        "prev": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/1/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "1",
               "next": null,
               "parent": [Circular],
@@ -1844,35 +1844,35 @@ initialize {
           "parent": [Circular],
           "prev": null,
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
       },
-      Object {
-        "attribs": Object {
+      {
+        "attribs": {
           "class": "disabled item",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "...",
             "next": null,
             "parent": [Circular],
@@ -1882,14 +1882,14 @@ initialize {
         ],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
+        "next": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/10/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "10",
               "next": null,
               "parent": [Circular],
@@ -1903,26 +1903,26 @@ initialize {
           "parent": [Circular],
           "prev": [Circular],
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
+        "prev": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/2/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "2",
               "next": null,
               "parent": [Circular],
@@ -1934,14 +1934,14 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": [Circular],
           "parent": [Circular],
-          "prev": Object {
-            "attribs": Object {
+          "prev": {
+            "attribs": {
               "class": "item",
               "style": "cursor:pointer",
               "to": "/page/1/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "1",
                 "next": null,
                 "parent": [Circular],
@@ -1955,45 +1955,45 @@ initialize {
             "parent": [Circular],
             "prev": null,
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
           },
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
         },
       },
-      Object {
-        "attribs": Object {
+      {
+        "attribs": {
           "class": "item",
           "style": "cursor:pointer",
           "to": "/page/10/",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "10",
             "next": null,
             "parent": [Circular],
@@ -2005,12 +2005,12 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": null,
         "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
+        "prev": {
+          "attribs": {
             "class": "disabled item",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "...",
               "next": null,
               "parent": [Circular],
@@ -2022,14 +2022,14 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": [Circular],
           "parent": [Circular],
-          "prev": Object {
-            "attribs": Object {
+          "prev": {
+            "attribs": {
               "class": "item",
               "style": "cursor:pointer",
               "to": "/page/2/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "2",
                 "next": null,
                 "parent": [Circular],
@@ -2041,14 +2041,14 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": [Circular],
             "parent": [Circular],
-            "prev": Object {
-              "attribs": Object {
+            "prev": {
+              "attribs": {
                 "class": "item",
                 "style": "cursor:pointer",
                 "to": "/page/1/",
               },
-              "children": Array [
-                Object {
+              "children": [
+                {
                   "data": "1",
                   "next": null,
                   "parent": [Circular],
@@ -2062,44 +2062,44 @@ initialize {
               "parent": [Circular],
               "prev": null,
               "type": "tag",
-              "x-attribsNamespace": Object {
+              "x-attribsNamespace": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
-              "x-attribsPrefix": Object {
+              "x-attribsPrefix": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
             },
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
           },
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
           },
         },
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
@@ -2111,9 +2111,9 @@ initialize {
     "next": null,
     "parent": null,
     "prev": null,
-    "root": Object {
-      "attribs": Object {},
-      "children": Array [
+    "root": {
+      "attribs": {},
+      "children": [
         [Circular],
       ],
       "name": "root",
@@ -2122,20 +2122,20 @@ initialize {
       "parent": null,
       "prev": null,
       "type": "root",
-      "x-attribsNamespace": Object {},
-      "x-attribsPrefix": Object {},
+      "x-attribsNamespace": {},
+      "x-attribsPrefix": {},
     },
     "type": "tag",
-    "x-attribsNamespace": Object {
+    "x-attribsNamespace": {
       "class": undefined,
     },
-    "x-attribsPrefix": Object {
+    "x-attribsPrefix": {
       "class": undefined,
     },
   },
   "_root": [Circular],
   "length": 1,
-  "options": Object {
+  "options": {
     "decodeEntities": true,
     "normalizeWhitespace": false,
     "withDomLvl1": true,
@@ -2146,19 +2146,19 @@ initialize {
 
 exports[`BlogPagination component should render correctly 20 pages 1`] = `
 initialize {
-  "0": Object {
-    "attribs": Object {
+  "0": {
+    "attribs": {
       "class": "ui pagination menu",
     },
-    "children": Array [
-      Object {
-        "attribs": Object {
+    "children": [
+      {
+        "attribs": {
           "class": "item",
           "style": "cursor:pointer",
           "to": "/page/1/",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "1",
             "next": null,
             "parent": [Circular],
@@ -2168,14 +2168,14 @@ initialize {
         ],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
+        "next": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/2/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "2",
               "next": null,
               "parent": [Circular],
@@ -2185,12 +2185,12 @@ initialize {
           ],
           "name": "div",
           "namespace": "http://www.w3.org/1999/xhtml",
-          "next": Object {
-            "attribs": Object {
+          "next": {
+            "attribs": {
               "class": "disabled item",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "...",
                 "next": null,
                 "parent": [Circular],
@@ -2200,14 +2200,14 @@ initialize {
             ],
             "name": "div",
             "namespace": "http://www.w3.org/1999/xhtml",
-            "next": Object {
-              "attribs": Object {
+            "next": {
+              "attribs": {
                 "class": "item",
                 "style": "cursor:pointer",
                 "to": "/page/20/",
               },
-              "children": Array [
-                Object {
+              "children": [
+                {
                   "data": "20",
                   "next": null,
                   "parent": [Circular],
@@ -2221,12 +2221,12 @@ initialize {
               "parent": [Circular],
               "prev": [Circular],
               "type": "tag",
-              "x-attribsNamespace": Object {
+              "x-attribsNamespace": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
-              "x-attribsPrefix": Object {
+              "x-attribsPrefix": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
@@ -2235,22 +2235,22 @@ initialize {
             "parent": [Circular],
             "prev": [Circular],
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
             },
           },
           "parent": [Circular],
           "prev": [Circular],
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
@@ -2259,25 +2259,25 @@ initialize {
         "parent": [Circular],
         "prev": null,
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
       },
-      Object {
-        "attribs": Object {
+      {
+        "attribs": {
           "class": "item",
           "style": "cursor:pointer",
           "to": "/page/2/",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "2",
             "next": null,
             "parent": [Circular],
@@ -2287,12 +2287,12 @@ initialize {
         ],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
+        "next": {
+          "attribs": {
             "class": "disabled item",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "...",
               "next": null,
               "parent": [Circular],
@@ -2302,14 +2302,14 @@ initialize {
           ],
           "name": "div",
           "namespace": "http://www.w3.org/1999/xhtml",
-          "next": Object {
-            "attribs": Object {
+          "next": {
+            "attribs": {
               "class": "item",
               "style": "cursor:pointer",
               "to": "/page/20/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "20",
                 "next": null,
                 "parent": [Circular],
@@ -2323,12 +2323,12 @@ initialize {
             "parent": [Circular],
             "prev": [Circular],
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
@@ -2337,22 +2337,22 @@ initialize {
           "parent": [Circular],
           "prev": [Circular],
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
           },
         },
         "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
+        "prev": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/1/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "1",
               "next": null,
               "parent": [Circular],
@@ -2366,35 +2366,35 @@ initialize {
           "parent": [Circular],
           "prev": null,
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
       },
-      Object {
-        "attribs": Object {
+      {
+        "attribs": {
           "class": "disabled item",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "...",
             "next": null,
             "parent": [Circular],
@@ -2404,14 +2404,14 @@ initialize {
         ],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
+        "next": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/20/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "20",
               "next": null,
               "parent": [Circular],
@@ -2425,26 +2425,26 @@ initialize {
           "parent": [Circular],
           "prev": [Circular],
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
+        "prev": {
+          "attribs": {
             "class": "item",
             "style": "cursor:pointer",
             "to": "/page/2/",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "2",
               "next": null,
               "parent": [Circular],
@@ -2456,14 +2456,14 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": [Circular],
           "parent": [Circular],
-          "prev": Object {
-            "attribs": Object {
+          "prev": {
+            "attribs": {
               "class": "item",
               "style": "cursor:pointer",
               "to": "/page/1/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "1",
                 "next": null,
                 "parent": [Circular],
@@ -2477,45 +2477,45 @@ initialize {
             "parent": [Circular],
             "prev": null,
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
           },
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
             "style": undefined,
             "to": undefined,
           },
         },
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
         },
       },
-      Object {
-        "attribs": Object {
+      {
+        "attribs": {
           "class": "item",
           "style": "cursor:pointer",
           "to": "/page/20/",
         },
-        "children": Array [
-          Object {
+        "children": [
+          {
             "data": "20",
             "next": null,
             "parent": [Circular],
@@ -2527,12 +2527,12 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": null,
         "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
+        "prev": {
+          "attribs": {
             "class": "disabled item",
           },
-          "children": Array [
-            Object {
+          "children": [
+            {
               "data": "...",
               "next": null,
               "parent": [Circular],
@@ -2544,14 +2544,14 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": [Circular],
           "parent": [Circular],
-          "prev": Object {
-            "attribs": Object {
+          "prev": {
+            "attribs": {
               "class": "item",
               "style": "cursor:pointer",
               "to": "/page/2/",
             },
-            "children": Array [
-              Object {
+            "children": [
+              {
                 "data": "2",
                 "next": null,
                 "parent": [Circular],
@@ -2563,14 +2563,14 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": [Circular],
             "parent": [Circular],
-            "prev": Object {
-              "attribs": Object {
+            "prev": {
+              "attribs": {
                 "class": "item",
                 "style": "cursor:pointer",
                 "to": "/page/1/",
               },
-              "children": Array [
-                Object {
+              "children": [
+                {
                   "data": "1",
                   "next": null,
                   "parent": [Circular],
@@ -2584,44 +2584,44 @@ initialize {
               "parent": [Circular],
               "prev": null,
               "type": "tag",
-              "x-attribsNamespace": Object {
+              "x-attribsNamespace": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
-              "x-attribsPrefix": Object {
+              "x-attribsPrefix": {
                 "class": undefined,
                 "style": undefined,
                 "to": undefined,
               },
             },
             "type": "tag",
-            "x-attribsNamespace": Object {
+            "x-attribsNamespace": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
-            "x-attribsPrefix": Object {
+            "x-attribsPrefix": {
               "class": undefined,
               "style": undefined,
               "to": undefined,
             },
           },
           "type": "tag",
-          "x-attribsNamespace": Object {
+          "x-attribsNamespace": {
             "class": undefined,
           },
-          "x-attribsPrefix": Object {
+          "x-attribsPrefix": {
             "class": undefined,
           },
         },
         "type": "tag",
-        "x-attribsNamespace": Object {
+        "x-attribsNamespace": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
         },
-        "x-attribsPrefix": Object {
+        "x-attribsPrefix": {
           "class": undefined,
           "style": undefined,
           "to": undefined,
@@ -2633,9 +2633,9 @@ initialize {
     "next": null,
     "parent": null,
     "prev": null,
-    "root": Object {
-      "attribs": Object {},
-      "children": Array [
+    "root": {
+      "attribs": {},
+      "children": [
         [Circular],
       ],
       "name": "root",
@@ -2644,20 +2644,20 @@ initialize {
       "parent": null,
       "prev": null,
       "type": "root",
-      "x-attribsNamespace": Object {},
-      "x-attribsPrefix": Object {},
+      "x-attribsNamespace": {},
+      "x-attribsPrefix": {},
     },
     "type": "tag",
-    "x-attribsNamespace": Object {
+    "x-attribsNamespace": {
       "class": undefined,
     },
-    "x-attribsPrefix": Object {
+    "x-attribsPrefix": {
       "class": undefined,
     },
   },
   "_root": [Circular],
   "length": 1,
-  "options": Object {
+  "options": {
     "decodeEntities": true,
     "normalizeWhitespace": false,
     "withDomLvl1": true,
@@ -2667,8 +2667,8 @@ initialize {
 `;
 
 exports[`BlogPagination component should render nothing if only 1 page 1`] = `
-initialize {
-  "options": Object {
+{
+  "options": {
     "decodeEntities": true,
     "normalizeWhitespace": false,
     "withDomLvl1": true,
