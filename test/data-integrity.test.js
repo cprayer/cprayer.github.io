@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 const _ = require('lodash');
+// eslint-disable-next-line import/extensions
 const authors = require('../data/author.json');
 
 describe('data integrity', () => {
