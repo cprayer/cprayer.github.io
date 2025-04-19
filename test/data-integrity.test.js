@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
-const _ = require('lodash');
+const _ = require('lodash-es');
 // eslint-disable-next-line import/extensions
 const authors = require('../data/author.json');
 

@@ -6,7 +6,7 @@ import { MarkdownRemarkConnection, ImageSharp } from "../graphql-types";
 import PostHeader from "../components/PostHeader";
 import TagsCard from "../components/TagsCard/TagsCard";
 import BlogPagination from "../components/BlogPagination/BlogPagination";
-import { get } from "lodash";
+import { get } from "lodash-es";
 import {withLayout, LayoutProps} from "../components/Layout";
 import { MarkdownRemark } from "../graphql-types";
 

@@ -1,6 +1,6 @@
 import path from 'path';
 import slash from 'slash';
-import {kebabCase, uniq, get, compact, times} from 'lodash';
+import {kebabCase, uniq, get, compact, times} from 'lodash-es';
 
 // Don't forget to update hard code values into:
 // - `templates-page.tsx:23`

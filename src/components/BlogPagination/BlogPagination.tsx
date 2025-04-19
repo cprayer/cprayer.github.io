@@ -1,7 +1,7 @@
 import * as React from "react";
 import { GatsbyLinkProps } from "gatsby-link";
 import { Menu } from "semantic-ui-react";
-import { times } from "lodash";
+import { times } from "lodash-es";
 
 interface BlogPaginationProps extends React.HTMLProps<HTMLDivElement> {
   pathname: string;
