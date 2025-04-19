@@ -1,4 +1,4 @@
-import path from 'node:path';
+import path from 'path';
 import slash from 'slash';
 import {
   kebabCase, uniq, get, compact, times,

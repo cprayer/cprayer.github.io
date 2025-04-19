@@ -167,7 +167,10 @@
     "space": true,
     "rules": {
       "no-case-declarations": 0,
-      "default-case": 0
+      "default-case": 0,
+      "n/prefer-node-protocol": "off",
+      "node/prefer-node-protocol": "off",
+      "unicorn/prefer-node-protocol": "off"
     },
     "ignores": [
       "**/*.tsx",

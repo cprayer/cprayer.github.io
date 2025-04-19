@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
-import path from 'node:path';
-import {cwd} from 'node:process';
+import path from 'path';
+import {cwd} from 'process';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
