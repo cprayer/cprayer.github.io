@@ -1,5 +1,5 @@
-import path from 'path';
-import fs from 'fs';
+import path from 'node:path';
+import fs from 'node:fs';
 import mkdirp from 'mkdirp';
 
 /**
@@ -8,9 +8,7 @@ import mkdirp from 'mkdirp';
  * @param {string} name - the name of the required field
  * @returns {any} A function to required the given field
  */
-const inputRequired = name => {
-  return value => (/.+/.test(value) ? true : `${name} is required`);
-};
+const inputRequired = name => value => (/.+/.test(value) ? true : `${name} is required`);
 
 /**
  * Action `add` with custom data
@@ -26,21 +24,21 @@ const inputRequired = name => {
  * @returns {any} - A function to add a plop
  */
 const addWithCustomData = function (plop, action, data) {
-  const makeDestPath = p => path.resolve(plop.getDestBasePath(), p);
+  const makeDestinationPath = p => path.resolve(plop.getDestBasePath(), p);
   const makeTmplPath = p => path.resolve(plop.getPlopfilePath(), p);
 
   return function () {
     try {
-      const fileDestPath = makeDestPath(
-        plop.renderString(action.path || '', data)
+      const fileDestinationPath = makeDestinationPath(
+        plop.renderString(action.path || '', data),
       );
       const template = fs.readFileSync(
         makeTmplPath(action.templateFile),
-        'utf-8'
+        'utf8',
       );
-      mkdirp.sync(path.dirname(fileDestPath));
-      fs.writeFileSync(fileDestPath, plop.renderString(template, data));
-      return `add ${fileDestPath}`;
+      mkdirp.sync(path.dirname(fileDestinationPath));
+      fs.writeFileSync(fileDestinationPath, plop.renderString(template, data));
+      return `add ${fileDestinationPath}`;
     } catch (error) {
       return error.message;
     }

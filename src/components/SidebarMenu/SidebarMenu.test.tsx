@@ -2,7 +2,7 @@ import { render, configure } from "enzyme";
 import "jest";
 import * as React from "react";
 import { SidebarMenu } from "./SidebarMenu";
-import Adapter from "enzyme-adapter-react-16";
+import Adapter from "@cfaester/enzyme-adapter-react-18";
 
 // Configure enzyme with react 16 adapter
 configure({ adapter: new Adapter() });

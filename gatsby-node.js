@@ -1,13 +1,15 @@
-import path from 'path';
+import path from 'node:path';
 import slash from 'slash';
-import {kebabCase, uniq, get, compact, times} from 'lodash-es';
+import {
+  kebabCase, uniq, get, compact, times,
+} from 'lodash-es';
 
 // Don't forget to update hard code values into:
 // - `templates-page.tsx:23`
 // - `pages/blog.tsx:26`
 // - `pages/blog.tsx:121`
 const POSTS_PER_PAGE = 10;
-const cleanArray = arr => compact(uniq(arr));
+const cleanArray = array => compact(uniq(array));
 
 // Create slugs for files.
 // Slug will used for blog page path.
@@ -34,11 +36,11 @@ export const createPages = ({graphql, actions}) => {
   const {createPage} = actions;
 
   return new Promise((resolve, reject) => {
-    const templates = ['blogPost', 'tagsPage', 'blogPage']
-      .reduce((mem, templateName) => {
-        return Object.assign({}, mem,
-          {[templateName]: path.resolve(`src/templates/${kebabCase(templateName)}.tsx`)});
-      }, {});
+    const templates = {
+      blogPost: path.resolve(`src/templates/${kebabCase('blogPost')}.tsx`),
+      tagsPage: path.resolve(`src/templates/${kebabCase('tagsPage')}.tsx`),
+      blogPage: path.resolve(`src/templates/${kebabCase('blogPage')}.tsx`),
+    };
 
     graphql(
       `
@@ -56,7 +58,7 @@ export const createPages = ({graphql, actions}) => {
           }
         }
       }
-    `
+    `,
     ).then(result => {
       if (result.errors) {
         return reject(result.errors);
@@ -65,32 +67,28 @@ export const createPages = ({graphql, actions}) => {
       const posts = result.data.posts.edges.map(p => p.node);
 
       // Create blog pages
-      posts
-        .filter(post => post.fields.slug.startsWith('/posts/'))
-        .forEach(post => {
-          createPage({
-            path: post.fields.slug,
-            component: slash(templates.blogPost),
-            context: {
-              slug: post.fields.slug
-            }
-          });
+      for (const post of posts
+        .filter(post => post.fields.slug.startsWith('/posts/'))) {
+        createPage({
+          path: post.fields.slug,
+          component: slash(templates.blogPost),
+          context: {
+            slug: post.fields.slug,
+          },
         });
+      }
 
       // Create tags pages
-      posts
-        .reduce((mem, post) =>
-          cleanArray(mem.concat(get(post, 'frontmatter.tags')))
-        , [])
-        .forEach(tag => {
-          createPage({
-            path: `/tags/${tag}/`,
-            component: slash(templates.tagsPage),
-            context: {
-              tag
-            }
-          });
+      const allTags = cleanArray(posts.flatMap(post => get(post, 'frontmatter.tags') || []));
+      for (const tag of allTags) {
+        createPage({
+          path: `/tags/${tag}/`,
+          component: slash(templates.tagsPage),
+          context: {
+            tag,
+          },
         });
+      }
 
       // Create blog pagination
       const pageCount = Math.ceil(posts.length / POSTS_PER_PAGE);
@@ -99,8 +97,8 @@ export const createPages = ({graphql, actions}) => {
           path: `/page/${index + 1}/`,
           component: slash(templates.blogPage),
           context: {
-            skip: index * POSTS_PER_PAGE
-          }
+            skip: index * POSTS_PER_PAGE,
+          },
         });
       });
 
