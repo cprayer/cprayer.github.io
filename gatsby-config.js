@@ -1,13 +1,15 @@
 /* eslint-disable quotes */
-import path from 'path';
+import path from 'node:path';
+import {cwd} from 'node:process';
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   siteMetadata: {
     title: `잡동사니 개발블로그`,
-    googleVerification: null
+    googleVerification: null,
   },
   mapping: {
-    'MarkdownRemark.frontmatter.author': `AuthorJson`
+    'MarkdownRemark.frontmatter.author': `AuthorJson.jsonId`,
   },
   plugins: [
     // Expose `/data` to graphQL layer
@@ -15,8 +17,8 @@ export default {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `data`,
-        path: path.join(process.cwd(), `data`)
-      }
+        path: path.join(cwd(), `data`),
+      },
     },
 
     {
@@ -26,8 +28,8 @@ export default {
         // Puts tracking script in the head instead of the body
         head: true,
         // Setting this parameter is optional
-        anonymize: true
-      }
+        anonymize: true,
+      },
     },
 
     // Parse all markdown files (each plugin add/parse some data into graphQL layer)
@@ -40,14 +42,14 @@ export default {
             options: {
               maxWidth: 690,
               backgroundColor: `#f7f0eb`,
-              linkImagesToOriginal: false
-            }
+              linkImagesToOriginal: false,
+            },
           },
           `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
-          `gatsby-remark-autolink-headers`
-        ]
-      }
+          `gatsby-remark-autolink-headers`,
+        ],
+      },
     },
 
     // Parse all images files
@@ -73,8 +75,8 @@ export default {
         background_color: `#f7f7f7`,
         theme_color: `#191919`,
         display: `minimal-ui`,
-        icon: `data/icons/favicon.png`
-      }
+        icon: `data/icons/favicon.png`,
+      },
     },
     /* eslint-enable camelcase */
 
@@ -82,6 +84,6 @@ export default {
     // html file so the site works offline and is otherwise
     // resistant to bad networks. Works with almost any
     // site!
-    `gatsby-plugin-offline`
-  ]
+    `gatsby-plugin-offline`,
+  ],
 };

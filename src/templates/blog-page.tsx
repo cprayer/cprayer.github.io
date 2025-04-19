@@ -48,7 +48,7 @@ query TemplateBlogPage($skip: Int) {
             }
           }
           author {
-            id
+            jsonId
             avatar {
               children {
                 ... on ImageSharp {

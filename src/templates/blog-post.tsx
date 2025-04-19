@@ -61,7 +61,7 @@ const BlogPostPage = (props: BlogPostProps) => {
               circular
             />
             <Item.Content>
-              <Item.Description>{frontmatter.author.id}</Item.Description>
+              <Item.Description>{frontmatter.author.jsonId}</Item.Description>
               <Item.Meta>{frontmatter.author.bio}</Item.Meta>
               <Item.Extra>{frontmatter.updatedDate} - {timeToRead} min read</Item.Extra>
             </Item.Content>
@@ -107,7 +107,7 @@ export const pageQuery = graphql`
     frontmatter {
       tags
       author {
-        id
+        jsonId
         bio
         twitter
         avatar {
@@ -163,7 +163,7 @@ export const pageQuery = graphql`
             }
           }
           author {
-            id
+            jsonId
             avatar {
               children {
                 ... on ImageSharp {

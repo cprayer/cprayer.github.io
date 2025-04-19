@@ -43,7 +43,7 @@ const BlogPage = (props: BlogProps) => {
               />
               <Comment.Content>
                 <Comment.Author style={{ fontWeight: 400 }}>
-                  {frontmatter.author.id}
+                  {frontmatter.author.jsonId}
                 </Comment.Author>
                 <Comment.Metadata style={{ margin: 0 }}>
                   {frontmatter.updatedDate} - {timeToRead} min read
@@ -140,7 +140,7 @@ query PageBlog {
             }
           }
           author {
-            id
+            jsonId
             avatar {
               children {
                 ... on ImageSharp {

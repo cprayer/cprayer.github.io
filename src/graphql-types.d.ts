@@ -17,7 +17,7 @@ export type Scalars = {
 
 export type AuthorJson = Node & {
   __typename?: "AuthorJson";
-  id: Scalars["ID"];
+  jsonId: Scalars["ID"];
   parent?: Maybe<Node>;
   children: Array<Node>;
   internal: Internal;
