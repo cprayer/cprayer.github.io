@@ -1,9 +1,9 @@
-const fs = require('fs');
-const {inputRequired} = require('./utils');
+import fs from 'fs';
+import {inputRequired} from './utils.js';
 
 const authors = JSON.parse(fs.readFileSync('./data/author.json'));
 
-module.exports = plop => {
+export default plop => {
   plop.setGenerator('blog post', {
     prompts: [
       {

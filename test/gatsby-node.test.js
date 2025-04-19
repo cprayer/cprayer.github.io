@@ -1,6 +1,7 @@
 /* eslint-disable no-undef, max-nested-callbacks */
+import {createPages, onCreateNode} from '../gatsby-node.js';
+
 jest.mock('path');
-const {createPages, onCreateNode} = require('../gatsby-node');
 
 describe('gatsby-node', () => {
   const actions = {};

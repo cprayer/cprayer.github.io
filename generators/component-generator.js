@@ -1,6 +1,6 @@
-const {unflatten} = require('flat');
-const {pascalCase, sentenceCase} = require('change-case');
-const {inputRequired, addWithCustomData} = require('./utils');
+import {unflatten} from 'flat';
+import {pascalCase, sentenceCase} from 'change-case';
+import {inputRequired, addWithCustomData} from './utils.js';
 
 const MAX_PROPS = 10;
 
@@ -36,7 +36,7 @@ const propsPrompts = [];
   );
 });
 
-module.exports = plop => {
+export default plop => {
   plop.addHelper('propsHelper', text => `{${text}}`);
   plop.setGenerator('component', {
     prompts: [

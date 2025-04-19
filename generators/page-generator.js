@@ -1,6 +1,6 @@
-const {inputRequired} = require('./utils');
+import {inputRequired} from './utils.js';
 
-module.exports = plop => {
+export default plop => {
   plop.setGenerator('page', {
     prompts: [
       {

@@ -29,7 +29,7 @@
     "babel-eslint": "^10.0.1",
     "change-case": "^3.1.0",
     "codeclimate-test-reporter": "^0.5.1",
-    "gatsby": "^3",
+    "gatsby": "^4",
     "gatsby-link": "^2.1.1",
     "gatsby-plugin-gtag": "^1.0.13",
     "gatsby-plugin-manifest": "^2.2.30",
@@ -107,7 +107,7 @@
     "ts-jest": "^29.3.2",
     "ts-lint": "4.5.1",
     "typescript": "^5.8.3",
-    "xo": "0.24.0"
+    "xo": "^0.60.0"
   },
   "resolutions": {
     "cheerio": "1.0.0-rc.3"

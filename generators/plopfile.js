@@ -4,7 +4,7 @@
  * https://github.com/amwmedia/plop
  */
 
-module.exports = plop => {
+export default plop => {
   plop.load('./component-generator.js');
   plop.load('./page-generator.js');
   plop.load('./blog-post-generator.js');

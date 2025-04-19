@@ -1,6 +1,6 @@
-const path = require('path');
-const fs = require('fs');
-const mkdirp = require('mkdirp');
+import path from 'path';
+import fs from 'fs';
+import mkdirp from 'mkdirp';
 
 /**
  * Input validator - ensure input is not empty.
@@ -47,4 +47,4 @@ const addWithCustomData = function (plop, action, data) {
   };
 };
 
-module.exports = {inputRequired, addWithCustomData};
+export {inputRequired, addWithCustomData};

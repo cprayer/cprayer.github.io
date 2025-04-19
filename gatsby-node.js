@@ -1,6 +1,6 @@
-const path = require('path');
-const slash = require('slash');
-const {kebabCase, uniq, get, compact, times} = require('lodash');
+import path from 'path';
+import slash from 'slash';
+import {kebabCase, uniq, get, compact, times} from 'lodash';
 
 // Don't forget to update hard code values into:
 // - `templates-page.tsx:23`
@@ -11,7 +11,7 @@ const cleanArray = arr => compact(uniq(arr));
 
 // Create slugs for files.
 // Slug will used for blog page path.
-exports.onCreateNode = ({node, actions, getNode}) => {
+export const onCreateNode = ({node, actions, getNode}) => {
   const {createNodeField} = actions;
   let slug;
   if (node.internal.type === 'MarkdownRemark') {
@@ -30,7 +30,7 @@ exports.onCreateNode = ({node, actions, getNode}) => {
 // This is called after the Gatsby bootstrap is finished
 // so you have access to any information necessary to
 // programmatically create pages.
-exports.createPages = ({graphql, actions}) => {
+export const createPages = ({graphql, actions}) => {
   const {createPage} = actions;
 
   return new Promise((resolve, reject) => {

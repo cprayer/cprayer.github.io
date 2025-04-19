@@ -3,8 +3,7 @@
 
 import * as React from "react";
 import Helmet from "react-helmet";
-
-const config = require("../gatsby-config.js");
+import config from "../gatsby-config.js";
 
 interface HtmlProps {
   body: any;

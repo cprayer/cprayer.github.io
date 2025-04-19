@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const slash = require('slash');
-const matter = require('gray-matter');
+import fs from 'fs';
+import slash from 'slash';
+import matter from 'gray-matter';
 
 // Get files given by lint-staged (*.md files into staged)
 process.argv.slice(3).forEach(dirtyPath => {

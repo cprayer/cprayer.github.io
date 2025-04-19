@@ -1,9 +1,10 @@
 /* eslint-disable quotes */
-const path = require('path');
+import path from 'path';
 
-module.exports = {
+export default {
   siteMetadata: {
-    title: `잡동사니 개발블로그`
+    title: `잡동사니 개발블로그`,
+    googleVerification: null
   },
   mapping: {
     'MarkdownRemark.frontmatter.author': `AuthorJson`
@@ -14,7 +15,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `data`,
-        path: path.join(__dirname, `data`)
+        path: path.join(process.cwd(), `data`)
       }
     },
 
