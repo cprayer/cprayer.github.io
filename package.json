@@ -29,7 +29,7 @@
     "@graphql-codegen/cli": "^1.9.0",
     "@graphql-codegen/typescript": "^1.2.0",
     "babel-eslint": "^10.1.0",
-    "change-case": "^3.1.0",
+    "change-case": "^5.4.4",
     "codeclimate-test-reporter": "^0.5.1",
     "gatsby": "^5.14.3",
     "gatsby-link": "^5.14.1",
@@ -55,8 +55,8 @@
     "react-scripts": "^5.0.1",
     "redux-devtools-extension": "^2.13.8",
     "semantic-ui-react": "^2.1.5",
-    "slash": "3.0.0",
-    "ts-loader": "^6.0.1"
+    "slash": "5.1.0",
+    "ts-loader": "^9.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",
@@ -90,13 +90,13 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
     "eslint-plugin-react-hooks": "^1.6.0",
-    "flat": "^4.1.0",
+    "flat": "^6.0.1",
     "husky": "^9.1.7",
     "jest": "^29.7.0",
     "lint-staged": "8.1.7",
-    "mkdirp": "^0.5.1",
-    "plop": "^2.3.0",
-    "raw-loader": "^2.0.0",
+    "mkdirp": "^3.0.1",
+    "plop": "^4.0.1",
+    "raw-loader": "^4.0.2",
     "react-test-renderer": "^18.0.0",
     "remark-cli": "^6.0.1",
     "remark-frontmatter": "^5.0.0",
@@ -128,7 +128,7 @@
       ".(ts|tsx)": "ts-jest"
     },
     "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!lodash-es)"
+      "<rootDir>/node_modules/(?!lodash-es|slash)"
     ],
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
     "testPathIgnorePatterns": [
