@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-starter",
+  "name": "cprayer-blog",
   "version": "1.0.0",
-  "description": "Gatsby 1.0 starter",
-  "author": "fabien0102 <fabien0102@gmail.com>",
+  "description": "cprayer blog",
+  "author": "cprayer <cprayer13@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "gatsby develop",
