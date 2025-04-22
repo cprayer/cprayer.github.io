@@ -23,7 +23,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: npm install -g yarn
       - run: npm install -g gatsby-cli@2.12.34
       - run: yarn install
       - run: yarn run build
