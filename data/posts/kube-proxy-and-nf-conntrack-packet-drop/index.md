@@ -34,3 +34,7 @@ I0322 02:18:07.397214       1 conntrack.go:52] Setting nf_conntrack_max to 20971
 ```
 
 원인을 파악하여 클라우드 엔지니어 분께 관련 설정 변경을 요청드리고 이후에는 **nf_conntrack:table full, dropping packet** 로그가 발생하지 않는 것을 확인할 수 있었다
+
+## 여담
+
+그 외 kube_proxy에 의해 업데이트되는 nf_conntrack 관련 커널 파라미터 값들은 다음 [링크](https://github.com/kubernetes/kubernetes/blob/3196c9946355c1d20086f66c22e9e5364fb0a56f/cmd/kube-proxy/app/conntrack.go#L35-L48)를 참고한다
