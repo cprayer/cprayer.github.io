@@ -23,6 +23,7 @@ reactor.netty.http.client.HttpClient USER_EVENT: SslHandshakeCompletionEvent(io.
 ```
 
 이런 에러가 발생하였는데, 코드 레벨에서 변경이나 라이브러리 버전 변경이 없었음에도 에러가 발생하였습니다
+
 변경사항을 좀 더 살펴보던 도중 docker base image의 ubuntu 버전을 20.04에서 22.04로 올렸던 변경 사항이 있던 것을 확인하여 다른 변경 사항은 그대로 둔 채 base image 버전을 원복하자 정상 작동하는 것을 확인할 수 있었습니다
 
 ## 이슈 원인
