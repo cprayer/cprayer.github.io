@@ -1,5 +1,5 @@
 ---
-title: "netty epoll_wait(..) failed: Function not implemented 에러 이슈 해결 방법"
+title: "netty epoll_wait(..) failed: Function not implemented 에러 발생"
 createdDate: '2025-05-18'
 updatedDate: '2025-05-18'
 author: cprayer
