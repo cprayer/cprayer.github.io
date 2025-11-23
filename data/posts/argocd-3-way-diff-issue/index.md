@@ -10,11 +10,11 @@ tags:
 draft: false
 ---
 
-최근 Kubernetes 환경에서 ArgoCD와 HPA(Horizontal Pod Autoscaler)를 함께 사용하던 중 프로덕션 환경에서 배포 도중 순간적인 Latency 증가와 요청 실패가 발생하였습니다. 
+최근 Kubernetes 환경에서 ArgoCD와 HPA(Horizontal Pod Autoscaler)를 함께 사용하던 중 프로덕션 환경에서 배포 도중 순간적인 Latency 증가와 요청 실패가 발생했다
 
-non-production 환경에서는 간헐적으로 argo sync가 계속 완료되었다는 반복적인 알림이 발생하였습니다. 
+non-production 환경에서는 간헐적으로 argo sync가 계속 완료되었다는 반복적인 알림이 발생했다
 
-원인을 분석해 보니 ArgoCD의 Diff Strategies로 사용 중이었던 3-way-diff 전략(default)의 `last-applied-configuration` 어노테이션에 남아있는 설정으로 이슈가 발생하였습니다.
+원인을 분석해 보니 ArgoCD의 Diff Strategies로 사용 중이었던 3-way-diff 전략(default)의 `last-applied-configuration` 어노테이션에 남아있는 설정으로 이슈가 발생했다
 
 ---
 

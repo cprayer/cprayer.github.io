@@ -1,5 +1,5 @@
 ---
-title: docker image size는 압축 가능
+title: docker image size는 압축 가능 
 createdDate: '2025-11-23'
 updatedDate: '2025-11-23'
 author: cprayer
