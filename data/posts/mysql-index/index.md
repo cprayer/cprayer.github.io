@@ -8,7 +8,7 @@ tags:
 draft: false
 ---
 
-### 인덱스는 BTREE 기준 ASC로 만들어도 DESC 방향으로 순회 가능 
+### 인덱스는 ASC로 만들어도 DESC 방향으로 순회 가능 
 * DESC 정렬은 ASC 인덱스를 역순으로 스캔할 수 있다. 다만 ASC 스캔 대비 오버헤드가 있을 수 있다
 * MySQL 5.x에서는 `CREATE INDEX ... DESC`를 써도 실제 저장은 ASC였고 8.x부터는 실제로 DESC 인덱스를 만들 수 있다
 
