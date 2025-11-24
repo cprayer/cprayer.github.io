@@ -81,5 +81,9 @@ WHERE
 * clustered-index의 사이즈가 큰 경우 모든 secondary index의 크기도 커진다
 * 필요한 컬럼이 인덱스에 모두 있으면 covering index가 되어 secondary index여도 clustered index를 사용하지 않고 쿼리 결과를 계산할 수 있다
 
+관련 링크:
+
+* https://dev.mysql.com/doc/refman/8.4/en/innodb-index-types.html
+
 ### cardinality가 낮은 컬럼은 인덱스로 사용하기에 비효율적임
 * `Y/N`나 상태 코드 같이 cardinality가 낮은 컬럼은 인덱스에 넣는 것이 오히려 더 성능에 안 좋을 수 있다
