@@ -75,9 +75,10 @@ WHERE
 * JPA는 `QueryHint` Annotation, Querydsl의 경우 `forceIndex` / `useIndex` 메소드 등을 통해 인덱스 힌트를 줄 수 있다
 * 쿼리 플랜이 부정확하여 slow query 가 발생하는 경우에만 제한적으로 사용한다
 
-### InnoDB에서는 clustered index가 `PRIMARY KEY` 순서로 정렬되어 있음. 그 외 인덱스는 모두 secondary index
-* 모든 secondary index leaf가 PK를 함께 저장해 double-read가 발생한다(secondary → clustered) 
-* PK를 길게 잡으면 모든 secondary index도 커진다
+### clustered index는 하나만 존재. 그 외 인덱스는 모두 secondary index
+* PK가 존재하면 PK가 clustered index, PK가 없으면 모든 컬럼이 NOT NULL로 되어 있는 유니크 인덱스를 사용, 이마저도 없으면 GEN_CLUST_INDEX 라는 숨김 처리 인덱스를 사용
+* 모든 secondary index leaf가 clusterd-index 값을 저장하고 이 값을 통해 double-read가 발생한다(secondary → clustered) 
+* clustered-index의 사이즈가 큰 경우 모든 secondary index의 크기도 커진다
 * 필요한 컬럼이 인덱스에 모두 있으면 covering index가 되어 secondary index여도 clustered index를 사용하지 않고 쿼리 결과를 계산할 수 있다
 
 ### cardinality가 낮은 컬럼은 인덱스로 사용하기에 비효율적임
