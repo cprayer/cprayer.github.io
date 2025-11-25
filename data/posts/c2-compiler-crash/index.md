@@ -50,4 +50,7 @@ Aborted (core dumped)
 
 JIT C2 Compiler 관련이라 이전에 보았던 JVM warm up ifkakao [영상](https://www.youtube.com/watch?v=CQi3SS2YspY) 도 오랜만에 다시 보게 되었다
 
+추가) warm up 을 실제 서비스에서 사용하는 API(메소드) 로 진행하게 되면 warm up 트래픽 및 로그와 실제 트래픽이 구분이 되지 않을 수도 있다. 또한 GET API 가 아닌 CUD API 의 경우에는 어떻게 호출할 것인지에 관한 문제 등이 있을 수 있다
+이러한 이슈에 대해 고민한 내용이 naver D2에 올라와 있어 해당 [링크](https://d2.naver.com/helloworld/1580651)를 추가해두었다
+
 
