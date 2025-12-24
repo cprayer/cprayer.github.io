@@ -8,7 +8,7 @@ tags:
 draft: false
 ---
 
-## TL; DR;
+## TL; DR
 
 ``` bash
 git rebase -i --root $tip
