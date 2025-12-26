@@ -12,11 +12,11 @@ interface BlogPaginationProps extends React.HTMLProps<HTMLDivElement> {
 export default (props: BlogPaginationProps) => {
   if (props.pageCount === 1) { return null; }
   const activeItem = props.pathname.startsWith("/page/")
-    ? props.pathname.split("/")[3]
+    ? props.pathname.split("/")[2]
     : "1";
 
   return (
-    <Menu pagination>
+    <Menu pagination className="blog-pagination">
       {times(props.pageCount, (index) => {
         const pageIndex = (index + 1).toString();
 
@@ -33,6 +33,7 @@ export default (props: BlogPaginationProps) => {
               to={`/page/${pageIndex}/`}
               name={pageIndex}
               active={activeItem === pageIndex}
+              aria-current={activeItem === pageIndex ? "page" : undefined}
             />
           );
         } else {
