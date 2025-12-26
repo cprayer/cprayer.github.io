@@ -29,7 +29,7 @@ class BatchConfig: DefaultBatchConfigurer() {
 
 * 하나의 datasource만 사용하는 경우에는 EnableBatchProcessing 어노테이션 + application.yaml(spring.datasource) 로 설정하면 됨
 * 위 방법만으로 원하는 설정이 불가능한 경우에는 아래와 같이 진행
-* DefaultBatchConfiguration의 getTransactionManager / get(set)DataSource override를 통해 가능할 것으로 보임
+* DefaultBatchConfiguration의 getTransactionManager / getDataSource override를 통해 가능할 것으로 보임
 * in-memory로 쓰고 싶은 경우 h2 database 사용 필요. DefaultBatchConfigurer / MapJobRepository 가 removed 되어 아래와 같이 연동
 ```kotlin
 @Configuration
