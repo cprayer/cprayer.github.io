@@ -72,7 +72,7 @@ WHERE
     O.order_date > DATE_SUB(NOW(), INTERVAL 7 DAY);
 ```
 * 위처럼 `FORCE INDEX`, `IGNORE INDEX`, `USE INDEX` 등의 문구를 사용하여 인덱스를 강제로 사용하게 하거나 무시, 혹은 사용을 유도할 수 있다
-* JPA는 `QueryHint` Annotation, Querydsl의 경우 `forceIndex` / `useIndex` 메소드 등을 통해 인덱스 힌트를 줄 수 있다
+* JPA는 `QueryHint` Annotation, Querydsl-SQL의 경우 `forceIndex` / `useIndex` 메소드 등을 통해 인덱스 힌트를 줄 수 있다
 * 쿼리 플랜이 부정확하여 slow query 가 발생하는 경우에만 제한적으로 사용한다
 
 ### clustered index는 하나만 존재. 그 외 인덱스는 모두 secondary index

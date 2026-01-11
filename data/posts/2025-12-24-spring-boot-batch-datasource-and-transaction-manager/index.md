@@ -10,7 +10,7 @@ draft: false
 ---
 
 
-### spring 2.7.4(spring batch 4)
+### spring boot 2.7.4(spring batch 4)
 
 * 하나의 datasource만 사용하는 경우에는 EnableBatchProcessing 어노테이션 + application.yaml(spring.datasource) 로 설정하면 됨
 * 위 방법만으로 원하는 설정이 불가능한 경우에는 아래와 같이 진행
@@ -25,7 +25,7 @@ class BatchConfig: DefaultBatchConfigurer() {
 }
 ```
 
-### spring 3.2.5(spring batch 5)
+### spring boot 3.2.5(spring batch 5)
 
 * 하나의 datasource만 사용하는 경우에는 EnableBatchProcessing 어노테이션 + application.yaml(spring.datasource) 로 설정하면 됨
 * 위 방법만으로 원하는 설정이 불가능한 경우에는 아래와 같이 진행
@@ -63,7 +63,7 @@ class BatchConfig : DefaultBatchConfiguration() {
 }
 ```
 
-### spring 4(spring batch 6)
+### spring boot 4(spring batch 6)
 
 * EnableBatchProcessing 어노테이션 + application.yaml(spring.datasource) 로 설정하면 됨
 * 위 방법만으로 원하는 설정이 불가능한 경우에는 아래와 같이 진행
