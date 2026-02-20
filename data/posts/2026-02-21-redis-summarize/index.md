@@ -1,7 +1,7 @@
 ---
 title: redis 정리
 createdDate: '2026-02-21'
-updatedDate: '2025-02-21'
+updatedDate: '2026-02-21'
 author: cprayer
 tags:
   - redis
