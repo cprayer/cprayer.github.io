@@ -12,7 +12,7 @@ draft: false
 
 ## TL; DR
 
-Topology Aware Routing 은 zone 별 노드의 allocatable CPU 비율로 forZones 힌트를 계산하는데 endpoint 수가 적으면 비율이 조금만 움직여도 힌트가 붙었다 떨어졌다 하고 붙는 순간 일부 pod 로 트래픽이 몰린다
+Topology Aware Routing 은 zone 별 노드의 allocatable CPU 비율로 forZones 힌트를 계산하는데 endpoint 수가 적으면 비율이 조금만 움직여도 힌트가 붙었다 떨어졌다 하고 붙는 순간 클라이언트가 없는 zone 으로 지정된 endpoint 는 도달 불가가 되어 쓸 수 있는 용량이 줄어든다
 
 ## 이슈 원인
 
@@ -88,7 +88,7 @@ SSE 를 붙일 때 사이드카 프록시의 최대 동시 처리 요청 수 제
 
 ## 해결 방안
 
-pod 수를 두 배로 늘렸지만 힌트가 특정 pod 로 몰아주는 상태여서 증설만으로는 해소되지 않았고 서버를 재배포해 pod 별 트래픽이 다시 균등해지고 나서야 풀렸다 \
+pod 수를 두 배로 늘렸지만 힌트가 특정 pod 로 몰아주는 상태여서 증설만으로는 해소되지 않았고 배포가 일어나면서 힌트 배분이 다시 되고 나서야 풀렸다 \
 이후 해당 클러스터의 Topology Aware Routing 을 비활성화했다
 
 호출 쪽은 SDK 가 기본값으로 내부 운영 트래픽용 주소를 바라보게 되어 있어 실서비스 트래픽이 그대로 그쪽으로 들어가고 있었다 \
