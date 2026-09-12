@@ -12,7 +12,9 @@ draft: false
 
 ## TL; DR
 
-Topology Aware Routing 은 zone 별 노드의 allocatable CPU 비율로 forZones 힌트를 계산하는데 endpoint 수가 적으면 비율이 조금만 움직여도 힌트가 붙었다 떨어졌다 하고 붙는 순간 클라이언트가 없는 zone 으로 지정된 endpoint 는 도달 불가가 되어 쓸 수 있는 용량이 줄어든다
+Topology Aware Routing 은 zone 별 노드의 allocatable CPU 비율로 forZones 힌트를 계산한다 \
+클라이언트가 특정 zone 에 몰려 있으면 다른 zone 으로 지정된 endpoint 는 아무도 부르지 않게 되어 skew 가 발생할 수 있다 \
+켤 때는 `topologySpreadConstraints` 로 pod 가 zone 에 고르게 배치되도록 함께 맞춰야 한다
 
 ## 이슈 원인
 
