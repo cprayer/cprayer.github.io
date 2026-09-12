@@ -13,10 +13,10 @@ draft: false
 ## TL; DR
 
 Topology Aware Routing 은 zone 별 노드의 allocatable CPU 비율로 forZones 힌트를 계산한다 \
-클라이언트가 특정 zone 에 몰려 있으면 다른 zone 으로 지정된 endpoint 는 아무도 부르지 않게 되어 skew 가 발생할 수 있다 \
-켤 때는 `topologySpreadConstraints` 로 pod 가 zone 에 고르게 배치되도록 함께 맞춰야 한다
+pod 가 zone 에 고르게 배치되지 않은 상태에서 힌트가 붙으면 쏠림(skew)이 발생할 수 있고 pod 개수 자체가 적을수록 심해진다 \
+zone 별로 pod 개수를 맞추려면 `topologySpreadConstraints` 를 함께 설정해야 한다
 
-## 이슈 원인
+## 증상 및 원인 파악
 
 여러 서비스가 공통으로 호출하는 피처 플래그 서버에서 타임아웃이 발생하며 HTTP 503 status 응답이 내려오기 시작했고 플래그를 조회하던 서비스들의 응답이 느려지면서 게이트웨이에서도 타임아웃이 발생하며 HTTP 504 status 응답이 내려왔다 \
 피처 플래그 서버 pod 에는 인바운드 요청을 받아 동시 요청 최대 처리량을 제한하는 사이드카 프록시가 있는데 상한을 넘은 요청이 admission 큐에 쌓이면서 타임아웃으로 이어진 것이었다 \
@@ -33,8 +33,11 @@ pod 4개는 전부 같은 zone 에 떠 있었는데 그중 2개만 상한에 닿
 ## forZones 힌트와 유입 트래픽의 기준 불일치
 
 클러스터에는 [Topology Aware Routing](https://kubernetes.io/docs/concepts/services-networking/topology-aware-routing/) 이 켜져 있었다 \
-EndpointSlice 의 각 endpoint 에 `forZones` 힌트를 넣어 호출자와 같은 zone 의 endpoint 로만 트래픽을 보내는 기능이고 힌트는 그 Service 의 pod 가 아니라 클러스터 전체 노드의 allocatable CPU 를 zone 별로 합산한 비율로 계산된다 \
-공식 문서는 유입 트래픽이 zone 별 노드 용량에 비례한다는 전제를 두고 있어서 트래픽이 일부 zone 에서만 들어오면 맞지 않는다고 적어두고 있다
+zone 을 넘는 트래픽을 줄여 전송 비용과 latency 를 낮추려는 기능이다 \
+거치는 구간이 줄고 RTT 가 짧아지는 만큼 throughput 도 올라간다 \
+zone 사이를 오가는 구간 자체가 없어지므로 그 구간에서 생기는 장애나 지연의 영향도 받지 않게 되어 공식 문서는 가용성도 이점으로 든다 \
+EndpointSlice 의 각 endpoint 에 `forZones` 힌트를 넣어 호출자와 같은 zone 의 endpoint 로만 트래픽을 보내는 식으로 동작하고 힌트는 그 Service 의 pod 가 아니라 클러스터 전체 노드의 allocatable CPU 를 zone 별로 합산한 비율로 계산된다 \
+다만 이 방식은 유입 트래픽이 zone 별 노드 용량에 비례한다는 전제를 두고 있어서 트래픽이 일부 zone 에서만 들어오면 맞지 않는다고 문서에 적혀 있다
 
 트래픽은 ingress 프록시를 거쳐 들어왔는데 이 프록시는 전부 ap-northeast-2a 에 떠 있었고 피처 플래그 서버 pod 4개는 전부 ap-northeast-2c 에 있었다 \
 힌트 입장에서 호출자는 원래의 서비스가 아니라 바로 앞단의 이 프록시다
@@ -43,7 +46,7 @@ EndpointSlice 의 각 endpoint 에 `forZones` 힌트를 넣어 호출자와 같�
 2a 몫을 채울 pod 가 2a 에 없으니 2c 에 있는 pod 에서 빌려와 2개에 `forZones: ap-northeast-2a` 를 붙이고 나머지 2개에는 `ap-northeast-2c` 를 붙였다 \
 클라이언트는 전부 2a 에 있었으므로 2c 로 지정된 2개는 아무도 부를 수 없는 endpoint 가 됐고 쓸 수 있는 용량이 절반으로 줄었다
 
-클라이언트가 특정 zone 에 편향된 만큼 쏠림(skew)이 생기는 구조인데 이 경우는 전부 한 zone 에 있어서 편향이 최대인 상태였다 \
+클라이언트가 특정 zone 에 편향된 만큼 skew 가 생기는 구조인데 이 경우는 전부 한 zone 에 있어서 편향이 최대인 상태였다 \
 pod 수가 적을수록 한 쪽으로 지정되는 endpoint 비중이 커져 skew 의 영향을 더 크게 받는다
 
 장애 직전 `TopologyAwareHintsEnabled` 이벤트가 발생했고 그 직후부터 트래픽이 2개 pod 로 몰린 것을 접근 로그에서 확인할 수 있었다 \
@@ -88,17 +91,32 @@ endpoint 수가 적으면 올림이 두 zone 양쪽에서 크게 작용해서 �
 SSE 를 붙일 때 사이드카 프록시의 최대 동시 처리 요청 수 제한을 놓친 것으로 보인다 \
 사이드카가 제한하는 것은 초당 처리량이 아니라 동시 처리 수라 호출이 몰리지 않아도 커넥션이 오래 잡혀 있으면 상한에 가까워지고 거기에 skew 가 겹치면서 상한을 넘겼다
 
-## 해결 방안
+관련 클러스터에 롤백 등의 배포가 일어나면서 힌트 배분이 다시 되고 나서야 풀렸다
 
-pod 수를 두 배로 늘렸지만 힌트가 특정 pod 로 몰아주는 상태여서 증설만으로는 해소되지 않았고 배포가 일어나면서 힌트 배분이 다시 되고 나서야 풀렸다 \
-이후 해당 클러스터의 Topology Aware Routing 을 비활성화했다
+## 후속 조치
+
+SRE 분이 해당 Service 에 한해 Topology Aware Routing 을 껐다
 
 호출 쪽은 SDK 가 기본값으로 내부 운영 트래픽용 주소를 바라보게 되어 있어 실서비스 트래픽이 그대로 그쪽으로 들어가고 있었다 \
 호출 주소를 실서비스용으로 바꾸고 동기 블로킹 호출을 쓰던 SDK 를 논블로킹 버전으로 올리면서 플래그 평가 타임아웃을 줄이고 로컬 캐시를 넣었다
 
-## 챙겼으면 좋았을 사항
+## 남은 것
+
+Topology Aware Routing 을 끈 것은 이 Service 하나라 같은 조건에 놓인 다른 Service 는 그대로 남아 있다 \
+다만 내부 운영용으로 쓰는 클러스터라 그 자체로 큰 문제가 되지는 않을 것으로 보이고 이번처럼 실서비스 트래픽이 잘못 들어오는 경우를 대비하는 쪽에 가깝다
 
 호출 주소를 바꾼 것은 내부 운영용 서버가 실서비스 트래픽을 받지 않게 한 것이지 skew 자체를 없애는 조치는 아니었다
 
 사이드카 쪽도 admission 큐에서 무한정 기다리게 두지 말았어야 했다 \
 큐 대기에 짧은 타임아웃을 걸거나 일정 개수 이상 쌓이면 요청을 바로 버리고 실패로 응답했다면 호출자가 스레드를 잡은 채 기다리다 헬스체크까지 실패하는 데까지는 가지 않았을 것 같다
+
+## 여담
+
+`service.kubernetes.io/topology-mode` 어노테이션 방식은 [KEP-4444](https://github.com/kubernetes/enhancements/tree/master/keps/sig-network/4444-service-traffic-distribution) 에서 `spec.trafficDistribution` 필드로 대체하기로 되어 있다 \
+둘 다 설정하면 아직은 어노테이션이 우선하지만 어노테이션은 이후 릴리즈에서 제거될 예정이다
+
+KEP 가 적어둔 이유가 이번에 겪은 것과 같다 \
+`Auto` 값 하나만 두고 구현체가 알아서 판단하게 한 설계라 사용자 입장에서 예측하기 어렵고 힌트가 적용되지 않거나 기대대로 동작하지 않는다는 이슈가 있었다는 것이다 \
+그래서 `PreferSameZone` 이나 `PreferSameNode` 처럼 선호를 직접 지정하는 방식으로 바뀐다
+
+새 필드의 값 정의에는 클라이언트와 endpoint 분포를 확인하고 쓰지 않으면 endpoint 가 과부하될 수 있다는 주의가 주석으로 달려 있다
