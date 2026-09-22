@@ -14,7 +14,7 @@ draft: false
 
 ## TL; DR
 
-dumb-init 을 PID 1 로 두어도 `CMD` 를 shell form 으로 쓰면 프로세스 트리가 `dumb-init → sh → 앱` 3단 구조가 된다 \
+dumb-init 을 PID 1 로 두어도 `CMD` 를 shell form 으로 쓰면 프로세스 트리가 dumb-init → sh → 앱 3단 구조가 된다 \
 SIGTERM 은 프로세스 그룹 전송이라 앱까지 도달하지만 sh 는 SIGTERM 을 받자마자 바로 종료되고 dumb-init 은 모든 자식의 종료를 기다리는 것이 아니라 자신의 자식만 고려하고 손자는 고려하지 않아 그대로 exit 하면서 앱은 종료 훅을 시작하기도 전에 SIGKILL 된다 \
 `CMD` 의 실행 명령 앞에 `exec` 를 붙이면 앱이 dumb-init 의 자식이 되도록 설정할 수 있다
 
@@ -124,7 +124,7 @@ dumb-init 이 없으면 유예시간 만료까지 기다리고 dumb-init 을 앞
 
 같은 이미지에서 훅 길이만 바꿔보면 확실하다
 
-| 훅 길이 | shell form `CMD` | `exec` 추가 |
+| 훅 길이 | shell form CMD | exec 추가 |
 |---|---|---|
 | 0.2초 | 273ms | — |
 | 0.5초 | — | 730ms |
