@@ -114,7 +114,7 @@ sh 가 종료되면 dumb-init 이 자신의 자식이 종료된 것을 감지해
 * SIGTERM 없이 중간 sh 만 3초 뒤 스스로 `exit 0` 하게 했더니 sh 가 끝나는 순간 컨테이너가 종료되고 앱은 훅도 못 돌고 사라졌다
 
 즉 시그널 전달이 아니라 컨테이너 수명의 문제다 \
-dumb-init 의 버그가 아니라 사용 계약이고 [README 의 shell 경유 항목](https://github.com/Yelp/dumb-init/tree/v1.2.5#using-a-shell-for-pre-start-hooks) 이 sh 를 거치는 경우를 다루면서 `exec` 를 강조한다
+dumb-init 의 버그가 아니라 사용 계약이고 [README 의 shell 경유 항목](https://github.com/Yelp/dumb-init/tree/v1.2.5#using-a-shell-for-pre-start-hooks) 이 shell 을 거치는 경우를 다루면서 `exec` 를 강조한다
 
 > The `exec` portion of the bash command is important because it **replaces the bash process** with your server, so that the shell only exists momentarily at start.
 
@@ -153,14 +153,14 @@ dumb-init 의 자식이 앱이어야 하고 `/bin/sh -c ...` 가 끼어 있으�
 
 sh 가 앱으로 치환되어 중간 계층이 사라지고 앱이 dumb-init 의 자식이 되므로 dumb-init 이 앱의 종료를 기다린다
 
-sh 기능이 필요 없다면 처음부터 배열로 쓰면 된다
+shell 기능이 필요 없다면 처음부터 배열로 쓰면 된다
 
 ```dockerfile
 ENTRYPOINT ["/bin/dumb-init", "--"]
 CMD ["java", "-jar", "/app/app.jar"]
 ```
 
-다만 sh 기능에 기대고 있으면 배열로는 표현되지 않는다
+다만 shell 기능에 기대고 있으면 배열로는 표현되지 않는다
 
 ```dockerfile
 CMD java `if [ "$APM_ENABLED" = "true" ]; then echo "-javaagent:/app/agent.jar"; fi` -jar /app/app.jar
