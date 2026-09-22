@@ -49,7 +49,7 @@ CMD java -jar /app/app.jar
 
 ## CMD 를 shell form 으로 쓰면 프로세스 트리가 dumb-init → sh → 앱 구조가 된다
 
-`ENTRYPOINT` 를 배열로 바꿔도 `CMD` 가 shell form 이면 이쪽이 `/bin/sh -c` 로 감싸진다
+`ENTRYPOINT` 를 배열로 바꿔도 `CMD` 가 shell form 이면 `CMD` 쪽이 `/bin/sh -c` 로 감싸진다
 
 ```
 PID 1  /bin/dumb-init -- /bin/sh -c java -jar /app/app.jar
@@ -73,7 +73,7 @@ PID 9  java -jar /app/app.jar
 165ms 에 143 으로 끝났으니 전달은 됐고 앱이 종료 절차를 밟지 못한 것이다
 
 dumb-init 은 기본 모드에서 자식을 새 세션으로 띄우고 신호를 프로세스 그룹 전체에 보낸다 \
-[소스](https://github.com/Yelp/dumb-init/blob/v1.2.5/dumb-init.c#L47-L66) 에서 `use_setsid` 기본값이 1 이고 그 값에 따라 `kill()` 에 음수 pid 를 넘긴다
+[소스](https://github.com/Yelp/dumb-init/blob/v1.2.5/dumb-init.c#L47-L66) 에서 `use_setsid` 기본값이 1 이라 `kill()` 에 음수 pid 를 넘긴다
 
 ```c
 char use_setsid = 1;                                    // L47
@@ -104,24 +104,23 @@ sh 가 중계하는 것이 아니라 dumb-init 이 그룹 전체에 직접 뿌�
 손자는 dumb-init 이 아니라 sh 의 자식이라 애초에 대상이 아니다
 
 여기에 sh 가 SIGTERM 을 받자마자 바로 종료된다는 조건이 겹친다 \
-이번에는 sh 가 PID 1 이 아니라서 핸들러 없는 시그널의 기본 동작인 종료가 그대로 적용된다 \
+3단 구조의 sh 는 PID 1 이 아니라서 핸들러 없는 시그널의 기본 동작인 종료가 그대로 적용된다 \
 sh 가 종료되면 dumb-init 이 자신의 자식이 종료된 것을 감지해 `exit()` 하고 PID 1 이 사라지면서 컨테이너가 정리된다 \
 앱은 SIGTERM 을 받았지만 JVM 이 훅 스레드를 띄우는 수십 ms 사이에 이미 컨테이너가 없어진 뒤다
 
 두 조건을 하나씩 떼어내 확인했다
 
 * 중간 sh 에만 `trap 'sleep 10; exit 0' TERM` 을 걸고 앱에는 아무것도 전달하지 않았더니 stop 이 10311ms 걸리고 앱이 SIGTERM 종료 훅을 모두 완료하고 종료됐다
-* SIGTERM 없이 중간 sh 만 3초 뒤 스스로 `exit 0` 하게 했더니 그 순간 컨테이너가 종료되고 앱은 훅도 못 돌고 사라졌다
+* SIGTERM 없이 중간 sh 만 3초 뒤 스스로 `exit 0` 하게 했더니 sh 가 끝나는 순간 컨테이너가 종료되고 앱은 훅도 못 돌고 사라졌다
 
 즉 시그널 전달이 아니라 컨테이너 수명의 문제다 \
-dumb-init 의 버그가 아니라 사용 계약이고 [README 의 shell 경유 항목](https://github.com/Yelp/dumb-init/tree/v1.2.5#using-a-shell-for-pre-start-hooks) 이 이 경우를 다루면서 `exec` 를 강조한다
+dumb-init 의 버그가 아니라 사용 계약이고 [README 의 shell 경유 항목](https://github.com/Yelp/dumb-init/tree/v1.2.5#using-a-shell-for-pre-start-hooks) 이 shell 을 거치는 경우를 다루면서 `exec` 를 강조한다
 
 > The `exec` portion of the bash command is important because it **replaces the bash process** with your server, so that the shell only exists momentarily at start.
 
 ## 판정 방법
 
-stop 에 걸린 절대 시간으로는 판정할 수 없다 \
-dumb-init 이 없으면 유예시간 만료까지 기다리고 위 구조는 반대로 165ms 에 끝나는데 둘 다 훅을 못 돌린 것이다
+dumb-init 이 없으면 유예시간 만료까지 기다리고 dumb-init 을 앞에 둔 쪽은 반대로 165ms 에 끝나는데 둘 다 훅을 못 돌린 것이라 stop 시간만으로는 구분되지 않는다
 
 같은 이미지에서 훅 길이만 바꿔보면 확실하다
 
@@ -161,13 +160,13 @@ ENTRYPOINT ["/bin/dumb-init", "--"]
 CMD ["java", "-jar", "/app/app.jar"]
 ```
 
-다만 이렇게 셸에 기대고 있으면 배열로는 표현되지 않는다
+다만 셸 기능에 기대고 있으면 배열로는 표현되지 않는다
 
 ```dockerfile
 CMD java `if [ "$APM_ENABLED" = "true" ]; then echo "-javaagent:/app/agent.jar"; fi` -jar /app/app.jar
 ```
 
-이때도 `java` 앞에 `exec` 를 붙이면 명령 치환은 그대로 두고 sh 만 없앨 수 있다
+명령 치환을 쓰더라도 `java` 앞에 `exec` 를 붙이면 치환은 그대로 두고 sh 만 없앨 수 있다
 
 `tini -g` 를 쓰거나 sh 에 `trap` 을 걸어 전파하게 할 수도 있지만 `exec` 가 한 단어라 제일 작다
 
@@ -186,12 +185,12 @@ pod 삭제 요청
   └─ kubelet: preStop 실행 → 끝나면 컨테이너에 SIGTERM
 ```
 
-왼쪽은 여러 컨트롤러를 거쳐 비동기로 퍼지고 kubelet 은 그 전파가 끝났는지 알지 못한다 \
-`preStop` 으로 `sleep 5` 를 걸어두면 그 5초 동안 앱은 계속 살아서 요청을 처리하고 그사이 endpoint 제외가 전파된다 \
+왼쪽은 여러 컨트롤러를 거쳐 비동기로 퍼지고 kubelet 은 전파가 끝났는지 알지 못한다 \
+`preStop` 으로 `sleep 5` 를 걸어두면 5초 동안 앱은 계속 살아서 요청을 처리하고 endpoint 제외도 함께 전파된다 \
 `preStop` 이 요청을 막는 것이 아니라 전파 시간을 벌어주는 것이다
 
 그래서 SIGTERM 이 도달하는 시점에는 새 요청이 들어오지 않고 짧은 요청도 대부분 끝나 있다 \
-앱이 종료 훅을 못 돌아도 그 순간 처리 중인 요청이 거의 없으니 밖에서는 아무 일도 없는 것처럼 보이고 일부 실패는 클라이언트 재시도가 흡수한다
+앱이 종료 훅을 못 돌아도 SIGTERM 시점에 처리 중인 요청이 거의 없으니 밖에서는 아무 일도 없는 것처럼 보이고 일부 실패는 클라이언트 재시도가 흡수한다
 
 호출이 전부 unary 라 `preStop` 을 넘기는 긴 요청 자체가 드물었고 메시지 컨슈머는 offset 커밋 전에 죽어도 재전달되므로 처리가 멱등하면 드러나지 않는다
 
@@ -215,7 +214,7 @@ sidecar 가 먼저 죽으면 앱이 종료 과정에서 하는 외부 호출이 
 `initContainers` 에 `restartPolicy: Always` 를 주면 kubelet 이 [native sidecar](https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/) 로 인식해 일반 컨테이너가 전부 끝난 뒤에야 sidecar 에 SIGTERM 을 보낸다
 
 유예시간은 단계마다 새로 주어지는 것이 아니라 pod 전체가 하나를 나눠 쓴다 \
-`preStop` 5초에 유예시간이 기본값 30초면 앱에 남는 것은 25초이고 사이드카 종료까지 그 안에 들어가야 한다
+`preStop` 5초에 유예시간이 기본값 30초면 앱에 남는 것은 25초이고 사이드카 종료까지 유예시간 안에 들어가야 한다
 
 ## 실제 환경에서의 확인
 
@@ -224,12 +223,12 @@ sidecar 가 먼저 죽으면 앱이 종료 과정에서 하는 외부 호출이 
 
 ## 남은 것
 
-`exec` 는 SIGTERM 이 앱까지 도달하게 만들 뿐이고 그 뒤는 앱 설정이다 \
+`exec` 는 SIGTERM 이 앱까지 도달하게 만들 뿐이고 도달한 뒤의 동작은 앱 설정이다 \
 아직 처리 중인 요청을 모두 완료하고 종료하려면 Spring Boot 의 `server.shutdown` 을 `graceful` 로 설정해야 한다 \
 기본값은 2.x 와 3.3 까지 `immediate` 이고 3.4 부터 `graceful` 이라 3.3 이하면 직접 명시해야 한다
 
 `terminationGracePeriodSeconds` 는 처리 중인 요청의 소요 시간 상한을 감안해 잡아야 한다 \
-그 시간이 지나면 kubelet 이 SIGKILL 을 보내므로 남은 요청은 그대로 잘린다
+유예시간이 지나면 kubelet 이 SIGKILL 을 보내므로 남은 요청은 실패 처리된다
 
 ## 여담
 
