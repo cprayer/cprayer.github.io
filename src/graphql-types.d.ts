@@ -1731,6 +1731,7 @@ export type MarkdownRemarkFrontmatter = {
   tags?: Maybe<Array<Maybe<Scalars["String"]>>>;
   image?: Maybe<File>;
   draft?: Maybe<Scalars["Boolean"]>;
+  aiGenerated?: Maybe<Scalars["Boolean"]>;
 };
 
 export type MarkdownRemarkFrontmattercreatedDateArgs = {
@@ -1755,6 +1756,7 @@ export type MarkdownRemarkFrontmatterFilterInput = {
   tags?: Maybe<StringQueryOperatorInput>;
   image?: Maybe<FileFilterInput>;
   draft?: Maybe<BooleanQueryOperatorInput>;
+  aiGenerated?: Maybe<BooleanQueryOperatorInput>;
 };
 
 export type MarkdownRemarkGroupConnection = {

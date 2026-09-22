@@ -68,6 +68,11 @@ const BlogPostPage = (props: BlogPostProps) => {
           </Item>
         </Item.Group>
         <Header as="h1">{frontmatter.title}</Header>
+        {frontmatter.aiGenerated && (
+          <Label basic color="blue" className="ai-generated-badge">
+            AI로 작성된 글입니다
+          </Label>
+        )}
       </Segment>
       <Image
         {...cover}
@@ -122,6 +127,7 @@ export const pageQuery = graphql`
         }
       }
       title
+      aiGenerated
       updatedDate(formatString: "MMM D, YYYY")
       image {
         children {

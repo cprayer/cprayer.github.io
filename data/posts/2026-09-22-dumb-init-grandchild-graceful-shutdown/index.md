@@ -3,6 +3,7 @@ title: "dumb-init 이 손자 프로세스를 기다리지 않아 graceful shutdo
 createdDate: '2026-09-22'
 updatedDate: '2026-09-22'
 author: cprayer
+aiGenerated: true
 tags:
   - k8s
   - docker
@@ -14,7 +15,7 @@ draft: false
 
 ## TL; DR
 
-dumb-init 을 PID 1 로 두어도 `CMD` 를 shell form 으로 쓰면 프로세스 트리가 dumb-init → sh → 앱 3단 구조가 된다 \
+dumb-init 을 PID 1 로 두어도 `CMD` 를 shell form 으로 쓰면 앱은 dumb-init 의 직접 자식인 sh 의 자식으로 실행된다 \
 SIGTERM 은 프로세스 그룹 전송이라 앱까지 도달하지만 sh 는 SIGTERM 을 받자마자 바로 종료되고 dumb-init 은 모든 자식의 종료를 기다리는 것이 아니라 자신의 자식만 고려하고 손자는 고려하지 않아 그대로 exit 하면서 앱은 종료 훅을 시작하기도 전에 SIGKILL 된다 \
 `CMD` 의 실행 명령 앞에 `exec` 를 붙이면 앱이 dumb-init 의 자식이 되도록 설정할 수 있다
 
@@ -47,7 +48,7 @@ ENTRYPOINT ["/bin/dumb-init", "--"]
 CMD java -jar /app/app.jar
 ```
 
-## CMD 를 shell form 으로 쓰면 프로세스 트리가 dumb-init → sh → 앱 구조가 된다
+## CMD 를 shell form 으로 쓰면 앱이 sh 의 자식으로 실행된다
 
 `ENTRYPOINT` 를 배열로 바꿔도 `CMD` 가 shell form 이면 `CMD` 쪽이 `/bin/sh -c` 로 감싸진다
 
@@ -57,15 +58,14 @@ PID 7  /bin/sh -c java -jar /app/app.jar
 PID 9  java -jar /app/app.jar
 ```
 
-3초짜리 종료 훅을 가진 테스트 jar 로 `docker stop -t 30` 을 재봤다
+3초짜리 종료 훅을 가진 테스트 jar 로 `docker stop -t 30` 을 실행해봤다
 
 | 구조 | 프로세스 트리 | stop | 종료 훅 |
 |---|---|---|---|
-| `CMD java …` | dumb-init(1) → sh(7) → java(9) | 165ms | 시작도 못 함 |
-| `CMD exec java …` | dumb-init(1) → java(7) | 3174ms | 모두 실행 |
+| `CMD java …` | java(9)가 sh(7)의 자식, sh(7)가 dumb-init(1)의 자식 | 165ms | 시작도 못 함 |
+| `CMD exec java …` | java(7)가 dumb-init(1)의 직접 자식 | 3174ms | 모두 실행 |
 
-종료 코드는 둘 다 143 이라 밖에서 보면 똑같이 정상적인 SIGTERM 종료로 보인다 \
-게다가 컨테이너가 빨리 내려가는 쪽이 배포가 빨라진 것처럼 보여서 오히려 잘 되고 있다고 읽히기 쉽다
+종료 코드는 둘 다 143 이라 밖에서 보면 똑같이 정상적인 SIGTERM 종료로 보인다
 
 ## 시그널은 앱까지 도달한다
 
@@ -73,7 +73,7 @@ PID 9  java -jar /app/app.jar
 165ms 에 143 으로 끝났으니 전달은 됐고 앱이 종료 절차를 밟지 못한 것이다
 
 dumb-init 은 기본 모드에서 자식을 새 세션으로 띄우고 신호를 프로세스 그룹 전체에 보낸다 \
-[소스](https://github.com/Yelp/dumb-init/blob/v1.2.5/dumb-init.c#L47-L66) 에서 `use_setsid` 기본값이 1 이라 `kill()` 에 음수 pid 를 넘긴다
+[소스](https://github.com/Yelp/dumb-init/blob/v1.2.5/dumb-init.c#L47-L66) 에서 `use_setsid` 기본값이 1 이라 `kill()` 에 음수 pid 를 넘긴다. `kill()` 에 음수 pid 를 넘기면 절댓값이 프로세스 그룹 ID 로 해석되어 해당 그룹의 모든 프로세스에 시그널이 전달된다
 
 ```c
 char use_setsid = 1;                                    // L47
@@ -83,7 +83,7 @@ void forward_signal(int signum) {
 }
 ```
 
-sh 가 중계하는 것이 아니라 dumb-init 이 그룹 전체에 직접 뿌리는 것이라 중간에 sh 가 끼어 있어도 손자인 앱까지 간다
+sh 가 중계하는 것이 아니라 dumb-init 이 그룹 전체에 직접 전달하는 것이라 중간에 sh 가 끼어 있어도 손자인 앱까지 간다
 
 ## 그런데 왜 종료 훅이 안 도는가
 
@@ -113,7 +113,7 @@ sh 가 종료되면 dumb-init 이 자신의 자식이 종료된 것을 감지해
 * 중간 sh 에만 `trap 'sleep 10; exit 0' TERM` 을 걸고 앱에는 아무것도 전달하지 않았더니 stop 이 10311ms 걸리고 앱이 SIGTERM 종료 훅을 모두 완료하고 종료됐다
 * SIGTERM 없이 중간 sh 만 3초 뒤 스스로 `exit 0` 하게 했더니 sh 가 끝나는 순간 컨테이너가 종료되고 앱은 훅도 못 돌고 사라졌다
 
-즉 시그널 전달이 아니라 컨테이너 수명의 문제다 \
+시그널은 앱에 전달됐지만 PID 1 인 dumb-init 이 종료되면서 컨테이너도 종료되었다 \
 dumb-init 의 버그가 아니라 사용 계약이고 [README 의 shell 경유 항목](https://github.com/Yelp/dumb-init/tree/v1.2.5#using-a-shell-for-pre-start-hooks) 이 shell 을 거치는 경우를 다루면서 `exec` 를 강조한다
 
 > The `exec` portion of the bash command is important because it **replaces the bash process** with your server, so that the shell only exists momentarily at start.
@@ -179,8 +179,8 @@ pod 에 `deletionTimestamp` 가 찍히면 두 가지가 **동시에** 시작된�
 
 ```
 pod 삭제 요청
-  ├─ EndpointSlice 에서 ready=false → kube-proxy / ingress / mesh 로 전파
-  └─ kubelet: preStop 실행 → 끝나면 컨테이너에 SIGTERM
+  ├─ EndpointSlice 에서 ready=false 상태가 kube-proxy / ingress / mesh 로 전파
+  └─ kubelet: preStop 실행 후 컨테이너에 SIGTERM 전송
 ```
 
 왼쪽은 여러 컨트롤러를 거쳐 비동기로 퍼지고 kubelet 은 전파가 끝났는지 알지 못한다 \

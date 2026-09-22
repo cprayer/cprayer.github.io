@@ -3,6 +3,7 @@ title: "Topology Aware Routing 으로 인해 일부 pod 에만 트래픽이 몰�
 createdDate: '2026-09-11'
 updatedDate: '2026-09-11'
 author: cprayer
+aiGenerated: true
 tags:
   - k8s
   - topology-aware-routing

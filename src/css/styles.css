@@ -31,6 +31,13 @@
   line-height: 1.6em;
 }
 
+.ui.basic.blue.label.ai-generated-badge {
+  margin-top: -0.25em;
+  color: #356fa8 !important;
+  background: #f3f8fc !important;
+  border-color: #8bb6dc !important;
+}
+
 .ui.vertical.stripe {
   padding: 8em 0;
 }
