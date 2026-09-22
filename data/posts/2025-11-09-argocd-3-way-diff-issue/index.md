@@ -3,6 +3,7 @@ title: argocd의 3-way diff 로 인한 이슈
 createdDate: '2025-11-09'
 updatedDate: '2025-11-09'
 author: cprayer
+aiGenerated: true
 tags:
   - argocd
   - k8s
@@ -72,4 +73,3 @@ HPA를 도입하게 되면서 ArgoCD의 기본 Diff 전략인 Legacy 3-way diff�
 ArgoCD(`kubectl apply`)가 이 어노테이션을 "Desired State"의 일부로 참고하는 이유는 ArgoCD(사용자)가 관리하는 필드가 다른 주체 에 의해 수정 / 삭제되는 것을 방지하기 위함이고 이 방식은 이슈가 있어 SSA(Server Side Apply)라는 개념이 1.14 버전에 최초로 나왔고 1.22 에 stable 되었다
 
 좀 더 자세하게 알고 싶다면 CSA(Client Side Apply, last-applied-configuration)와 SSA(Server Side Apply, managedFields)에 대해 공부하면 될 것 같다
-

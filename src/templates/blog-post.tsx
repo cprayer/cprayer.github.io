@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "gatsby";
 import { get } from "lodash-es";
-import { Header, Container, Segment, Label, Grid, Card, Image, Item, Comment } from "semantic-ui-react";
+import { Header, Container, Segment, Label, Image, Item } from "semantic-ui-react";
 import { MarkdownRemark, ImageSharp, MarkdownRemarkConnection, Site } from "../graphql-types";
 import {withLayout, LayoutProps} from "../components/Layout";
 import { Comments } from "../components/Comments";
@@ -24,28 +24,11 @@ const BlogPostPage = (props: BlogPostProps) => {
 
   const recents = props.data.recents.edges
     .map(({ node }) => {
-      const recentCover = get(node, "frontmatter.image.children.0.fixed", {});
-      const extra = (
-        <Comment.Group>
-          <Comment>
-            <Comment.Content>
-              <Comment.Metadata style={{ margin: 0 }}>
-                {node.timeToRead} min read
-              </Comment.Metadata>
-            </Comment.Content>
-          </Comment>
-        </Comment.Group>
-      );
-
       return (
-        <div key={node.fields.slug} style={{ paddingBottom: "1em", wordBreak: "break-all" }}>
-          <Card as={Link}
-            to={node.fields.slug}
-            image={recentCover}
-            header={node.frontmatter.title}
-            extra={extra}
-          />
-        </div>
+        <Link key={node.fields.slug} to={node.fields.slug} className="recent-post-card">
+          <span className="recent-post-title">{node.frontmatter.title}</span>
+          <span className="recent-post-meta">{node.timeToRead} min read</span>
+        </Link>
       );
     });
 
@@ -89,10 +72,11 @@ const BlogPostPage = (props: BlogPostProps) => {
         {tags}
       </Segment>
       <Comments/>
-      <Segment vertical>
-        <Grid padded centered>
+      <Segment vertical className="recent-posts">
+        <Header as="h3">최근 글</Header>
+        <div className="recent-posts-grid">
           {recents}
-        </Grid>
+        </div>
       </Segment>
     </Container>
   );
