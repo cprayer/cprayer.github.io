@@ -3,6 +3,7 @@ title: mongo document 가 동시에 대량 TTL expired 될 때 동작
 createdDate: '2025-12-26'
 updatedDate: '2025-12-26'
 author: cprayer
+image: cover.png
 tags:
   - mongo
 draft: false

@@ -3,6 +3,7 @@ title: k8s와 /etc/resolv.conf
 createdDate: '2022-07-06'
 updatedDate: '2022-07-06'
 author: cprayer
+image: cover.png
 tags:
   - domain
   - search-domain

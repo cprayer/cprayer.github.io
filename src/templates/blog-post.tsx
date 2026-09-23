@@ -39,7 +39,7 @@ const BlogPostPage = (props: BlogPostProps) => {
 
   const cover = get(frontmatter, "image.children.0.fixed", {} );
   return (
-    <Container>
+    <Container className="blog-post-page">
       <Helmet>
         <title>{frontmatter.title} | {siteTitle}</title>
         <link rel="canonical" href={pageUrl} />
@@ -98,7 +98,7 @@ const BlogPostPage = (props: BlogPostProps) => {
         size="large"
       />
       <Segment vertical>
-        {tags}
+        <div className="post-tags">{tags}</div>
       </Segment>
       <Comments/>
       <Segment vertical className="recent-posts">

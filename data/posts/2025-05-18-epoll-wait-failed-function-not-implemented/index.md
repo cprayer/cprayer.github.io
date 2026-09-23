@@ -3,6 +3,7 @@ title: "netty epoll_wait(..) failed: Function not implemented 에러 발생"
 createdDate: '2025-05-18'
 updatedDate: '2025-05-18'
 author: cprayer
+image: cover.png
 tags:
   - netty
   - ubuntu
@@ -34,4 +35,3 @@ epoll_pwait2 시스템 콜 인터페이스는 존재하나 실제로 구현이 �
 ```
 Its possible that while there is an epoll_pwait2(...) system call it is not implemented and so fail with ENOSYS.
 ``` 
-

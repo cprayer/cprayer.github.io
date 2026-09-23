@@ -3,6 +3,7 @@ title: 첫 번째 커밋 메세지 수정하기
 createdDate: '2018-10-09'
 updatedDate: '2018-10-09'
 author: cprayer
+image: cover.png
 tags:
   - git
 draft: false

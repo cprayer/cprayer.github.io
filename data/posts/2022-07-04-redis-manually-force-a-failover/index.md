@@ -3,6 +3,7 @@ title: 강제로 레플리카 레디스를 마스터로 승격시키기
 createdDate: '2022-07-04'
 updatedDate: '2022-07-04'
 author: cprayer
+image: cover.png
 tags:
   - redis
   - redis-sentinel

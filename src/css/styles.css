@@ -43,6 +43,16 @@
   border-radius: 0.65rem;
 }
 
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 0.5rem;
+}
+
+.post-tags .ui.label {
+  margin: 0;
+}
+
 .recent-posts.ui.vertical.segment {
   padding-top: 2.5em;
   padding-bottom: 3em;
@@ -635,12 +645,6 @@
     min-height: 6.5em;
   }
 
-  .site-header.ui.container {
-    width: auto !important;
-    margin-right: 1rem !important;
-    margin-left: 1rem !important;
-  }
-
   .site-navigation.ui.menu .site-wordmark.item {
     padding-left: 0;
   }
@@ -652,10 +656,12 @@
   }
 
   .home-page.ui.container,
-  .about-page.ui.container {
+  .about-page.ui.container,
+  .blog-post-page.ui.container,
+  .site-header.ui.container {
     width: auto !important;
-    margin-right: 1.35rem !important;
-    margin-left: 1.35rem !important;
+    margin-right: 1.25rem !important;
+    margin-left: 1.25rem !important;
   }
 
   .featured-post {

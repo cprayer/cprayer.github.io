@@ -3,6 +3,7 @@ title: kotlin.math.round(4.5) = kotlin.math.round(3.5) ?, 사사오입과 오사
 createdDate: '2025-12-24'
 updatedDate: '2025-12-24'
 author: cprayer
+image: cover.png
 tags:
   - kotlin
   - IEEE 754

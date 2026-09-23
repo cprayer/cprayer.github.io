@@ -3,6 +3,7 @@ title: Servlet Context 내에서 Spring의 RequestMapping 어노테이션 내부
 createdDate: '2021-03-09'
 updatedDate: '2021-03-09'
 author: cprayer
+image: cover.png
 tags:
   - spring
   - spring-request-mapping

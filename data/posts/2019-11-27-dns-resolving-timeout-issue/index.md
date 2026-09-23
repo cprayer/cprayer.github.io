@@ -3,6 +3,7 @@ title: DNS timeout으로 인한 응답 5초 지연 이슈
 createdDate: '2019-11-27'
 updatedDate: '2019-11-27'
 author: cprayer
+image: cover.png
 tags:
   - dns-timeout-issue
   - vegeta

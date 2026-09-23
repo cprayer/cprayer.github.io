@@ -3,6 +3,7 @@ title: dbcp2 pool idle configuration이 있는데도 communicationsException 발
 createdDate: '2021-09-23'
 updatedDate: '2021-09-23'
 author: cprayer
+image: cover.png
 tags:
   - dbcp2
   - communicationsException
@@ -88,5 +89,4 @@ evictor는 열심히 커넥션을 지우는데도 계속 중간에 있는 커넥
 
 ## 결론
 minIdle, maxTotal 값에 맞게 numTestsPerEvictionRun, timeBetweenEvictionRunsMillis 값을 적절히 수정하여 이슈를 해결할 수 있었습니다.
-
 

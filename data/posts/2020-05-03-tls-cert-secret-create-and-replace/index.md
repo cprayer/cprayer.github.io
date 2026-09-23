@@ -3,6 +3,7 @@ title: kubernetes TLS 인증서 secret 생성 및 교체하기
 createdDate: '2020-05-03'
 updatedDate: '2020-05-03'
 author: cprayer
+image: cover.png
 tags:
   - k8s
   - k8s-tls

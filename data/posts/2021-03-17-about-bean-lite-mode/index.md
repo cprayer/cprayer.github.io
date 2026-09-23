@@ -3,6 +3,7 @@ title: bean lite mode란 무엇인가
 createdDate: '2021-03-17'
 updatedDate: '2021-03-17'
 author: cprayer
+image: cover.png
 tags:
   - spring
   - spring-bean

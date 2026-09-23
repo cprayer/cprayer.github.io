@@ -3,6 +3,7 @@ title: spring boot 2 / 3 / 4(spring batch 4 / 5 / 6) 에서 배치용 datasource
 createdDate: '2025-12-24'
 updatedDate: '2025-12-24'
 author: cprayer
+image: cover.png
 tags:
   - spring
   - spring-batch

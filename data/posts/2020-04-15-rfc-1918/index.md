@@ -3,6 +3,7 @@ title: 사설망 대역(RFC 1918)
 createdDate: '2020-04-15'
 updatedDate: '2020-04-15'
 author: cprayer
+image: cover.png
 tags:
   - network
   - RFC

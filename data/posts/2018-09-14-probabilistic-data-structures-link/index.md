@@ -3,6 +3,7 @@ title: 확률적 자료구조 종류 및 관련 링크
 createdDate: '2018-09-14'
 updatedDate: '2018-09-14'
 author: cprayer
+image: cover.png
 tags:
   - data-structure
 draft: false

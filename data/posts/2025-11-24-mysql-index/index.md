@@ -3,6 +3,7 @@ title: mysql 인덱스 관련 정리
 createdDate: '2025-11-24'
 updatedDate: '2025-11-24'
 author: cprayer
+image: cover.png
 tags:
   - mysql
 draft: false

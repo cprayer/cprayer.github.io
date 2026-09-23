@@ -3,6 +3,7 @@ title: AvailablityProbesAutoConfiguration에 대해 알아보자(spring boot rea
 createdDate: '2021-04-11'
 updatedDate: '2021-04-11'
 author: cprayer
+image: cover.png
 tags:
   - spring-boot
   - troubleshooting

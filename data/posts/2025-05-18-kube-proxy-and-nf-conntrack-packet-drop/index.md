@@ -3,6 +3,7 @@ title: "nf_conntrack_max 값이 kube-proxy에 의해 /etc/sysctl.conf 값이 아
 createdDate: '2025-05-18'
 updatedDate: '2025-05-18'
 author: cprayer
+image: cover.png
 tags:
   - k8s
   - kube-proxy

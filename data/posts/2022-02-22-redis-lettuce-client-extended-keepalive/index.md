@@ -3,6 +3,7 @@ title: redis lettuce client extended keepalive 옵션
 createdDate: '2022-02-22'
 updatedDate: '2022-02-22'
 author: cprayer
+image: cover.png
 tags:
   - lettuce
   - redis

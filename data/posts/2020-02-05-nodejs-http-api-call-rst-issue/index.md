@@ -3,6 +3,7 @@ title: nodeJS HTTP API CALL시 간헐적인 RST(Connection reset by peer) 발생
 createdDate: '2020-02-05'
 updatedDate: '2020-02-05'
 author: cprayer
+image: cover.png
 tags:
   - troubleshooting
   - network

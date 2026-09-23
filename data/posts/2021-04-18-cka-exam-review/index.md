@@ -3,6 +3,7 @@ title: 2021년 CKA 자격증 취득 후기
 createdDate: '2021-04-18'
 updatedDate: '2021-04-18'
 author: cprayer
+image: cover.png
 tags:
   - cka
   - k8s
