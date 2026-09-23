@@ -1,21 +1,27 @@
 const CHECK_INTERVAL_MS = 60_000;
 const VERSION_PARAM = "site-version";
 const CHECKED_AT_PARAM = "site-checked-at";
+const LEGACY_CACHE_NAME = /gatsby|workbox/i;
 
 interface SiteVersion {
   version: string;
 }
 
-const unregisterLegacyWorker = async (): Promise<void> => {
-  if (!("serviceWorker" in navigator)) {
-    return;
+const clearLegacyOfflineState = async (): Promise<void> => {
+  if ("serviceWorker" in navigator) {
+    const registrations = await navigator.serviceWorker.getRegistrations();
+    const rootScope = `${window.location.origin}/`;
+    await Promise.all(registrations
+      .filter((registration) => registration.scope === rootScope)
+      .map((registration) => registration.unregister()));
   }
 
-  const registrations = await navigator.serviceWorker.getRegistrations();
-  const rootScope = `${window.location.origin}/`;
-  await Promise.all(registrations
-    .filter((registration) => registration.scope === rootScope)
-    .map((registration) => registration.unregister()));
+  if ("caches" in window) {
+    const cacheNames = await window.caches.keys();
+    await Promise.all(cacheNames
+      .filter((name) => LEGACY_CACHE_NAME.test(name))
+      .map((name) => window.caches.delete(name)));
+  }
 };
 
 export const getUpdatedUrl = (href: string, version: string, now: number): string | null => {
@@ -33,14 +39,7 @@ export const getUpdatedUrl = (href: string, version: string, now: number): strin
 };
 
 export const startSiteUpdateCheck = (buildId: string): void => {
-  void unregisterLegacyWorker().catch(() => undefined);
-
-  const currentUrl = new URL(window.location.href);
-  if (currentUrl.searchParams.has(VERSION_PARAM)) {
-    currentUrl.searchParams.delete(VERSION_PARAM);
-    currentUrl.searchParams.delete(CHECKED_AT_PARAM);
-    window.history.replaceState(window.history.state, "", currentUrl.toString());
-  }
+  void clearLegacyOfflineState().catch(() => undefined);
 
   let checking = false;
   const check = async (): Promise<void> => {
@@ -56,7 +55,11 @@ export const startSiteUpdateCheck = (buildId: string): void => {
       }
 
       const latest: SiteVersion = await response.json();
-      if (!latest.version || latest.version === buildId) {
+      if (typeof latest.version !== "string" || !latest.version) {
+        return;
+      }
+
+      if (latest.version === buildId) {
         return;
       }
 
@@ -65,7 +68,7 @@ export const startSiteUpdateCheck = (buildId: string): void => {
         return;
       }
 
-      await unregisterLegacyWorker().catch(() => undefined);
+      await clearLegacyOfflineState().catch(() => undefined);
 
       window.location.replace(updatedUrl);
     } catch (error) {
