@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "gatsby";
 import { graphql } from "gatsby";
 import { Container } from "semantic-ui-react";
-import { ImageSharp, MarkdownRemarkConnection } from "../graphql-types";
+import { ImageSharp, ImageSharpFixed, MarkdownRemarkConnection } from "../graphql-types";
 import BlogPagination from "../components/BlogPagination/BlogPagination";
 import {withLayout, LayoutProps} from "../components/Layout";
 import { MarkdownRemark } from "../graphql-types";
@@ -57,17 +57,20 @@ const BlogPage = (props: BlogProps) => {
     setSearchOpen(!searchOpen);
   };
 
-  const getCover = (post: MarkdownRemark) => {
+  const getCover = (post: MarkdownRemark, thumbnail = false) => {
     const image = post.frontmatter.image;
-    return image && image.children.length > 0
-      ? (image.children[0] as ImageSharp).fixed
-      : null;
+    if (!image || image.children.length === 0) {
+      return null;
+    }
+
+    const sharp = image.children[0] as ImageSharp & { thumbnail?: ImageSharpFixed };
+    return thumbnail ? sharp.thumbnail : sharp.fixed;
   };
   const featuredCover = featured ? getCover(featured.node) : null;
 
   const renderPost = ({ node }: {node: MarkdownRemark}) => {
     const { frontmatter, timeToRead, fields: { slug }, excerpt } = node;
-    const cover = getCover(node);
+    const cover = getCover(node, true);
     return (
       <article className="post-list-item" key={slug}>
         <Link className="post-list-cover" to={slug} aria-label={`${frontmatter.title} 읽기`}>
@@ -212,6 +215,10 @@ query PageBlog {
                   src
                   srcSet
                 }
+                thumbnail: fixed(width: 150, height: 79) {
+                  src
+                  srcSet
+                }
               }
             }
           }
@@ -253,7 +260,7 @@ query PageBlog {
           image {
             children {
               ... on ImageSharp {
-                fixed(width: 700, height: 366) {
+                thumbnail: fixed(width: 150, height: 79) {
                   src
                   srcSet
                 }

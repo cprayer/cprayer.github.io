@@ -41,7 +41,7 @@ query TemplateBlogPage($skip: Int) {
           image {
           	children {
               ... on ImageSharp {
-                fixed(width: 700, height: 366) {
+                thumbnail: fixed(width: 150, height: 79) {
                   src
                   srcSet
                 }
@@ -85,7 +85,7 @@ query TemplateBlogPage($skip: Int) {
           image {
             children {
               ... on ImageSharp {
-                fixed(width: 700, height: 366) {
+                thumbnail: fixed(width: 150, height: 79) {
                   src
                   srcSet
                 }
