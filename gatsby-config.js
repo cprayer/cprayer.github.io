@@ -6,6 +6,8 @@ import {cwd} from 'process';
 export default {
   siteMetadata: {
     title: `잡동사니 개발블로그`,
+    siteUrl: `https://cprayer.github.io`,
+    defaultOgImage: `/og-default-v4.png`,
     googleVerification: null,
   },
   mapping: {
@@ -80,10 +82,7 @@ export default {
     },
     /* eslint-enable camelcase */
 
-    // This plugin generates a service worker and AppShell
-    // html file so the site works offline and is otherwise
-    // resistant to bad networks. Works with almost any
-    // site!
-    `gatsby-plugin-offline`,
+    // Remove service workers installed by earlier offline builds.
+    `gatsby-plugin-remove-serviceworker`,
   ],
 };

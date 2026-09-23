@@ -2205,6 +2205,8 @@ export enum SiteFieldsEnum {
   internal___owner = "internal___owner",
   internal___type = "internal___type",
   siteMetadata___title = "siteMetadata___title",
+  siteMetadata___siteUrl = "siteMetadata___siteUrl",
+  siteMetadata___defaultOgImage = "siteMetadata___defaultOgImage",
   siteMetadata___googleVerification = "siteMetadata___googleVerification",
   port = "port",
   host = "host",
@@ -2883,11 +2885,15 @@ export type SitePluginSortInput = {
 export type SiteSiteMetadata = {
   __typename?: "SiteSiteMetadata";
   title?: Maybe<Scalars["String"]>;
+  siteUrl?: Maybe<Scalars["String"]>;
+  defaultOgImage?: Maybe<Scalars["String"]>;
   googleVerification?: Maybe<Scalars["String"]>;
 };
 
 export type SiteSiteMetadataFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
+  siteUrl?: Maybe<StringQueryOperatorInput>;
+  defaultOgImage?: Maybe<StringQueryOperatorInput>;
   googleVerification?: Maybe<StringQueryOperatorInput>;
 };
 

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "gatsby";
 import { get } from "lodash-es";
+import Helmet from "react-helmet";
 import { Header, Container, Segment, Label, Image, Item } from "semantic-ui-react";
 import { MarkdownRemark, ImageSharp, MarkdownRemarkConnection, Site } from "../graphql-types";
 import {withLayout, LayoutProps} from "../components/Layout";
@@ -16,7 +17,11 @@ interface BlogPostProps extends LayoutProps {
 }
 
 const BlogPostPage = (props: BlogPostProps) => {
-  const { frontmatter, html, timeToRead } = props.data.post;
+  const { frontmatter, html, timeToRead, excerpt } = props.data.post;
+  const { title: siteTitle, siteUrl, defaultOgImage } = props.data.site.siteMetadata;
+  const pageUrl = `${siteUrl}${props.location.pathname}`;
+  const postImagePath = get(frontmatter, "image.children.0.fixed.src");
+  const ogImageUrl = postImagePath ? `${siteUrl}${postImagePath}` : `${siteUrl}${defaultOgImage}`;
   const avatar = frontmatter.author.avatar.children[0] as ImageSharp;
 
   const tags = props.data.post.frontmatter.tags
@@ -35,6 +40,27 @@ const BlogPostPage = (props: BlogPostProps) => {
   const cover = get(frontmatter, "image.children.0.fixed", {} );
   return (
     <Container>
+      <Helmet>
+        <title>{frontmatter.title} | {siteTitle}</title>
+        <link rel="canonical" href={pageUrl} />
+        <meta name="description" content={excerpt} />
+        <meta property="og:type" content="article" />
+        <meta property="og:locale" content="ko_KR" />
+        <meta property="og:site_name" content={siteTitle} />
+        <meta property="og:title" content={frontmatter.title} />
+        <meta property="og:description" content={excerpt} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={ogImageUrl} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={postImagePath
+          ? `${frontmatter.title} 대표 이미지`
+          : siteTitle} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={frontmatter.title} />
+        <meta name="twitter:description" content={excerpt} />
+        <meta name="twitter:image" content={ogImageUrl} />
+      </Helmet>
       <Segment vertical style={{ border: "none" }}>
         <Item.Group>
           <Item>
@@ -57,10 +83,13 @@ const BlogPostPage = (props: BlogPostProps) => {
           </Label>
         )}
       </Segment>
-      <Image
-        {...cover}
-        fluid
-      />
+      {postImagePath && (
+        <Image
+          {...cover}
+          className="post-cover"
+          fluid
+        />
+      )}
       <Segment vertical
         style={{ border: "none" }}
         dangerouslySetInnerHTML={{
@@ -86,6 +115,13 @@ export default withLayout(BlogPostPage);
 
 export const pageQuery = graphql`
   query TemplateBlogPost($slug: String!) {
+  site {
+    siteMetadata {
+      title
+      siteUrl
+      defaultOgImage
+    }
+  }
   post: markdownRemark(fields: {slug: {eq: $slug}}) {
     html
     excerpt
@@ -116,7 +152,7 @@ export const pageQuery = graphql`
       image {
         children {
           ... on ImageSharp {
-            fixed(width: 900, height: 300, quality: 100) {
+              fixed(width: 1200, height: 630, quality: 92) {
               src
               srcSet
             }

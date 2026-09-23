@@ -30,7 +30,7 @@ export default (props: BlogPaginationProps) => {
               key={pageIndex}
               style={{ cursor: "pointer" }}
               as={props.Link}
-              to={`/page/${pageIndex}/`}
+              to={isFirstPage ? "/" : `/page/${pageIndex}/`}
               name={pageIndex}
               active={activeItem === pageIndex}
               aria-current={activeItem === pageIndex ? "page" : undefined}

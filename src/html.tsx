@@ -13,6 +13,7 @@ interface HtmlProps {
 
 export default (props: HtmlProps) => {
   const head = Helmet.rewind();
+  const pageTitle = head.title.toComponent();
 
   const verification = config.siteMetadata && config.siteMetadata.googleVerification ? <meta
     name="google-site-verification"
@@ -22,14 +23,15 @@ export default (props: HtmlProps) => {
     <html lang="ko">
       <head>
         {props.headComponents}
-        <title>잡동사니 개발블로그</title>
+        {pageTitle.length > 0 && pageTitle[0].props.children
+          ? pageTitle
+          : <title>{config.siteMetadata.title}</title>}
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
         />
-        {head.title.toComponent()}
         {head.meta.toComponent()}
         {head.link.toComponent()}
         {verification}

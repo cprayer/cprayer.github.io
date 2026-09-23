@@ -4,6 +4,7 @@ createdDate: '2025-11-09'
 updatedDate: '2025-11-09'
 author: cprayer
 aiGenerated: true
+image: cover.png
 tags:
   - argocd
   - k8s

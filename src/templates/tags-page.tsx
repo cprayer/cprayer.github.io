@@ -35,11 +35,12 @@ query TemplateTagPage($tag: String) {
         }
         frontmatter {
           title
+          tags
           updatedDate(formatString: "DD MMMM, YYYY")
           image {
           	children {
               ... on ImageSharp {
-                fixed(width: 700, height: 100) {
+                fixed(width: 700, height: 366) {
                   src
                   srcSet
                 }
@@ -55,6 +56,37 @@ query TemplateTagPage($tag: String) {
                     src
                     srcSet
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  searchPosts: allMarkdownRemark(
+    sort: { order: DESC, fields: [frontmatter___updatedDate] },
+    filter: {
+      frontmatter: { draft: { ne: true } },
+      fileAbsolutePath: { regex: "/posts/" }
+    }
+  ) {
+    edges {
+      node {
+        excerpt
+        rawMarkdownBody
+        timeToRead
+        fields { slug }
+        frontmatter {
+          title
+          tags
+          updatedDate(formatString: "DD MMMM, YYYY")
+          image {
+            children {
+              ... on ImageSharp {
+                fixed(width: 700, height: 366) {
+                  src
+                  srcSet
                 }
               }
             }

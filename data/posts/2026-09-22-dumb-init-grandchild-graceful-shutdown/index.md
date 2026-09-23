@@ -4,6 +4,7 @@ createdDate: '2026-09-22'
 updatedDate: '2026-09-22'
 author: cprayer
 aiGenerated: true
+image: cover.png
 tags:
   - k8s
   - docker

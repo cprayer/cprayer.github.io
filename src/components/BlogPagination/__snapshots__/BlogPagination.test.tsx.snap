@@ -12,7 +12,7 @@ initialize {
           "aria-current": "page",
           "class": "active item",
           "style": "cursor:pointer",
-          "to": "/page/1/",
+          "to": "/",
         },
         "children": [
           {
@@ -271,7 +271,7 @@ initialize {
             "aria-current": "page",
             "class": "active item",
             "style": "cursor:pointer",
-            "to": "/page/1/",
+            "to": "/",
           },
           "children": [
             {
@@ -412,7 +412,7 @@ initialize {
               "aria-current": "page",
               "class": "active item",
               "style": "cursor:pointer",
-              "to": "/page/1/",
+              "to": "/",
             },
             "children": [
               {
@@ -557,7 +557,7 @@ initialize {
                 "aria-current": "page",
                 "class": "active item",
                 "style": "cursor:pointer",
-                "to": "/page/1/",
+                "to": "/",
               },
               "children": [
                 {
@@ -698,7 +698,7 @@ initialize {
                   "aria-current": "page",
                   "class": "active item",
                   "style": "cursor:pointer",
-                  "to": "/page/1/",
+                  "to": "/",
                 },
                 "children": [
                   {
@@ -822,7 +822,7 @@ initialize {
         "attribs": {
           "class": "item",
           "style": "cursor:pointer",
-          "to": "/page/1/",
+          "to": "/",
         },
         "children": [
           {
@@ -1094,7 +1094,7 @@ initialize {
           "attribs": {
             "class": "item",
             "style": "cursor:pointer",
-            "to": "/page/1/",
+            "to": "/",
           },
           "children": [
             {
@@ -1241,7 +1241,7 @@ initialize {
             "attribs": {
               "class": "item",
               "style": "cursor:pointer",
-              "to": "/page/1/",
+              "to": "/",
             },
             "children": [
               {
@@ -1388,7 +1388,7 @@ initialize {
               "attribs": {
                 "class": "item",
                 "style": "cursor:pointer",
-                "to": "/page/1/",
+                "to": "/",
               },
               "children": [
                 {
@@ -1535,7 +1535,7 @@ initialize {
                 "attribs": {
                   "class": "item",
                   "style": "cursor:pointer",
-                  "to": "/page/1/",
+                  "to": "/",
                 },
                 "children": [
                   {
@@ -1663,7 +1663,7 @@ initialize {
         "attribs": {
           "class": "item",
           "style": "cursor:pointer",
-          "to": "/page/1/",
+          "to": "/",
         },
         "children": [
           {
@@ -2165,7 +2165,7 @@ initialize {
           "attribs": {
             "class": "item",
             "style": "cursor:pointer",
-            "to": "/page/1/",
+            "to": "/",
           },
           "children": [
             {
@@ -2424,7 +2424,7 @@ initialize {
             "attribs": {
               "class": "item",
               "style": "cursor:pointer",
-              "to": "/page/1/",
+              "to": "/",
             },
             "children": [
               {
@@ -2683,7 +2683,7 @@ initialize {
               "attribs": {
                 "class": "item",
                 "style": "cursor:pointer",
-                "to": "/page/1/",
+                "to": "/",
               },
               "children": [
                 {
@@ -2940,7 +2940,7 @@ initialize {
                 "attribs": {
                   "class": "item",
                   "style": "cursor:pointer",
-                  "to": "/page/1/",
+                  "to": "/",
                 },
                 "children": [
                   {
@@ -3199,7 +3199,7 @@ initialize {
                   "attribs": {
                     "class": "item",
                     "style": "cursor:pointer",
-                    "to": "/page/1/",
+                    "to": "/",
                   },
                   "children": [
                     {
@@ -3458,7 +3458,7 @@ initialize {
                     "attribs": {
                       "class": "item",
                       "style": "cursor:pointer",
-                      "to": "/page/1/",
+                      "to": "/",
                     },
                     "children": [
                       {
@@ -3721,7 +3721,7 @@ initialize {
                       "attribs": {
                         "class": "item",
                         "style": "cursor:pointer",
-                        "to": "/page/1/",
+                        "to": "/",
                       },
                       "children": [
                         {
@@ -3980,7 +3980,7 @@ initialize {
                         "attribs": {
                           "class": "item",
                           "style": "cursor:pointer",
-                          "to": "/page/1/",
+                          "to": "/",
                         },
                         "children": [
                           {
@@ -4148,7 +4148,7 @@ initialize {
         "attribs": {
           "class": "item",
           "style": "cursor:pointer",
-          "to": "/page/1/",
+          "to": "/",
         },
         "children": [
           {
@@ -4650,7 +4650,7 @@ initialize {
           "attribs": {
             "class": "item",
             "style": "cursor:pointer",
-            "to": "/page/1/",
+            "to": "/",
           },
           "children": [
             {
@@ -4909,7 +4909,7 @@ initialize {
             "attribs": {
               "class": "item",
               "style": "cursor:pointer",
-              "to": "/page/1/",
+              "to": "/",
             },
             "children": [
               {
@@ -5168,7 +5168,7 @@ initialize {
               "attribs": {
                 "class": "item",
                 "style": "cursor:pointer",
-                "to": "/page/1/",
+                "to": "/",
               },
               "children": [
                 {
@@ -5425,7 +5425,7 @@ initialize {
                 "attribs": {
                   "class": "item",
                   "style": "cursor:pointer",
-                  "to": "/page/1/",
+                  "to": "/",
                 },
                 "children": [
                   {
@@ -5684,7 +5684,7 @@ initialize {
                   "attribs": {
                     "class": "item",
                     "style": "cursor:pointer",
-                    "to": "/page/1/",
+                    "to": "/",
                   },
                   "children": [
                     {
@@ -5943,7 +5943,7 @@ initialize {
                     "attribs": {
                       "class": "item",
                       "style": "cursor:pointer",
-                      "to": "/page/1/",
+                      "to": "/",
                     },
                     "children": [
                       {
@@ -6206,7 +6206,7 @@ initialize {
                       "attribs": {
                         "class": "item",
                         "style": "cursor:pointer",
-                        "to": "/page/1/",
+                        "to": "/",
                       },
                       "children": [
                         {
@@ -6465,7 +6465,7 @@ initialize {
                         "attribs": {
                           "class": "item",
                           "style": "cursor:pointer",
-                          "to": "/page/1/",
+                          "to": "/",
                         },
                         "children": [
                           {

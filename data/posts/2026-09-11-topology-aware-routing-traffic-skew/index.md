@@ -4,6 +4,7 @@ createdDate: '2026-09-11'
 updatedDate: '2026-09-11'
 author: cprayer
 aiGenerated: true
+image: cover.png
 tags:
   - k8s
   - topology-aware-routing

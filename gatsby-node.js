@@ -92,12 +92,13 @@ export const createPages = ({graphql, actions}) => {
 
       // Create blog pagination
       const pageCount = Math.ceil(posts.length / POSTS_PER_PAGE);
-      times(pageCount, index => {
+      times(Math.max(pageCount - 1, 0), index => {
+        const pageNumber = index + 2;
         createPage({
-          path: `/page/${index + 1}/`,
+          path: `/page/${pageNumber}/`,
           component: slash(templates.blogPage),
           context: {
-            skip: index * POSTS_PER_PAGE,
+            skip: (pageNumber - 1) * POSTS_PER_PAGE,
           },
         });
       });
