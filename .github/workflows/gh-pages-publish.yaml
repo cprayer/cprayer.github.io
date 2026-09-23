@@ -26,6 +26,8 @@ jobs:
       - run: npm install -g gatsby-cli@2.12.34
       - run: yarn install
       - run: yarn run build
+        env:
+          GATSBY_BUILD_ID: ${{ github.sha }}
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4

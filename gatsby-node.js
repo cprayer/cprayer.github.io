@@ -1,4 +1,6 @@
 import path from 'path';
+import fs from 'fs';
+import {cwd, env} from 'process';
 import slash from 'slash';
 import {
   kebabCase, uniq, get, compact, times,
@@ -10,6 +12,11 @@ import {
 // - `pages/blog.tsx:121`
 const POSTS_PER_PAGE = 10;
 const cleanArray = array => compact(uniq(array));
+
+export const onPostBuild = () => {
+  const version = env.GATSBY_BUILD_ID || 'local';
+  fs.writeFileSync(path.join(cwd(), 'public', 'site-version.json'), JSON.stringify({version}));
+};
 
 // Create slugs for files.
 // Slug will used for blog page path.
