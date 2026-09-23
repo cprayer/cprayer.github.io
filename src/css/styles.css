@@ -161,9 +161,23 @@
 
 .site-navigation.ui.menu .site-wordmark.item {
   padding-left: 0;
+  color: #20252c;
   font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: -0.03em;
+  transition: color 150ms ease;
+}
+
+.site-navigation.ui.menu .site-wordmark.item:hover,
+.site-navigation.ui.menu .site-wordmark.item:focus {
+  color: #356fa8;
+  background: transparent;
+  box-shadow: none;
+}
+
+.site-navigation.ui.menu .site-wordmark.item:focus-visible {
+  outline: 2px solid #83a8ce;
+  outline-offset: 2px;
 }
 
 .site-navigation.ui.menu .right.menu .item {
