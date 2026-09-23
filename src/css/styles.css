@@ -195,12 +195,27 @@
 
 .featured-post {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
   margin-top: 2rem;
   overflow: hidden;
   background: #f6f8fb;
   border-radius: 0.8rem;
+}
+
+.featured-post-link {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  color: inherit;
+}
+
+.featured-post-link:hover,
+.post-list-link:hover {
+  color: inherit;
+}
+
+.featured-post-link:focus-visible,
+.post-list-link:focus-visible {
+  outline: 2px solid #83a8ce;
+  outline-offset: -2px;
 }
 
 .featured-post-cover {
@@ -229,24 +244,23 @@
   width: 4px;
   background: #4a82bd;
   content: "";
+  pointer-events: none;
 }
 
 .featured-post h2 {
   max-width: 760px;
   margin: 0 0 1rem;
+  color: #20252c;
   font-size: clamp(1.55rem, 3vw, 2.15rem);
   line-height: 1.35;
   letter-spacing: -0.035em;
   word-break: keep-all;
 }
 
-.featured-post h2 a,
-.post-list-item h3 a {
-  color: #20252c;
-}
-
-.featured-post h2 a:hover,
-.post-list-item h3 a:hover {
+.featured-post-link:hover h2,
+.featured-post-link:focus-visible h2,
+.post-list-link:hover h3,
+.post-list-link:focus-visible h3 {
   color: #356fa8;
 }
 
@@ -256,11 +270,6 @@
   margin-bottom: 1rem;
   color: #66707c;
   line-height: 1.75;
-}
-
-.featured-post-description:hover,
-.post-list-description:hover {
-  color: #356fa8;
 }
 
 .featured-post-meta,
@@ -367,12 +376,16 @@
 }
 
 .post-list-item {
+  border-top: 1px solid #e8ebef;
+}
+
+.post-list-link {
   display: grid;
   grid-template-columns: 150px minmax(0, 1fr);
   gap: 1.4rem;
   align-items: start;
   padding: 1.8rem 0;
-  border-top: 1px solid #e8ebef;
+  color: inherit;
 }
 
 .post-list-cover {
@@ -401,6 +414,7 @@
 
 .post-list-item h3 {
   margin: 0 0 0.55rem;
+  color: #20252c;
   font-size: 1.2rem;
   line-height: 1.45;
   letter-spacing: -0.025em;
@@ -659,8 +673,11 @@
     margin-left: 1.25rem !important;
   }
 
-  .featured-post {
+  .featured-post-link {
     grid-template-columns: 1fr;
+  }
+
+  .featured-post {
     border-radius: 0.6rem;
   }
 
@@ -679,7 +696,7 @@
     padding: 4rem 0;
   }
 
-  .post-list-item {
+  .post-list-link {
     grid-template-columns: 96px minmax(0, 1fr);
     gap: 0.9rem;
   }

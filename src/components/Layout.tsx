@@ -1,5 +1,6 @@
-import { Link } from "gatsby";
+import { graphql, Link, useStaticQuery } from "gatsby";
 import * as React from "react";
+import Helmet from "react-helmet";
 import HeaderMenu from "./HeaderMenu/HeaderMenu";
 import SidebarMenu from "./SidebarMenu/SidebarMenu";
 import { Segment, Icon, Container, Sidebar } from "semantic-ui-react";
@@ -21,14 +22,29 @@ export interface LayoutProps {
     pathname: string;
   };
   children: any;
+  pageTitle?: string;
 }
 
 const Layout = (props: LayoutProps) => {
+  const {site} = useStaticQuery<{site: {siteMetadata: {title: string}}}>(graphql`
+    query LayoutSiteTitle {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `);
+  const title = props.pageTitle
+    ? `${props.pageTitle} | ${site.siteMetadata.title}`
+    : site.siteMetadata.title;
   const { pathname } = props.location;
-  const isMain = pathname === "/";
 
   return (
     <Provider store={store}>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
       <Sidebar.Pushable as={Segment}>
 
         <SidebarMenu Link={Link} pathname={pathname} items={menuItems} visible={false} />
@@ -55,11 +71,11 @@ const Layout = (props: LayoutProps) => {
 
 export default Layout;
 
-export const withLayout = <P extends object>(WrappedComponent: React.ComponentType<P>) =>
+export const withLayout = <P extends object>(WrappedComponent: React.ComponentType<P>, pageTitle?: string) =>
   class WithLayout extends React.Component<P & LayoutProps> {
     render() {
       return (
-        <Layout location={this.props.location}>
+        <Layout location={this.props.location} pageTitle={pageTitle}>
           <WrappedComponent {...this.props} />
         </Layout>
       );

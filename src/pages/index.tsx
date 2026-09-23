@@ -73,18 +73,20 @@ const BlogPage = (props: BlogProps) => {
     const cover = getCover(node, true);
     return (
       <article className="post-list-item" key={slug}>
-        <Link className="post-list-cover" to={slug} aria-label={`${frontmatter.title} 읽기`}>
-          <img src={cover ? cover.src : "/post-placeholder.svg"}
-            srcSet={cover ? cover.srcSet : undefined} alt="" loading="lazy" />
-        </Link>
-        <div className="post-list-content">
-          <h3><Link to={slug}>{frontmatter.title}</Link></h3>
-          <Link className="post-list-description" to={slug}>{excerpt}</Link>
-          <div className="post-list-meta">
-            <time>{frontmatter.updatedDate}</time>
-            <span>{timeToRead} min read</span>
+        <Link className="post-list-link" to={slug} aria-label={`${frontmatter.title} 읽기`}>
+          <span className="post-list-cover">
+            <img src={cover ? cover.src : "/post-placeholder.svg"}
+              srcSet={cover ? cover.srcSet : undefined} alt="" loading="lazy" />
+          </span>
+          <div className="post-list-content">
+            <h3>{frontmatter.title}</h3>
+            <p className="post-list-description">{excerpt}</p>
+            <div className="post-list-meta">
+              <time>{frontmatter.updatedDate}</time>
+              <span>{timeToRead} min read</span>
+            </div>
           </div>
-        </div>
+        </Link>
       </article>
     );
   };
@@ -93,22 +95,22 @@ const BlogPage = (props: BlogProps) => {
     <Container className="home-page">
       {featured && (
         <section className="featured-post">
-          <Link className="featured-post-cover" to={featured.node.fields.slug}
+          <Link className="featured-post-link" to={featured.node.fields.slug}
             aria-label={`${featured.node.frontmatter.title} 읽기`}>
-            <img src={featuredCover ? featuredCover.src : "/post-placeholder.svg"}
-              srcSet={featuredCover ? featuredCover.srcSet : undefined} alt="" />
-          </Link>
-          <div className="featured-post-body">
-            <p className="section-eyebrow">LATEST</p>
-            <h2><Link to={featured.node.fields.slug}>{featured.node.frontmatter.title}</Link></h2>
-            <Link className="featured-post-description" to={featured.node.fields.slug}>
-              {featured.node.excerpt}
-            </Link>
-            <div className="featured-post-meta">
-              <time>{featured.node.frontmatter.updatedDate}</time>
-              <span>{featured.node.timeToRead} min read</span>
+            <span className="featured-post-cover">
+              <img src={featuredCover ? featuredCover.src : "/post-placeholder.svg"}
+                srcSet={featuredCover ? featuredCover.srcSet : undefined} alt="" />
+            </span>
+            <div className="featured-post-body">
+              <p className="section-eyebrow">LATEST</p>
+              <h2>{featured.node.frontmatter.title}</h2>
+              <p className="featured-post-description">{featured.node.excerpt}</p>
+              <div className="featured-post-meta">
+                <time>{featured.node.frontmatter.updatedDate}</time>
+                <span>{featured.node.timeToRead} min read</span>
+              </div>
             </div>
-          </div>
+          </Link>
         </section>
       )}
 

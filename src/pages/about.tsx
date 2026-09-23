@@ -124,7 +124,7 @@ const AboutPage = ({ data }: AboutPageProps) => {
   );
 };
 
-export default withLayout(AboutPage);
+export default withLayout(AboutPage, "About");
 
 export const pageQuery = graphql`
   query AboutPage {
