@@ -272,22 +272,6 @@ textarea {
   font-weight: 650;
 }
 
-.blog-sidebar.ui.vertical.menu .sidebar-close.item {
-  width: 100%;
-  margin-bottom: 1.15rem;
-  color: #68717c;
-  background: transparent;
-  border: 0;
-  text-align: left;
-  cursor: pointer;
-}
-
-.blog-sidebar.ui.vertical.menu .sidebar-close.item:hover,
-.blog-sidebar.ui.vertical.menu .sidebar-close.item:focus-visible {
-  color: #20252c;
-  background: #f3f6fa;
-}
-
 .ui.segment.pushable > .pusher::after {
   transition-duration: 240ms;
 }

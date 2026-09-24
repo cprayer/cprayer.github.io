@@ -19,11 +19,6 @@ export const SidebarMenu = ({ items, pathname, Link, visible, dispatch }: Sideba
   return (
     <Sidebar as={Menu} animation="overlay" className="blog-sidebar"
       visible={visible} vertical>
-      <Menu.Item as="button" type="button" className="sidebar-close"
-        aria-label="메뉴 닫기" onClick={close}>
-        <Icon name="close" />
-        메뉴 닫기
-      </Menu.Item>
       {items.map((item) => {
         const active = isActive(item);
         return (

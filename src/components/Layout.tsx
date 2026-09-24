@@ -29,6 +29,20 @@ const NavigationPusher = ({ children }: { children: React.ReactNode }) => {
   const isSidebarVisible = useSelector((state: StoreState) => state.isSidebarVisible);
   const dispatch = useDispatch();
 
+  React.useEffect(() => {
+    if (!isSidebarVisible) {
+      return;
+    }
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        dispatch(closeSidebar());
+      }
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [dispatch, isSidebarVisible]);
+
   return <Sidebar.Pusher dimmed={isSidebarVisible} style={{ minHeight: "100vh" }} onClick={() => {
     if (isSidebarVisible) {
       dispatch(closeSidebar());

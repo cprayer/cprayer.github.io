@@ -22,13 +22,11 @@ describe("SidebarMenu component", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it("closes when the close button or a link is clicked", () => {
+  it("closes when a link is clicked", () => {
     const dispatch = jest.fn();
     const wrapper = shallow(<SidebarMenu Link={LinkStub} pathname="/" items={items} visible dispatch={dispatch} />);
-    wrapper.find({ "aria-label": "메뉴 닫기" }).simulate("click");
     wrapper.find({ to: "/about/" }).simulate("click");
-    expect(dispatch).toHaveBeenCalledTimes(2);
-    expect(dispatch).toHaveBeenNthCalledWith(1, closeSidebar());
-    expect(dispatch).toHaveBeenNthCalledWith(2, closeSidebar());
+    expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(dispatch).toHaveBeenCalledWith(closeSidebar());
   });
 });
