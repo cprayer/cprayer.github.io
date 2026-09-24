@@ -61,8 +61,10 @@ describe("HeaderMenu component", () => {
         pathname=""
         dispatch={dispatchMock} />,
     );
-    wrapper.find(".mobile.only").simulate("click");
+    const stopPropagation = jest.fn();
+    wrapper.find(".mobile.only").simulate("click", { stopPropagation });
     expect(dispatchMock.mock.calls.length).toBe(1);
+    expect(stopPropagation).toHaveBeenCalledTimes(1);
   });
 
 });

@@ -4,6 +4,7 @@
 import * as React from "react";
 import Helmet from "react-helmet";
 import config from "../gatsby-config.js";
+import { THEME_STORAGE_KEY } from "./theme";
 
 interface HtmlProps {
   body: any;
@@ -14,6 +15,24 @@ interface HtmlProps {
 export default (props: HtmlProps) => {
   const head = Helmet.rewind();
   const pageTitle = head.title.toComponent();
+  const fontStylesheet = [
+    "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9",
+    "dist/web/variable/pretendardvariable-dynamic-subset.min.css",
+  ].join("/");
+  const themeScript = `try {
+    var savedTheme = localStorage.getItem("${THEME_STORAGE_KEY}");
+    document.documentElement.dataset.theme = savedTheme === "dark" || savedTheme === "light"
+      ? savedTheme
+      : (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  } catch (error) {
+    document.documentElement.dataset.theme = matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark" : "light";
+  }
+  var themeColor = document.querySelector('meta[name="theme-color"]');
+  if (themeColor) {
+    themeColor.content = document.documentElement.dataset.theme === "dark"
+      ? "#111820" : "#f7f7f7";
+  }`;
 
   const verification = config.siteMetadata && config.siteMetadata.googleVerification ? <meta
     name="google-site-verification"
@@ -22,7 +41,10 @@ export default (props: HtmlProps) => {
   return (
     <html lang="ko">
       <head>
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        <link rel="stylesheet" href={fontStylesheet} />
         {props.headComponents}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         {pageTitle.length > 0 && pageTitle[0].props.children
           ? pageTitle
           : <title>{config.siteMetadata.title}</title>}

@@ -90,7 +90,7 @@ const BlogPostPage = (props: BlogPostProps) => {
           fluid
         />
       )}
-      <Segment vertical
+      <Segment vertical className="post-content"
         style={{ border: "none" }}
         dangerouslySetInnerHTML={{
           __html: html,

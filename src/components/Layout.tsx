@@ -10,7 +10,7 @@ import "prismjs/themes/prism-coy.css";
 import "../css/styles.css";
 import { MenuItem } from "./Menu";
 import { Provider } from "react-redux";
-import { store } from "../store";
+import { closeSidebar, store } from "../store";
 
 export const menuItems: MenuItem[] = [
   { name: "Main", path: "/", exact: true, icon: "archive"},
@@ -49,7 +49,11 @@ const Layout = (props: LayoutProps) => {
 
         <SidebarMenu Link={Link} pathname={pathname} items={menuItems} visible={false} />
 
-        <Sidebar.Pusher style={{ minHeight: "100vh" }}>
+        <Sidebar.Pusher style={{ minHeight: "100vh" }} onClick={() => {
+          if (store.getState().isSidebarVisible) {
+            store.dispatch(closeSidebar());
+          }
+        }}>
           {/* Header */}
           <HeaderMenu
             Link={Link}

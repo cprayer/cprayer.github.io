@@ -1,0 +1,658 @@
+@font-face {
+	font-family: 'Roboto';
+	src: url('Roboto-Regular.woff2') format('woff2');
+	font-weight: 400;
+}
+@font-face {
+	font-family: 'Roboto';
+	src: url('Roboto-Bold.woff2') format('woff2');
+	font-weight: 700;
+}
+
+html {
+	box-sizing: border-box;
+	font: 16px tahoma;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ol, ul, pre {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+}
+img {
+	max-width: 100% !important;
+	height: auto;
+}
+body {
+	background: #000;
+	color: #fff;
+}
+
+h1 {
+	font-size: 1.5rem;
+	line-height: 1.5rem;
+	text-align: center;
+	margin-bottom: 1rem;
+}
+a {
+	color: #fc0;
+}
+a:visited:not(.user,.lang,.self,.year) {
+	color: #c90;
+}
+a.self {
+	color: inherit;
+}
+.theme-toggle {
+	display: none;
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	width: 32px;
+	height: 32px;
+	font-size: 20px;
+	opacity: 0.5;
+	cursor: pointer;
+}
+.theme-toggle:hover {
+	opacity: 1;
+}
+.theme-toggle::before {
+	content: '🌙';
+}
+.hint {
+	text-align: left;
+	border-left: 3px #fc0 solid;
+	padding-left: 1rem;
+	font-size: 0.8rem;
+	line-height: 1.2rem;
+}
+.hint p {
+	color: #ccc;
+	margin-top: 0.75rem;
+}
+.hint h3+p {
+	margin-top: 0.5rem;
+}
+.standings {
+	margin: 0 auto;
+	padding: 1rem 0;
+	width: 100%;
+}
+.standings .hint {
+	margin-left: 16px;
+}
+.standings table {
+	border-spacing: 0px;
+	margin: 0 auto;
+	position: relative;
+	table-layout: fixed;
+}
+.standings .pages {
+	text-align: left;
+}
+.standings .sticky th {
+	position: sticky;
+	top: 0;
+	background: #000;
+}
+.standings tbody .ok a, .standings tbody .re a {
+	text-decoration: none;
+	display: block;
+	color: inherit;
+}
+.standings tbody tr:hover {
+	background: #003;
+}
+.standings th.title {
+	overflow: hidden;
+	font-size: 0.75rem;
+	max-width: 80px;
+	text-overflow: ellipsis;
+	padding: 0.5rem 0;
+}
+.standings td {
+	padding: 0;
+	line-height: 1rem;
+}
+.standings.hc td, .standings.hc th {
+	padding: 5px;
+	max-width: 800px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.standings th {
+	font-weight: normal;
+}
+.standings .ok, .standings .re {
+	text-align: center;
+}
+.standings td b, .standings td i, .standings td p {
+	display: block;
+}
+.standings td.b, .standings th.b {
+	border-left: 1px #666 solid;
+}
+.standings td.rank {
+	color: #999;
+	text-align: center;
+}
+.standings td.lang {
+	text-align: center;
+	font-size: 0.75rem;
+}
+.standings td.score, .standings th.score {
+	border-left: 1px #666 solid;
+	text-align: center;
+}
+.standings td p {
+	font-size: 0.5rem;
+	line-height: 0.75rem;
+	height: 0.75rem;
+	font-style: normal;
+}
+.aka {font-size: 0.75rem; color: #999}
+.user {font-weight: bold; text-decoration: none; color: inherit}
+a.user-legend {display: inline-block; color: #ee0000;}
+a.user-legend::first-letter {color: #000;background:#ee0000; padding: 0 1px; border-radius: 3px}
+.user-red {color: #EE0000;}
+.user-orange {color: #FF9900;}
+.user-yellow {color: #cb0;}
+.user-violet {color: #a0a;}
+.user-blue {color: #6666FF;}
+.user-cyan {color: #03A89E;}
+.user-green {color: #00A900;}
+.user-gray {color: #999999;}
+.user-unknown {color: inherit;}
+.ok {
+	color: #0c0;
+}
+.re {
+	color: #666;
+}
+.sm {
+	font-size: 75%;
+}
+.standings .lang.lang-c,
+.standings .lang.lang-cpp {
+	color: #999;
+}
+.standings .lang.lang-unknown {
+	color: #333;
+}
+.lang-c,.ok.lang-c,
+.lang-cpp,.ok.lang-cpp {
+	color: #0c0;
+}
+.lang-java,.ok.lang-java {
+	color: #66f;
+}
+.lang-kotlin,.ok.lang-kotlin {
+	color: #09f;
+}
+.lang-rust,.ok.lang-rust {
+	color: #B7410E;
+}
+.lang-python, .ok.lang-python,
+.lang-pypy3, .ok.lang-pypy3,
+.lang-pypy, .ok.lang-pypy,
+.lang-py, .ok.lang-py,
+.lang-py3, .ok.lang-py3 {
+	color: #c0f;
+}
+.lang-cs,.ok.lang-cs,
+.lang-csharp,.ok.lang-csharp {
+	color: #aaf;
+}
+.lang-ruby,.ok.lang-ruby {
+	color: #f66;
+}
+.lang-pascal,.ok.lang-pascal,
+.lang-go,.ok.lang-go {
+	color: #fc0;
+}
+.lang-haskell,.ok.lang-haskell,
+.lang-ocaml,.ok.lang-ocaml {
+	color: #0cf;
+}
+#codeview {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	display: none;
+	z-index: 100;
+}
+
+#codeview pre code {
+	tab-size: 4;
+	display: block;
+	padding: 1rem;
+	font-size: 0.75rem;
+	max-height: calc(100vh - 100px);
+	overflow-y: scroll;
+	font: 0.8rem "JetBrains Mono","Consolas",monospace;
+}
+
+#codeview .dialog {
+	margin: 50px auto;
+	max-width: 800px;
+	border: 1px solid #333;
+	color: #fff;
+	background: #000;
+	position: relative;
+}
+.dialog .close {
+	position: absolute;
+	right: 16px;
+	top: 0px;
+	width: 50px;
+	height: 50px;
+	opacity: 0.2;
+	color: #ccc;
+	cursor: pointer;
+}
+.dialog .close::after {
+	font: 64px tahoma;
+	line-height: 48px;
+	content: "\00d7";
+}
+.dialog .close:hover {
+	opacity: 1;
+}
+
+.problems {
+	width: 650px;
+	margin: 0 auto;
+	padding: 1rem 0;
+	line-height: 1.5rem;
+	color: #ccc;
+	font-family: Roboto,tahoma;
+	margin-bottom: calc(100vh - 30rem);
+}
+.problems h1 {
+	font-family: tahoma;
+}
+.problems .header {
+	color: #fff;
+	position: sticky;
+	top: 0px;
+	z-index: 10;
+	background: #222;
+}
+.problems .header h2 {
+	margin-top: 0;
+	padding: 1rem;
+	font-size: 1.5rem;
+}
+.problems .header .menu {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	font-size: 1.5rem;
+}
+
+.problems .submenu {
+	background: #000;
+	border-bottom: 1px #666 solid;
+}
+.problems .submenu a {
+	display: inline-block;
+	text-align: center;
+	padding: 0.5rem 0;
+	width: 33%;
+}
+.problems .submenu.with-test-data a {
+	width: 25%;
+}
+.problem {
+	margin-top: 3rem;
+	margin-bottom: 10rem;
+	position: relative;
+}
+.problem:first-child {
+	margin-top: 0;
+}
+
+.problems pre {
+	border: 1px #555 solid;
+	padding: 1rem;
+	overflow-x: auto;
+}
+.problems li {
+	margin-top: 1rem;
+	margin-left: 1rem;
+	margin-bottom: 1rem;
+}
+.problem td {
+	vertical-align: top;
+}
+.problems p {
+	margin-top: 1rem;
+}
+.problems h2 {
+	margin-top: 2rem;
+}
+.problems h3 {
+	margin-top: 2rem;
+	padding-top: 1rem;
+	border-top: 1px #666 solid;
+}
+.problems h3:first-child {
+	margin-top: 0;
+	border-top: none;
+}
+.problems h4 {
+	margin-top: 1rem;
+	font-weight: bold;
+}
+.problems details, .index details {
+	border-left: 3px solid #fc0;
+	padding-left: 1rem;
+}
+.problems summary, .index summary {
+	font-size: 1.2rem;
+	text-decoration: underline;
+	cursor: pointer;
+}
+.problems .statistics table {
+	display: inline-table;
+	width: 50%;
+}
+.test-data-download-wrapper {
+	margin-top: 1rem;
+}
+.test-data-download-header-download-button a::before, .sample-header-download-button a::before {
+	content: "download";
+}
+.test-data-download-header-download-button i, .sample-header-download-button i {
+	display: none;
+}
+.test-data-download-content {
+	display: none;
+}
+.hc .test-data-download-content {
+	display: block;
+}
+.hc .test-data-download-content a {
+	display: block;
+	text-decoration: none;
+}
+.hc .test-data-download-content a .material-icons {
+	display: none;
+}
+.sample-header-copy-button {
+	display: none;
+}
+.index {
+	position: relative;
+	margin: 0 auto;
+	padding: 1rem 0;
+	width: 620px;
+	margin-bottom: calc(100vh - 20rem);
+}
+.index .series {
+	margin: 2rem 0 5rem 0;
+}
+.index .header {
+	color: #fff;
+	position: sticky;
+	top: 0px;
+	z-index: 10;
+	background: #222;
+	margin-bottom: 0.5rem;
+}
+.index .menu {
+	font-size: 1.5rem;
+}
+.index .menu a {
+	display: inline-block;
+	text-align: center;
+	padding: 0.5rem 0;
+	width: 33.3%;
+}
+.index .submenu {
+	text-align: right;
+	background: #000;
+	border-bottom: 1px #666 solid;
+}
+.index .submenu a {
+	display: inline-block;
+	text-align: center;
+	padding: 0.5rem 0;
+	width: 6.66%;
+	font-size: 0.75rem;
+}
+.index h1 {
+	font-family: tahoma;
+}
+.index h2 {
+	position: relative;
+	background: #000;
+	padding: 1rem 0;
+}
+.index .anchor {
+	position: relative;
+	top: -5rem;
+}
+.index table {
+	color: #ccc;
+}
+.index table td {
+	padding: 0.25rem 0;
+}
+.index .info {
+	font-size: 0.75rem;
+	color: #999;
+}
+.index h2 .archive {
+	position: absolute;
+	right: 0;
+	top: 1.4rem;
+	font-size: 0.75rem;
+}
+.credits {
+	text-align: right;
+	color: #666;
+	font-size: 0.5rem;
+}
+.credits a {
+	color: inherit;
+}
+
+.profile {
+	position: relative;
+	margin: 0 auto;
+	padding: 1rem 0;
+	width: 620px;
+}
+.profile h1 {
+	font-family: tahoma;
+}
+.profile h2 {
+	position: relative;
+	padding: 1rem 0;
+}
+.profile h3 {
+	padding: 0.5rem 0;
+}
+.profile table {
+	border-collapse: collapse;
+}
+.profile table td {
+	padding: 0.25rem;
+	text-align: center;
+	vertical-align: top;
+}
+.profile td.b {
+	border-left: 1px #666 solid;
+}
+.profile td.b:first-child {
+	border-left: none;
+}
+.rank {
+	font-size: 0.7rem;
+	color: #666;
+}
+.rank.high {
+	font-weight: bold;
+	color: #ccc;
+}
+.rank.top {
+	font-weight: bold;
+	color: #fc0;
+}
+.profile #username {
+	position: relative;
+	border: 0;
+	border-bottom: 1px solid #ccc;
+	background: transparent;
+	font: inherit;
+	color: inherit;
+	width: 20rem;
+	padding: 0 4px;
+	border-radius: 0;
+}
+.profile #username:focus {
+	outline: none;
+}
+.profile #username.error {
+	color: #f00;
+	border-bottom: 1px solid #f00;
+}
+.profile #username.loading {
+	cursor: wait;
+}
+.profile .count {
+	color: #666;
+}
+.hr {
+	border-top: 1px solid #666;
+	margin: 2rem 0 1rem 0;
+}
+@media (prefers-color-scheme: light), print {
+	.theme-toggle::before {
+		content: '🌞';
+	}
+	body {
+		background: #fff;
+		color: #202124;
+	}
+	a {
+		color: #1967d2;
+	}
+	a:visited:not(.user,.lang,.self,.year) {
+		color: #59f;
+	}
+	.problems {
+		color: #202124;
+	}
+	.problems h1 {
+		color: #000;
+	}
+	.problems .header, .index .header {
+		background: #f0f0f0;
+		color: #000;
+	}
+	.problems .submenu, .index .submenu {
+		background: #fff;
+	}
+	.ok {
+		color: #080;
+	}
+	.re {
+		color: #999;
+	}
+	.standings .lang.lang-cpp {
+		color: #666;
+	}
+	.lang-c,.ok.lang-c,
+	.lang-cpp,.ok.lang-cpp {
+		color: #080;
+	}
+	.lang-pascal,.ok.lang-pascal,
+	.lang-go,.ok.lang-go {
+		color: #860;
+	}
+	.lang-haskell,.ok.lang-haskell,
+	.lang-ocaml,.ok.lang-ocaml {
+		color: #068;
+	}
+	.standings .lang.lang-unknown {
+		color: #ccc;
+	}
+	.standings .sticky th {
+		background: #fff;
+		border-bottom: 1px #666 solid;
+	}
+	.standings td.b, .standings th.b, .standings td.score, .standings th.score {
+		border-left: 1px #666 solid;
+	}
+	.standings tbody tr:hover {
+		background: #f0f0f0;
+	}
+	#codeview .dialog {
+		color: #000;
+		background: #fff;
+	}
+	.index table {
+		color: #000;
+	}
+	.index h2 {
+		background: #fff;
+	}
+	.hint p {
+		color: #333;
+	}
+	.index .info {
+		color: #333;
+	}
+	a.user-legend {display: inline-block; color: #ee0000;}
+	a.user-legend::first-letter {color: #000;background:transparent; padding: 0; border: none}
+	.rank {
+		color: #999;
+	}
+	.rank.high {
+		color: #333;
+	}
+	.rank.top {
+		color: #080;
+	}
+	.profile .count {
+		color: #999;
+	}
+}
+@media print{
+	body {
+		background: #fff;
+		color: #202124;
+	}
+	.noprint,
+	.problems .menu,
+	.problems .submenu,
+	.problems .sample-header-download-button,
+	.problems .test-data-download-wrapper,
+	.standings .hint {
+		display: none;
+	}
+	.problems .header {
+		position: static;
+	}
+	.problems .problem {
+		margin-top: 0;
+		break-before: page;
+	}
+	.problem-io-wrapper {
+		break-inside: avoid;
+	}
+	.problems .header h2 {
+		padding: 1rem 0;
+		border-bottom: 1px #000 solid;
+	}
+}

@@ -175,6 +175,7 @@
       "unicorn/prefer-node-protocol": "off"
     },
     "ignores": [
+      "archive/**",
       "**/*.tsx",
       "**/*.ts"
     ]

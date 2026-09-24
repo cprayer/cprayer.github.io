@@ -66,6 +66,101 @@ const contributions = [
   },
 ];
 
+interface CompetitionEntry {
+  date: string;
+  detail?: string;
+  result: string;
+  source?: {
+    label: string;
+    url: string;
+  };
+  title: string;
+}
+
+const awards: CompetitionEntry[] = [
+  {
+    date: "2018-11",
+    detail: "한국항공대학교 · choolbal_dream",
+    result: "21위",
+    source: { label: "공식 순위표", url: "https://icpckorea.org/2018-seoul/regional#:~:text=choolbal_dream" },
+    title: "ACM-ICPC Seoul Regional",
+  },
+  {
+    date: "2017-12",
+    detail: "한국항공대학교 · ACM-ICPC 지역대회 예선 겸 교내 대회 (1위)",
+    result: "최우수상",
+    title: "교내 프로그래밍 경진대회",
+  },
+  {
+    date: "2017-11",
+    detail: "발행: 한국정보화진흥원",
+    result: "장려상",
+    title: "한국대학생프로그래밍경시대회",
+  },
+  {
+    date: "2017-11",
+    detail: "한국항공대학교",
+    result: "17위",
+    source: { label: "공식 참가팀 명단", url: "https://icpckorea.org/2017-daejeon/regional/teams" },
+    title: "ACM-ICPC Daejeon Regional",
+  },
+  {
+    date: "2017-07",
+    detail: "발행: 아주대학교 LINC+",
+    result: "장려상",
+    title: "경인지역 6개 대학 연합 프로그래밍 경시대회",
+  },
+];
+
+const contestResults: CompetitionEntry[] = [
+  {
+    date: "2021-05",
+    result: "3558위",
+    source: { label: "참가자 기록", url: "https://zibada.guru/gcj/profile/cprayer" },
+    title: "Google Code Jam 2021 Round 2",
+  },
+  {
+    date: "2020-05",
+    result: "2412위",
+    source: { label: "참가자 기록", url: "https://zibada.guru/gcj/profile/cprayer" },
+    title: "Google Code Jam 2020 Round 2",
+  },
+  {
+    date: "2018-08",
+    result: "39위",
+    source: { label: "결과표", url: "https://t1.kakaocdn.net/codefestival/2018-round-2-scoreboard/index.html" },
+    title: "카카오 코드 페스티벌 2018 본선",
+  },
+  { date: "2018-07", result: "307점", title: "SCPC 2018 본선" },
+  { date: "2018-03", result: "B형 취득", title: "삼성전자 S/W 상시 역량테스트" },
+  {
+    date: "2017-09",
+    result: "53위",
+    source: { label: "결과표", url: "https://t1.kakaocdn.net/codefestival/round-2-scoreboard/index.html" },
+    title: "카카오 코드 페스티벌 2017 본선",
+  },
+];
+
+const CompetitionList = ({ items }: { items: CompetitionEntry[] }) => (
+  <ol className="competition-list">
+    {items.map(({ date, detail, result, source, title }) => (
+      <li key={`${date}-${title}`}>
+        <div className="competition-heading">
+          <h3>{title}</h3>
+          <span className="competition-result">{result}</span>
+        </div>
+        <div className="competition-meta">
+          <time dateTime={date}>{`${date.replace("-", "년 ")}월`}</time>
+          {detail && <span>{detail}</span>}
+          {source && <a href={source.url} target="_blank" rel="noreferrer">
+            {source.label} <span aria-hidden="true">↗</span>
+          </a>}
+        </div>
+      </li>
+    ))}
+  </ol>
+);
+
 const AboutPage = ({ data }: AboutPageProps) => {
   const avatar = data.author.avatar.children[0] as ImageSharp;
   return (
@@ -117,6 +212,18 @@ const AboutPage = ({ data }: AboutPageProps) => {
                 </ul>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="about-competitions">
+          <p className="section-eyebrow">COMPETITIONS &amp; AWARDS</p>
+          <div className="competition-group">
+            <h2>수상 경력</h2>
+            <CompetitionList items={awards} />
+          </div>
+          <div className="competition-group">
+            <h2>참가 내역</h2>
+            <CompetitionList items={contestResults} />
           </div>
         </section>
       </div>
