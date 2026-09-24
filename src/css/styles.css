@@ -587,14 +587,13 @@ textarea {
 }
 
 .profile-links {
-  max-width: 460px;
   border-top: 1px solid #e6e9ed;
 }
 
 .profile-links > a,
 .profile-codeforces {
   display: grid;
-  grid-template-columns: 24px 1fr 20px;
+  grid-template-columns: 24px minmax(0, 1fr) auto;
   padding: 1rem 0;
   color: #343a42;
   border-bottom: 1px solid #e6e9ed;
@@ -603,10 +602,6 @@ textarea {
 
 .profile-links > a:hover {
   color: #356fa8;
-}
-
-.profile-codeforces {
-  grid-template-columns: 24px minmax(0, 1fr) auto;
 }
 
 .codeforces-badges {
@@ -644,6 +639,12 @@ textarea {
 
 .codeforces-rating.blue strong {
   background: #1f75cb;
+}
+
+.profile-solved-badge {
+  display: block;
+  width: 110px;
+  height: 20px;
 }
 
 .about-contributions {
@@ -945,6 +946,15 @@ textarea {
   }
 
   .codeforces-badges {
+    grid-column: 2;
+    margin-top: 0.5rem;
+  }
+
+  .profile-links > a.profile-solved-ac {
+    grid-template-columns: 24px minmax(0, 1fr);
+  }
+
+  .profile-solved-badge {
     grid-column: 2;
     margin-top: 0.5rem;
   }

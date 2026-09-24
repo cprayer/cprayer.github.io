@@ -196,6 +196,13 @@ const AboutPage = ({ data }: AboutPageProps) => {
                 </a>
               </div>
             </div>
+            <a className="profile-solved-ac" href="https://solved.ac/profile/cprayer"
+              target="_blank" rel="noreferrer">
+              <Icon name="trophy" /><span>solved.ac</span>
+              <img className="profile-solved-badge"
+                src="https://mazassumnida.wtf/api/mini/generate_badge?boj=cprayer"
+                alt="cprayer solved.ac 티어 배지" width={110} height={20} loading="lazy" />
+            </a>
             <a href="https://leetcode.com/u/cprayer" target="_blank" rel="noreferrer">
               <Icon name="terminal" /><span>LeetCode</span><Icon name="arrow right" />
             </a>
