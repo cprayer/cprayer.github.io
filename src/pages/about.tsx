@@ -96,6 +96,7 @@ const awards: CompetitionEntry[] = [
     date: "2017-11",
     detail: "발행: 한국정보화진흥원",
     result: "장려상",
+    source: { label: "ICPC ID", url: "https://icpc.global/ICPCID/LAH7ZPTJ4BVT" },
     title: "한국대학생프로그래밍경시대회",
   },
   {
@@ -109,7 +110,8 @@ const awards: CompetitionEntry[] = [
     date: "2017-07",
     detail: "발행: 아주대학교 LINC+",
     result: "장려상",
-    title: "경인지역 6개 대학 연합 프로그래밍 경시대회",
+    source: { label: "2017년 결과", url: "https://shake.codes/results/2017" },
+    title: "경인지역 6개 대학 연합 프로그래밍 경시대회(Shake)",
   },
 ];
 
