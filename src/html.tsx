@@ -2,7 +2,6 @@
 /* tslint:disable no-console */
 
 import * as React from "react";
-import Helmet from "react-helmet";
 import config from "../gatsby-config.js";
 import { THEME_STORAGE_KEY } from "./theme";
 
@@ -13,8 +12,11 @@ interface HtmlProps {
 }
 
 export default (props: HtmlProps) => {
-  const head = Helmet.rewind();
-  const pageTitle = head.title.toComponent();
+  const headComponents = React.Children.toArray(props.headComponents);
+  const isTitle = (component: React.ReactNode) =>
+    React.isValidElement(component) && component.type === "title";
+  const pageTitle = headComponents.filter(isTitle).pop();
+  const otherHeadComponents = headComponents.filter((component) => !isTitle(component));
   const fontStylesheet = [
     "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9",
     "dist/web/variable/pretendardvariable-dynamic-subset.min.css",
@@ -41,21 +43,17 @@ export default (props: HtmlProps) => {
   return (
     <html lang="ko">
       <head>
+        <meta charSet="utf-8" />
+        {pageTitle || <title>{config.siteMetadata.title}</title>}
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link rel="stylesheet" href={fontStylesheet} />
-        {props.headComponents}
+        {otherHeadComponents}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        {pageTitle.length > 0 && pageTitle[0].props.children
-          ? pageTitle
-          : <title>{config.siteMetadata.title}</title>}
-        <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
         />
-        {head.meta.toComponent()}
-        {head.link.toComponent()}
         {verification}
       </head>
       <body>

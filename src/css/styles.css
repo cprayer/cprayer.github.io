@@ -569,13 +569,6 @@ textarea {
   text-align: center;
 }
 
-.about-intro,
-.about-details {
-  max-width: 720px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
 .about-intro {
   padding: 2rem 0 3rem;
 }

@@ -5,7 +5,7 @@ import {cwd} from 'process';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   siteMetadata: {
-    title: `잡동사니 개발블로그`,
+    title: `cprayer`,
     siteUrl: `https://cprayer.github.io`,
     defaultOgImage: `/og-default-v4.png`,
     googleVerification: null,
@@ -71,8 +71,8 @@ export default {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `잡동사니 개발블로그`,
-        short_name: `잡동사니 개발블로그`,
+        name: `cprayer`,
+        short_name: `cprayer`,
         start_url: `/`,
         background_color: `#f7f7f7`,
         theme_color: `#191919`,

@@ -49,7 +49,7 @@ export const HeaderMenu = ({ items, pathname, Link, inverted, dispatch }: Header
   return <Container className="site-header">
     <Menu size="large" secondary inverted={inverted} className="site-navigation">
       <Menu.Item as={Link} to="/" header className="site-wordmark">
-        <span>잡동사니 개발 블로그</span>
+        <span>cprayer</span>
       </Menu.Item>
       <Menu.Menu position="right" className="mobile hidden">
         {items.map((item) => {
