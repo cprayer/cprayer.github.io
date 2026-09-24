@@ -647,9 +647,13 @@ textarea {
   background: #4f83b8;
 }
 
-.profile-leetcode-badge {
-  display: block;
-  height: 20px;
+.profile-rating.leetcode {
+  grid-template-columns: 56px 64px;
+}
+
+.profile-rating.leetcode strong {
+  color: #201b13;
+  background: #ffa116;
 }
 
 .about-contributions {

@@ -66,8 +66,8 @@ const contributions = [
   },
 ];
 
-const leetcodeBadgeUrl = [
-  "https://img.shields.io/badge/dynamic/json?style=flat&labelColor=black&color=%23ffa116",
+const leetcodeBadgeDataUrl = [
+  "https://img.shields.io/badge/dynamic/json.json?style=flat&labelColor=black&color=%23ffa116",
   "&label=LeetCode&query=solvedOverTotal",
   "&url=https%3A%2F%2Fleetcode-badge.vercel.app%2Fapi%2Fusers%2Fcprayer",
   "&logo=leetcode&logoColor=yellow&cacheSeconds=86400",
@@ -173,6 +173,22 @@ const CompetitionList = ({ items }: { items: CompetitionEntry[] }) => (
 
 const AboutPage = ({ data }: AboutPageProps) => {
   const avatar = data.author.avatar.children[0] as ImageSharp;
+  const [leetcodeSolved, setLeetcodeSolved] = React.useState("—");
+
+  React.useEffect(() => {
+    const controller = new AbortController();
+    void fetch(leetcodeBadgeDataUrl, { signal: controller.signal })
+      .then((response) => response.ok ? response.json() : null)
+      .then((badge: { message?: unknown } | null) => {
+        if (!controller.signal.aborted && badge && typeof badge.message === "string"
+          && /^\d+\/\d+$/.test(badge.message)) {
+          setLeetcodeSolved(badge.message);
+        }
+      })
+      .catch(() => undefined);
+    return () => controller.abort();
+  }, []);
+
   return (
     <Container className="about-page">
       <header className="about-intro">
@@ -211,10 +227,13 @@ const AboutPage = ({ data }: AboutPageProps) => {
               </span>
             </a>
             <a className="profile-leetcode" href="https://leetcode.com/u/cprayer"
-              target="_blank" rel="noreferrer">
+              target="_blank" rel="noreferrer"
+              aria-label={leetcodeSolved === "—" ? "LeetCode cprayer 프로필"
+                : `LeetCode cprayer 해결한 문제 ${leetcodeSolved}`}>
               <Icon name="terminal" /><span>LeetCode</span>
-              <img className="profile-leetcode-badge" src={leetcodeBadgeUrl}
-                alt="LeetCode에서 해결한 문제 수" height={20} loading="lazy" />
+              <span className="profile-rating leetcode profile-leetcode-badge" aria-hidden="true">
+                <span>cprayer</span><strong>{leetcodeSolved}</strong>
+              </span>
             </a>
           </div>
         </section>
