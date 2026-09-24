@@ -17,9 +17,10 @@ export const SidebarMenu = ({ items, pathname, Link, visible, dispatch }: Sideba
   const isActive = (item: MenuItem) => (item.exact) ? pathname === item.path : pathname.startsWith(item.path);
   const close = () => dispatch && dispatch(closeSidebar());
   return (
-    <Sidebar as={Menu} animation="slide along" width="thin"
-      visible={visible} icon="labeled" vertical inverted>
-      <Menu.Item as="button" type="button" aria-label="메뉴 닫기" onClick={close}>
+    <Sidebar as={Menu} animation="overlay" className="blog-sidebar"
+      visible={visible} vertical>
+      <Menu.Item as="button" type="button" className="sidebar-close"
+        aria-label="메뉴 닫기" onClick={close}>
         <Icon name="close" />
         메뉴 닫기
       </Menu.Item>

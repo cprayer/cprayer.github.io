@@ -4,13 +4,13 @@ exports[`SidebarMenu component should render correctly 1`] = `
 initialize {
   "0": {
     "attribs": {
-      "class": "ui inverted vertical labeled icon ui slide along left thin visible sidebar menu",
+      "class": "ui vertical ui overlay left visible sidebar blog-sidebar menu",
     },
     "children": [
       {
         "attribs": {
           "aria-label": "메뉴 닫기",
-          "class": "item",
+          "class": "item sidebar-close",
           "type": "button",
         },
         "children": [
@@ -379,7 +379,7 @@ initialize {
         "prev": {
           "attribs": {
             "aria-label": "메뉴 닫기",
-            "class": "item",
+            "class": "item sidebar-close",
             "type": "button",
           },
           "children": [
@@ -598,7 +598,7 @@ initialize {
           "prev": {
             "attribs": {
               "aria-label": "메뉴 닫기",
-              "class": "item",
+              "class": "item sidebar-close",
               "type": "button",
             },
             "children": [

@@ -217,6 +217,85 @@ textarea {
   background: transparent;
 }
 
+.blog-sidebar.ui.vertical.menu {
+  width: min(18rem, 82vw);
+  padding: 1.3rem 0.8rem;
+  background: #fff;
+  border: 0;
+  border-right: 1px solid #e5eaf0;
+  box-shadow: 12px 0 32px rgb(20 32 48 / 14%);
+}
+
+.blog-sidebar.ui.sidebar {
+  transition-duration: 240ms;
+}
+
+.blog-sidebar.ui.vertical.menu .item {
+  display: flex;
+  min-height: 3.4rem;
+  margin: 0.2rem 0;
+  padding: 0.8rem 0.95rem;
+  align-items: center;
+  gap: 0.85rem;
+  color: #4b5563;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.4;
+  border-radius: 0.6rem;
+}
+
+.blog-sidebar.ui.vertical.menu .item::before {
+  display: none;
+}
+
+.blog-sidebar.ui.vertical.menu .item .icon {
+  width: 1.3rem;
+  margin: 0;
+  font-size: 1.15rem;
+  opacity: 0.8;
+}
+
+.blog-sidebar.ui.vertical.menu .item:hover,
+.blog-sidebar.ui.vertical.menu .item:focus-visible {
+  color: #20252c;
+  background: #f3f6fa;
+}
+
+.blog-sidebar.ui.vertical.menu .item:focus-visible {
+  outline: 2px solid #83a8ce;
+  outline-offset: -2px;
+}
+
+.blog-sidebar.ui.vertical.menu .active.item {
+  color: #255e93;
+  background: #ecf4fb;
+  font-weight: 650;
+}
+
+.blog-sidebar.ui.vertical.menu .sidebar-close.item {
+  width: 100%;
+  margin-bottom: 1.15rem;
+  color: #68717c;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.blog-sidebar.ui.vertical.menu .sidebar-close.item:hover,
+.blog-sidebar.ui.vertical.menu .sidebar-close.item:focus-visible {
+  color: #20252c;
+  background: #f3f6fa;
+}
+
+.ui.segment.pushable > .pusher::after {
+  transition-duration: 240ms;
+}
+
+.ui.segment.pushable > .pusher.dimmed::after {
+  background: rgb(20 32 48 / 32%);
+}
+
 .home-page.ui.container,
 .about-page.ui.container {
   max-width: 960px !important;
@@ -993,6 +1072,26 @@ pre {
 :root[data-theme="dark"] .site-navigation.ui.menu .theme-toggle.item:focus-visible {
   color: var(--accent-color);
   background: transparent;
+}
+
+:root[data-theme="dark"] .blog-sidebar.ui.vertical.menu {
+  background: var(--surface-bg);
+  border-color: var(--border-color);
+}
+
+:root[data-theme="dark"] .blog-sidebar.ui.vertical.menu .item {
+  color: var(--muted-color);
+}
+
+:root[data-theme="dark"] .blog-sidebar.ui.vertical.menu .item:hover,
+:root[data-theme="dark"] .blog-sidebar.ui.vertical.menu .item:focus-visible {
+  color: var(--text-color);
+  background: var(--raised-bg);
+}
+
+:root[data-theme="dark"] .blog-sidebar.ui.vertical.menu .active.item {
+  color: var(--accent-color);
+  background: var(--raised-bg);
 }
 
 .site-navigation.ui.menu .theme-toggle.item {

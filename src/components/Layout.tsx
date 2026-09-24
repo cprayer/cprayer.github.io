@@ -9,8 +9,8 @@ import "../css/semantic.min.css";
 import "prismjs/themes/prism-coy.css";
 import "../css/styles.css";
 import { MenuItem } from "./Menu";
-import { Provider } from "react-redux";
-import { closeSidebar, store } from "../store";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { closeSidebar, store, StoreState } from "../store";
 
 export const menuItems: MenuItem[] = [
   { name: "Main", path: "/", exact: true, icon: "archive"},
@@ -24,6 +24,19 @@ export interface LayoutProps {
   children: any;
   pageTitle?: string;
 }
+
+const NavigationPusher = ({ children }: { children: React.ReactNode }) => {
+  const isSidebarVisible = useSelector((state: StoreState) => state.isSidebarVisible);
+  const dispatch = useDispatch();
+
+  return <Sidebar.Pusher dimmed={isSidebarVisible} style={{ minHeight: "100vh" }} onClick={() => {
+    if (isSidebarVisible) {
+      dispatch(closeSidebar());
+    }
+  }}>
+    {children}
+  </Sidebar.Pusher>;
+};
 
 const Layout = (props: LayoutProps) => {
   const {site} = useStaticQuery<{site: {siteMetadata: {title: string}}}>(graphql`
@@ -49,11 +62,7 @@ const Layout = (props: LayoutProps) => {
 
         <SidebarMenu Link={Link} pathname={pathname} items={menuItems} visible={false} />
 
-        <Sidebar.Pusher style={{ minHeight: "100vh" }} onClick={() => {
-          if (store.getState().isSidebarVisible) {
-            store.dispatch(closeSidebar());
-          }
-        }}>
+        <NavigationPusher>
           {/* Header */}
           <HeaderMenu
             Link={Link}
@@ -67,7 +76,7 @@ const Layout = (props: LayoutProps) => {
           </div>
 
           {/* Footer */}
-        </Sidebar.Pusher>
+        </NavigationPusher>
       </Sidebar.Pushable>
     </Provider>
   );
