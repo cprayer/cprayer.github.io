@@ -99,7 +99,7 @@ const awards: CompetitionEntry[] = [
   },
   {
     date: "2017-11",
-    detail: "한국항공대학교",
+    detail: "한국항공대학교 · yohohohohohohohohohohohoyo",
     result: "17위",
     source: { label: "ICPC ID", url: "https://icpc.global/ICPCID/LAH7ZPTJ4BVT" },
     title: "ACM-ICPC Daejeon Regional",
