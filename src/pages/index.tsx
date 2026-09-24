@@ -6,6 +6,7 @@ import { ImageSharp, ImageSharpFixed, MarkdownRemarkConnection } from "../graphq
 import BlogPagination from "../components/BlogPagination/BlogPagination";
 import {withLayout, LayoutProps} from "../components/Layout";
 import { MarkdownRemark } from "../graphql-types";
+import { rankSearchResults } from "../search";
 
 interface BlogProps extends LayoutProps {
   data: {
@@ -33,15 +34,12 @@ const BlogPage = (props: BlogProps) => {
       (node.frontmatter.tags || []).includes(props.pageContext.tag))
     : props.data.searchPosts.edges;
   const searchResults = normalizedQuery
-    ? searchablePosts.filter(({ node }) => {
-      const searchableText = [
-        node.frontmatter.title,
-        node.excerpt,
-        node.rawMarkdownBody,
-        ...(node.frontmatter.tags || []),
-      ].join(" ").toLocaleLowerCase();
-      return searchableText.includes(normalizedQuery);
-    })
+    ? rankSearchResults(searchablePosts, normalizedQuery, ({ node }) => ({
+      body: node.rawMarkdownBody,
+      excerpt: node.excerpt,
+      tags: node.frontmatter.tags,
+      title: node.frontmatter.title,
+    }))
     : [];
   const featured = isMainPage ? posts[0] : null;
   const postList = normalizedQuery ? searchResults : featured ? posts.slice(1) : posts;
