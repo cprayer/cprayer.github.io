@@ -608,44 +608,48 @@ textarea {
   gap: 0.4rem;
 }
 
-.codeforces-rating {
-  display: inline-flex;
+.profile-rating {
+  display: inline-grid;
   overflow: hidden;
   height: 20px;
+  grid-template-columns: 56px 36px;
   color: #fff;
   font-size: 0.72rem;
   line-height: 20px;
   border-radius: 0.25rem;
 }
 
-.codeforces-rating:hover {
+.profile-rating:hover {
   color: #fff;
   opacity: 0.85;
 }
 
-.codeforces-rating span,
-.codeforces-rating strong {
-  padding: 0 0.4rem;
+.profile-rating span,
+.profile-rating strong {
+  text-align: center;
+  white-space: nowrap;
 }
 
-.codeforces-rating span {
+.profile-rating span {
   background: #555;
   font-weight: 400;
 }
 
-.codeforces-rating.purple strong {
+.profile-rating.purple strong {
   background: #a0a;
 }
 
-.codeforces-rating.blue strong {
+.profile-rating.blue strong {
   background: #1f75cb;
 }
 
-.profile-solved-badge {
+.profile-rating.solved strong {
+  background: #4f83b8;
+}
+
+.profile-leetcode-badge {
   display: block;
-  width: 110px;
   height: 20px;
-  border-radius: 0.25rem;
 }
 
 .about-contributions {
@@ -951,11 +955,13 @@ textarea {
     margin-top: 0.5rem;
   }
 
-  .profile-links > a.profile-solved-ac {
+  .profile-links > a.profile-solved-ac,
+  .profile-links > a.profile-leetcode {
     grid-template-columns: 24px minmax(0, 1fr);
   }
 
-  .profile-solved-badge {
+  .profile-solved-badge,
+  .profile-leetcode-badge {
     grid-column: 2;
     margin-top: 0.5rem;
   }

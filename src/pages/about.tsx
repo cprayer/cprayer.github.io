@@ -66,6 +66,13 @@ const contributions = [
   },
 ];
 
+const leetcodeBadgeUrl = [
+  "https://img.shields.io/badge/dynamic/json?style=flat&labelColor=black&color=%23ffa116",
+  "&label=LeetCode&query=solvedOverTotal",
+  "&url=https%3A%2F%2Fleetcode-badge.vercel.app%2Fapi%2Fusers%2Fcprayer",
+  "&logo=leetcode&logoColor=yellow&cacheSeconds=86400",
+].join("");
+
 interface CompetitionEntry {
   date: string;
   detail?: string;
@@ -186,25 +193,28 @@ const AboutPage = ({ data }: AboutPageProps) => {
             <div className="profile-codeforces">
               <Icon name="code" /><span>Codeforces</span>
               <div className="codeforces-badges">
-                <a className="codeforces-rating purple" href="https://codeforces.com/profile/B-E"
+                <a className="profile-rating purple" href="https://codeforces.com/profile/B-E"
                   target="_blank" rel="noreferrer" aria-label="Codeforces B-E 최고 레이팅 1940">
                   <span>B-E</span><strong>1940</strong>
                 </a>
-                <a className="codeforces-rating blue" href="https://codeforces.com/profile/cprayer"
+                <a className="profile-rating blue" href="https://codeforces.com/profile/cprayer"
                   target="_blank" rel="noreferrer" aria-label="Codeforces cprayer 최고 레이팅 1852">
                   <span>cprayer</span><strong>1852</strong>
                 </a>
               </div>
             </div>
             <a className="profile-solved-ac" href="https://solved.ac/profile/cprayer"
-              target="_blank" rel="noreferrer">
+              target="_blank" rel="noreferrer" aria-label="solved.ac cprayer 다이아몬드 5">
               <Icon name="trophy" /><span>solved.ac</span>
-              <img className="profile-solved-badge"
-                src="https://mazassumnida.wtf/api/mini/generate_badge?boj=cprayer"
-                alt="cprayer solved.ac 티어 배지" width={110} height={20} loading="lazy" />
+              <span className="profile-rating solved profile-solved-badge" aria-hidden="true">
+                <span>cprayer</span><strong>D5</strong>
+              </span>
             </a>
-            <a href="https://leetcode.com/u/cprayer" target="_blank" rel="noreferrer">
-              <Icon name="terminal" /><span>LeetCode</span><Icon name="arrow right" />
+            <a className="profile-leetcode" href="https://leetcode.com/u/cprayer"
+              target="_blank" rel="noreferrer">
+              <Icon name="terminal" /><span>LeetCode</span>
+              <img className="profile-leetcode-badge" src={leetcodeBadgeUrl}
+                alt="LeetCode에서 해결한 문제 수" height={20} loading="lazy" />
             </a>
           </div>
         </section>
