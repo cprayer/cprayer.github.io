@@ -181,6 +181,9 @@ const AboutPage = ({ data }: AboutPageProps) => {
             <a href="https://linkedin.com/in/taemin-shin" target="_blank" rel="noreferrer">
               <Icon name="linkedin" /><span>LinkedIn</span><Icon name="arrow right" />
             </a>
+            <a href="https://leetcode.com/u/cprayer" target="_blank" rel="noreferrer">
+              <Icon name="terminal" /><span>LeetCode</span><Icon name="arrow right" />
+            </a>
             <div className="profile-codeforces">
               <Icon name="code" /><span>Codeforces</span>
               <div className="codeforces-badges">
