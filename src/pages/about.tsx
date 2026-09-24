@@ -89,6 +89,7 @@ const awards: CompetitionEntry[] = [
     date: "2017-12",
     detail: "한국항공대학교 · ACM-ICPC 지역대회 예선 겸 교내 대회 (1위)",
     result: "최우수상",
+    source: { label: "ICPC ID", url: "https://icpc.global/ICPCID/LAH7ZPTJ4BVT" },
     title: "교내 프로그래밍 경진대회",
   },
   {
