@@ -111,7 +111,7 @@ const awards: CompetitionEntry[] = [
     detail: "발행: 아주대학교 LINC+",
     result: "장려상",
     source: { label: "2017년 결과", url: "https://shake.codes/results/2017" },
-    title: "경인지역 6개 대학 연합 프로그래밍 경시대회(Shake)",
+    title: "경인지역 6개 대학 연합 프로그래밍 경시대회(Shake!)",
   },
 ];
 

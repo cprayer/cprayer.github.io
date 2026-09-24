@@ -569,8 +569,15 @@ textarea {
   text-align: center;
 }
 
+.about-intro,
+.about-details {
+  max-width: 720px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .about-intro {
-  padding: 5rem 0 3rem;
+  padding: 2rem 0 3rem;
 }
 
 .about-avatar.ui.image {
@@ -581,7 +588,6 @@ textarea {
 }
 
 .about-details {
-  max-width: 720px;
   padding: 3rem 0 7rem;
   border-top: 1px solid #e8ebef;
 }
@@ -612,9 +618,10 @@ textarea {
 .codeforces-rating {
   display: inline-flex;
   overflow: hidden;
+  height: 20px;
   color: #fff;
   font-size: 0.72rem;
-  line-height: 1.6;
+  line-height: 20px;
   border-radius: 0.25rem;
 }
 
@@ -625,7 +632,7 @@ textarea {
 
 .codeforces-rating span,
 .codeforces-rating strong {
-  padding: 0.1rem 0.4rem;
+  padding: 0 0.4rem;
 }
 
 .codeforces-rating span {
@@ -645,6 +652,7 @@ textarea {
   display: block;
   width: 110px;
   height: 20px;
+  border-radius: 0.25rem;
 }
 
 .about-contributions {
@@ -929,7 +937,7 @@ textarea {
   }
 
   .about-intro {
-    padding: 3rem 0 2.5rem;
+    padding: 2rem 0 2.5rem;
   }
 
   .about-avatar.ui.image {
