@@ -82,7 +82,7 @@ const awards: CompetitionEntry[] = [
     date: "2018-11",
     detail: "한국항공대학교 · choolbal_dream",
     result: "21위",
-    source: { label: "공식 순위표", url: "https://icpckorea.org/2018-seoul/regional#:~:text=choolbal_dream" },
+    source: { label: "ICPC ID", url: "https://icpc.global/ICPCID/LAH7ZPTJ4BVT" },
     title: "ACM-ICPC Seoul Regional",
   },
   {
@@ -101,7 +101,7 @@ const awards: CompetitionEntry[] = [
     date: "2017-11",
     detail: "한국항공대학교",
     result: "17위",
-    source: { label: "공식 참가팀 명단", url: "https://icpckorea.org/2017-daejeon/regional/teams" },
+    source: { label: "ICPC ID", url: "https://icpc.global/ICPCID/LAH7ZPTJ4BVT" },
     title: "ACM-ICPC Daejeon Regional",
   },
   {
