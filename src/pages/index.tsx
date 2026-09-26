@@ -23,7 +23,7 @@ const BlogPage = (props: BlogProps) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [searchOpen, setSearchOpen] = React.useState(false);
   const searchToggleRef = React.useRef<HTMLButtonElement>(null);
-  const tags = props.data.tags.group.sort((a, b) => b.totalCount - a.totalCount);
+  const tags = [...props.data.tags.group].sort((a, b) => b.totalCount - a.totalCount);
   const posts = props.data.posts.edges;
   const { pathname } = props.location;
   const pageCount = Math.ceil(props.data.posts.totalCount / 10);
@@ -112,14 +112,14 @@ const BlogPage = (props: BlogProps) => {
         </section>
       )}
 
-      <div className="home-content-grid">
+      <div className="home-content">
         <main>
           <div className="section-heading">
             <h2>{sectionTitle}</h2>
             <div className="section-heading-controls">
               <button className="post-search-toggle" type="button" onClick={toggleSearch}
                 ref={searchToggleRef}
-                aria-label={searchOpen ? "검색 닫기" : "글 검색"}
+                aria-label={searchOpen ? "검색 닫기" : "글 검색 및 주제 탐색"}
                 aria-expanded={searchOpen}
                 aria-controls={searchOpen ? "post-search-panel" : undefined}>
                 {searchOpen ? <span aria-hidden="true">×</span> : (
@@ -147,6 +147,19 @@ const BlogPage = (props: BlogProps) => {
                 placeholder={props.pageContext.tag
                   ? `#${props.pageContext.tag} 안에서 검색`
                   : "제목, 내용, 태그로 검색"} />
+              {!normalizedQuery && (
+                <div className="post-search-topics">
+                  <p>자주 다룬 주제</p>
+                  <nav className="tag-chips" aria-label="자주 다룬 주제">
+                    {tags.slice(0, 12).map((tag) => (
+                      <Link className={tag.fieldValue === props.pageContext.tag ? "active" : ""}
+                        key={tag.fieldValue} to={`/tags/${tag.fieldValue}/`}>
+                        {tag.fieldValue}<span>{tag.totalCount}</span>
+                      </Link>
+                    ))}
+                  </nav>
+                </div>
+              )}
             </div>
           )}
           <div className="post-list">
@@ -158,18 +171,6 @@ const BlogPage = (props: BlogProps) => {
             </div>
           )}
         </main>
-
-        <aside className="home-tags" aria-label="인기 태그">
-          <p className="section-eyebrow">TOPICS</p>
-          <div className="tag-chips">
-            {tags.slice(0, 12).map((tag) => (
-              <Link className={tag.fieldValue === props.pageContext.tag ? "active" : ""}
-                key={tag.fieldValue} to={`/tags/${tag.fieldValue}/`}>
-                {tag.fieldValue}<span>{tag.totalCount}</span>
-              </Link>
-            ))}
-          </div>
-        </aside>
       </div>
     </Container>
   );

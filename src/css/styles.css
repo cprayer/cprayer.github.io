@@ -380,10 +380,7 @@ textarea {
   font-size: 0.82rem;
 }
 
-.home-content-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 190px;
-  gap: 5rem;
+.home-content {
   padding: 6rem 0;
 }
 
@@ -475,6 +472,21 @@ textarea {
   box-shadow: 0 0 0 3px rgb(100 149 200 / 12%);
 }
 
+.post-search-topics {
+  margin-top: 1rem;
+}
+
+.post-search-topics > p {
+  margin: 0 0 0.7rem;
+  color: #747c86;
+  font-size: 0.8rem;
+}
+
+.post-search-topics .tag-chips a {
+  background: #fff;
+  border: 1px solid #e3e8ee;
+}
+
 .post-list-item {
   border-top: 1px solid #e8ebef;
 }
@@ -523,6 +535,7 @@ textarea {
 
 .post-list-description {
   display: -webkit-box;
+  max-width: 80ch;
   margin: 0;
   overflow: hidden;
   color: #747c86;
@@ -530,10 +543,6 @@ textarea {
   line-height: 1.65;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-}
-
-.home-tags {
-  padding-top: 0.15rem;
 }
 
 .tag-chips {
@@ -601,6 +610,26 @@ textarea {
 
 .profile-links > a:hover {
   color: #356fa8;
+}
+
+.profile-links > a > .icon,
+.profile-codeforces > .icon {
+  display: inline-flex;
+  width: 24px;
+  height: 20px;
+  margin: 0;
+  line-height: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-links > a > span:first-of-type,
+.profile-codeforces > span:first-of-type {
+  line-height: 20px;
+}
+
+.profile-links > a > .icon:last-child {
+  justify-self: end;
 }
 
 .codeforces-badges {
@@ -914,9 +943,7 @@ textarea {
     aspect-ratio: 16 / 9;
   }
 
-  .home-content-grid {
-    grid-template-columns: 1fr;
-    gap: 3.5rem;
+  .home-content {
     padding: 4rem 0;
   }
 
@@ -931,10 +958,6 @@ textarea {
 
   .post-list-meta {
     gap: 0.3rem 0.6rem;
-  }
-
-  .home-tags {
-    padding-top: 0;
   }
 
   .about-intro {
@@ -957,6 +980,7 @@ textarea {
   .codeforces-badges {
     grid-column: 2;
     margin-top: 0.5rem;
+    justify-self: end;
   }
 
   .profile-links > a.profile-solved-ac,
@@ -968,6 +992,7 @@ textarea {
   .profile-leetcode-badge {
     grid-column: 2;
     margin-top: 0.5rem;
+    justify-self: end;
   }
 
 }
@@ -1175,6 +1200,7 @@ pre {
 
 :root[data-theme="dark"] .featured-post-description,
 :root[data-theme="dark"] .post-list-description,
+:root[data-theme="dark"] .post-search-topics > p,
 :root[data-theme="dark"] .contribution-group a,
 :root[data-theme="dark"] .competition-meta {
   color: var(--muted-color);
@@ -1204,7 +1230,9 @@ pre {
 :root[data-theme="dark"] .post-search-toggle:hover,
 :root[data-theme="dark"] .post-search-toggle:focus-visible,
 :root[data-theme="dark"] .tag-chips a:hover,
-:root[data-theme="dark"] .tag-chips a.active {
+:root[data-theme="dark"] .tag-chips a.active,
+:root[data-theme="dark"] .post-search-topics .tag-chips a:hover,
+:root[data-theme="dark"] .post-search-topics .tag-chips a.active {
   background: var(--raised-bg);
 }
 
@@ -1219,6 +1247,7 @@ pre {
 }
 
 :root[data-theme="dark"] .tag-chips a,
+:root[data-theme="dark"] .post-search-topics .tag-chips a,
 :root[data-theme="dark"] .ui.label {
   color: var(--muted-color);
   background: var(--surface-bg);
@@ -1230,7 +1259,9 @@ pre {
 }
 
 :root[data-theme="dark"] .tag-chips a:hover,
-:root[data-theme="dark"] .tag-chips a.active {
+:root[data-theme="dark"] .tag-chips a.active,
+:root[data-theme="dark"] .post-search-topics .tag-chips a:hover,
+:root[data-theme="dark"] .post-search-topics .tag-chips a.active {
   color: var(--accent-color);
 }
 
