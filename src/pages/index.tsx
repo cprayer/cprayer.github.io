@@ -115,7 +115,15 @@ const BlogPage = (props: BlogProps) => {
       <div className="home-content">
         <main>
           <div className="section-heading">
-            <h2>{sectionTitle}</h2>
+            <div className="section-heading-title">
+              <h2>{sectionTitle}</h2>
+              {props.pageContext.tag && (
+                <Link className="clear-topic-filter" to="/"
+                  aria-label={`${props.pageContext.tag} 주제 필터 해제`}>
+                  필터 해제
+                </Link>
+              )}
+            </div>
             <div className="section-heading-controls">
               <button className="post-search-toggle" type="button" onClick={toggleSearch}
                 ref={searchToggleRef}
@@ -151,6 +159,9 @@ const BlogPage = (props: BlogProps) => {
                 <div className="post-search-topics">
                   <p>자주 다룬 주제</p>
                   <nav className="tag-chips" aria-label="자주 다룬 주제">
+                    <Link className={!props.pageContext.tag ? "active" : ""} to="/">
+                      전체 글
+                    </Link>
                     {tags.slice(0, 12).map((tag) => (
                       <Link className={tag.fieldValue === props.pageContext.tag ? "active" : ""}
                         key={tag.fieldValue} to={`/tags/${tag.fieldValue}/`}>

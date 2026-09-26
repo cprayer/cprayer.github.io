@@ -399,6 +399,27 @@ textarea {
   overflow-wrap: anywhere;
 }
 
+.section-heading-title {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.8rem;
+}
+
+.clear-topic-filter {
+  flex: none;
+  color: #68717c;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.clear-topic-filter:hover,
+.clear-topic-filter:focus-visible {
+  color: #356fa8;
+}
+
 .section-heading-controls {
   display: flex;
   flex: none;
@@ -602,6 +623,7 @@ textarea {
 .profile-codeforces {
   display: grid;
   grid-template-columns: 24px minmax(0, 1fr) auto;
+  column-gap: 0.75rem;
   padding: 1rem 0;
   color: #343a42;
   border-bottom: 1px solid #e6e9ed;
@@ -1201,6 +1223,7 @@ pre {
 :root[data-theme="dark"] .featured-post-description,
 :root[data-theme="dark"] .post-list-description,
 :root[data-theme="dark"] .post-search-topics > p,
+:root[data-theme="dark"] .clear-topic-filter,
 :root[data-theme="dark"] .contribution-group a,
 :root[data-theme="dark"] .competition-meta {
   color: var(--muted-color);
@@ -1216,6 +1239,8 @@ pre {
 }
 
 :root[data-theme="dark"] .section-eyebrow,
+:root[data-theme="dark"] .clear-topic-filter:hover,
+:root[data-theme="dark"] .clear-topic-filter:focus-visible,
 :root[data-theme="dark"] .post-search-toggle:hover,
 :root[data-theme="dark"] .post-search-toggle:focus-visible,
 :root[data-theme="dark"] .competition-result,
