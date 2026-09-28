@@ -20,6 +20,13 @@ const contributions = [
   },
   {
     items: [
+      { title: "Avoid replaying unread body data on retry", type: "PR",
+        url: "https://github.com/linkerd/linkerd2-proxy/pull/4621" },
+    ],
+    project: "linkerd2-proxy",
+  },
+  {
+    items: [
       { title: "Add \"No resources found\" message to kubectl logs", type: "PR",
         url: "https://github.com/kubernetes/kubernetes/pull/89688" },
     ],
