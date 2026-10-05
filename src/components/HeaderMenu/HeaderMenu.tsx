@@ -63,18 +63,18 @@ export const HeaderMenu = ({ items, pathname, Link, inverted, dispatch }: Header
           />;
         })}
       </Menu.Menu>
-      <Menu.Item as="button" className="mobile only" icon="sidebar"
-        aria-label="메뉴 열기" onClick={(event: React.MouseEvent) => {
-          event.stopPropagation();
-          if (dispatch) {
-            dispatch(toggleSidebar());
-          }
-        }} />
       <Menu.Item as="button" className="theme-toggle" onClick={toggleTheme}
         aria-label={theme === "dark" ? "라이트 모드로 전환" : "다크 모드로 전환"}
         aria-pressed={theme === "dark"}>
         <Icon name={theme === "dark" ? "sun outline" : "moon outline"} />
       </Menu.Item>
+      <Menu.Item as="button" className="mobile only site-menu-toggle" icon="sidebar"
+        aria-label="전체 메뉴 열기" onClick={(event: React.MouseEvent) => {
+          event.stopPropagation();
+          if (dispatch) {
+            dispatch(toggleSidebar());
+          }
+        }} />
     </Menu>
   </Container>;
 };

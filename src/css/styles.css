@@ -622,6 +622,8 @@ textarea {
 .profile-links > a,
 .profile-codeforces {
   display: grid;
+  width: 100%;
+  min-width: 0;
   grid-template-columns: 24px minmax(0, 1fr) auto;
   column-gap: 0.75rem;
   padding: 1rem 0;
@@ -901,12 +903,6 @@ textarea {
     padding-left: 0;
   }
 
-  .site-navigation.ui.menu .mobile.only.item {
-    margin-left: auto;
-    background: transparent;
-    border: 0;
-  }
-
   .home-page.ui.container,
   .about-page.ui.container,
   .blog-post-page.ui.container,
@@ -999,15 +995,14 @@ textarea {
     grid-template-columns: 24px minmax(0, 1fr);
   }
 
+  .profile-links > a {
+    grid-template-columns: 24px minmax(0, 1fr);
+  }
+
   .codeforces-badges {
     grid-column: 2;
     margin-top: 0.5rem;
     justify-self: end;
-  }
-
-  .profile-links > a.profile-solved-ac,
-  .profile-links > a.profile-leetcode {
-    grid-template-columns: 24px minmax(0, 1fr);
   }
 
   .profile-solved-badge,
@@ -1107,6 +1102,11 @@ pre {
   color: #b7d9fa;
 }
 
+:root[data-theme="dark"] .profile-rating,
+:root[data-theme="dark"] .profile-rating:hover {
+  color: #fff;
+}
+
 :root[data-theme="dark"] .site-navigation.ui.menu .site-wordmark.item,
 :root[data-theme="dark"] .site-navigation.ui.menu .right.menu .active.item,
 :root[data-theme="dark"] .site-navigation.ui.menu .right.menu .item:hover {
@@ -1176,6 +1176,19 @@ pre {
 
 .site-navigation.ui.menu .theme-toggle.item .icon {
   margin: 0;
+}
+
+@media only screen and (width <= 767px) {
+  .site-navigation.ui.menu .theme-toggle.item {
+    margin-left: auto;
+    padding-right: 0.8rem;
+  }
+
+  .site-navigation.ui.menu .site-menu-toggle.item {
+    margin-left: 0;
+    background: transparent;
+    border: 0;
+  }
 }
 
 :root[data-theme="dark"] .featured-post,

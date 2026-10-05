@@ -74,7 +74,7 @@ const Layout = (props: LayoutProps) => {
       </Helmet>
       <Sidebar.Pushable as={Segment}>
 
-        <SidebarMenu Link={Link} pathname={pathname} items={menuItems} visible={false} />
+        <SidebarMenu Link={Link} pathname={pathname} items={menuItems} />
 
         <NavigationPusher>
           {/* Header */}
