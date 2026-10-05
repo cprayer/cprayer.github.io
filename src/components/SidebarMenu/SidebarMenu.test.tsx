@@ -1,4 +1,4 @@
-import { render, shallow, configure } from "enzyme";
+import { shallow, configure } from "enzyme";
 import "jest";
 import * as React from "react";
 import { SidebarMenu } from "./SidebarMenu";
@@ -16,10 +16,10 @@ const items = [
 const LinkStub: any = (props: any) => <div {...props} />;
 
 describe("SidebarMenu component", () => {
-  it("should render correctly", () => {
-
-    const wrapper = render(<SidebarMenu Link={LinkStub} pathname="/" items={items} visible />);
-    expect(wrapper).toMatchSnapshot();
+  it("marks the current page as active", () => {
+    const wrapper = shallow(<SidebarMenu Link={LinkStub} pathname="/about/" items={items} visible />);
+    expect(wrapper.find({ to: "/about/" }).prop("active")).toBe(true);
+    expect(wrapper.find({ to: "/" }).prop("active")).toBe(false);
   });
 
   it("closes when a link is clicked", () => {
@@ -27,6 +27,13 @@ describe("SidebarMenu component", () => {
     const wrapper = shallow(<SidebarMenu Link={LinkStub} pathname="/" items={items} visible dispatch={dispatch} />);
     wrapper.find({ to: "/about/" }).simulate("click");
     expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(dispatch).toHaveBeenCalledWith(closeSidebar());
+  });
+
+  it("closes from the header button", () => {
+    const dispatch = jest.fn();
+    const wrapper = shallow(<SidebarMenu Link={LinkStub} pathname="/" items={items} visible dispatch={dispatch} />);
+    wrapper.find(".sidebar-close").simulate("click");
     expect(dispatch).toHaveBeenCalledWith(closeSidebar());
   });
 });

@@ -218,8 +218,8 @@ textarea {
 }
 
 .blog-sidebar.ui.vertical.menu {
-  width: min(18rem, 82vw);
-  padding: 1.3rem 0.8rem;
+  width: min(19rem, 84vw);
+  padding: 1rem;
   background: #fff;
   border: 0;
   border-right: 1px solid #e5eaf0;
@@ -230,10 +230,64 @@ textarea {
   transition-duration: 240ms;
 }
 
+.sidebar-header {
+  display: flex;
+  min-height: 3.8rem;
+  margin-bottom: 1.6rem;
+  padding: 0 0.35rem 0.9rem;
+  border-bottom: 1px solid #e6e9ed;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-wordmark {
+  color: #20252c;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.sidebar-close {
+  display: inline-flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  color: #68717c;
+  background: transparent;
+  border: 0;
+  border-radius: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.sidebar-close:hover,
+.sidebar-close:focus-visible {
+  color: #356fa8;
+  background: #f3f6fa;
+}
+
+.sidebar-close:focus-visible {
+  outline: 2px solid #83a8ce;
+  outline-offset: 2px;
+}
+
+.sidebar-close .icon {
+  margin: 0;
+}
+
+.sidebar-section-label {
+  margin: 0 0.95rem 0.65rem;
+  color: #7c8794;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
 .blog-sidebar.ui.vertical.menu .item {
   display: flex;
   min-height: 3.4rem;
-  margin: 0.2rem 0;
+  margin: 0.25rem 0;
   padding: 0.8rem 0.95rem;
   align-items: center;
   gap: 0.85rem;
@@ -252,7 +306,7 @@ textarea {
   width: 1.3rem;
   margin: 0;
   font-size: 1.15rem;
-  opacity: 0.8;
+  color: #728091;
 }
 
 .blog-sidebar.ui.vertical.menu .item:hover,
@@ -270,6 +324,11 @@ textarea {
   color: #255e93;
   background: #ecf4fb;
   font-weight: 650;
+  box-shadow: inset 3px 0 0 #4a82bd;
+}
+
+.blog-sidebar.ui.vertical.menu .active.item .icon {
+  color: #356fa8;
 }
 
 .ui.segment.pushable > .pusher::after {
@@ -652,10 +711,6 @@ textarea {
   line-height: 20px;
 }
 
-.profile-links > a > .icon:last-child {
-  justify-self: end;
-}
-
 .codeforces-badges {
   display: flex;
   gap: 0.4rem;
@@ -995,7 +1050,8 @@ textarea {
     grid-template-columns: 24px minmax(0, 1fr);
   }
 
-  .profile-links > a {
+  .profile-links > a.profile-solved-ac,
+  .profile-links > a.profile-leetcode {
     grid-template-columns: 24px minmax(0, 1fr);
   }
 
@@ -1131,6 +1187,26 @@ pre {
   border-color: var(--border-color);
 }
 
+:root[data-theme="dark"] .sidebar-header {
+  border-color: var(--border-color);
+}
+
+:root[data-theme="dark"] .sidebar-wordmark {
+  color: var(--text-color);
+}
+
+:root[data-theme="dark"] .sidebar-close,
+:root[data-theme="dark"] .sidebar-section-label,
+:root[data-theme="dark"] .blog-sidebar.ui.vertical.menu .item .icon {
+  color: var(--muted-color);
+}
+
+:root[data-theme="dark"] .sidebar-close:hover,
+:root[data-theme="dark"] .sidebar-close:focus-visible {
+  color: var(--accent-color);
+  background: var(--raised-bg);
+}
+
 :root[data-theme="dark"] .blog-sidebar.ui.vertical.menu .item {
   color: var(--muted-color);
 }
@@ -1144,6 +1220,11 @@ pre {
 :root[data-theme="dark"] .blog-sidebar.ui.vertical.menu .active.item {
   color: var(--accent-color);
   background: var(--raised-bg);
+  box-shadow: inset 3px 0 0 var(--accent-color);
+}
+
+:root[data-theme="dark"] .blog-sidebar.ui.vertical.menu .active.item .icon {
+  color: var(--accent-color);
 }
 
 .site-navigation.ui.menu .theme-toggle.item {
