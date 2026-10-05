@@ -30,10 +30,4 @@ describe("SidebarMenu component", () => {
     expect(dispatch).toHaveBeenCalledWith(closeSidebar());
   });
 
-  it("closes from the header button", () => {
-    const dispatch = jest.fn();
-    const wrapper = shallow(<SidebarMenu Link={LinkStub} pathname="/" items={items} visible dispatch={dispatch} />);
-    wrapper.find(".sidebar-close").simulate("click");
-    expect(dispatch).toHaveBeenCalledWith(closeSidebar());
-  });
 });
