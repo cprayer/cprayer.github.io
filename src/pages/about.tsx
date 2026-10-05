@@ -208,10 +208,10 @@ const AboutPage = ({ data }: AboutPageProps) => {
           <p className="section-eyebrow">LINKS</p>
           <div className="profile-links">
             <a href="https://github.com/cprayer" target="_blank" rel="noreferrer">
-              <Icon name="github" /><span>GitHub</span>
+              <Icon name="github" /><span>GitHub</span><Icon name="arrow right" />
             </a>
             <a href="https://linkedin.com/in/taemin-shin" target="_blank" rel="noreferrer">
-              <Icon name="linkedin" /><span>LinkedIn</span>
+              <Icon name="linkedin" /><span>LinkedIn</span><Icon name="arrow right" />
             </a>
             <div className="profile-codeforces">
               <Icon name="code" /><span>Codeforces</span>
