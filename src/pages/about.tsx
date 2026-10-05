@@ -178,6 +178,14 @@ const CompetitionList = ({ items }: { items: CompetitionEntry[] }) => (
   </ol>
 );
 
+const ProfileLinkArrow = () => (
+  <svg className="profile-link-arrow" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+    aria-hidden="true">
+    <path d="M4 12h15m-6-6 6 6-6 6" />
+  </svg>
+);
+
 const AboutPage = ({ data }: AboutPageProps) => {
   const avatar = data.author.avatar.children[0] as ImageSharp;
   const [leetcodeSolved, setLeetcodeSolved] = React.useState("—");
@@ -208,10 +216,10 @@ const AboutPage = ({ data }: AboutPageProps) => {
           <p className="section-eyebrow">LINKS</p>
           <div className="profile-links">
             <a href="https://github.com/cprayer" target="_blank" rel="noreferrer">
-              <Icon name="github" /><span>GitHub</span><Icon name="arrow right" />
+              <Icon name="github" /><span>GitHub</span><ProfileLinkArrow />
             </a>
             <a href="https://linkedin.com/in/taemin-shin" target="_blank" rel="noreferrer">
-              <Icon name="linkedin" /><span>LinkedIn</span><Icon name="arrow right" />
+              <Icon name="linkedin" /><span>LinkedIn</span><ProfileLinkArrow />
             </a>
             <div className="profile-codeforces">
               <Icon name="code" /><span>Codeforces</span>

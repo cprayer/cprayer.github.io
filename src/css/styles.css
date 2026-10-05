@@ -662,7 +662,9 @@ textarea {
   line-height: 20px;
 }
 
-.profile-links > a > .icon:last-child {
+.profile-links > a > .profile-link-arrow {
+  width: 18px;
+  height: 18px;
   justify-self: end;
 }
 
@@ -678,6 +680,7 @@ textarea {
   grid-template-columns: 56px 36px;
   color: #fff;
   font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
   line-height: 20px;
   border-radius: 0.25rem;
 }
@@ -689,8 +692,15 @@ textarea {
 
 .profile-rating span,
 .profile-rating strong {
+  font-family: var(--site-font);
+  font-size: 0.72rem;
+  letter-spacing: 0;
   text-align: center;
   white-space: nowrap;
+}
+
+.profile-rating strong {
+  font-weight: 600;
 }
 
 .profile-rating span {
