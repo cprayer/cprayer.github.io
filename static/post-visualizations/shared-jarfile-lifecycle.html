@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>closed된 Shared JarFile이 Spring Boot 클래스 로더 캐시에 남는 과정</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #fff; --surface: #f6f8fa; --text: #26313c; --muted: #617182;
+      --line: #dfe5eb; --blue: #2563a0; --blue-bg: #edf5ff;
+      --purple: #7752a5; --purple-bg: #f5effc; --red: #b63e39;
+      --red-bg: #fff1ef; --green: #24704d; --green-bg: #edf8f1;
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #18222c; --surface: #1e2b36; --text: #e9eef3; --muted: #aab8c5;
+      --line: #364653; --blue: #91c4f3; --blue-bg: #20374b;
+      --purple: #c9a8f0; --purple-bg: #332a43; --red: #ffaaa0;
+      --red-bg: #402c2d; --green: #90d7af; --green-bg: #203c31;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--text); font: 14px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .demo { padding: 24px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); }
+    .eyebrow { margin: 0 0 6px; color: var(--muted); font-size: 11px; letter-spacing: .06em; }
+    h1 { margin: 0 0 20px; font-size: 20px; line-height: 1.45; letter-spacing: -.035em; word-break: keep-all; }
+    button { color: inherit; font: inherit; cursor: pointer; }
+    button:focus-visible, input:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    button:disabled { opacity: .4; cursor: default; }
+    .modes { display: flex; gap: 4px; padding: 4px; border-radius: 7px; background: var(--surface); }
+    .modes button { flex: 1; padding: 8px 4px; border: 1px solid transparent; border-radius: 5px; background: transparent; font-size: 13px; }
+    .modes button[aria-pressed="true"] { border-color: var(--line); background: var(--bg); font-weight: 700; }
+    .modes button[data-mode="race"][aria-pressed="true"] { color: var(--red); }
+    .modes button[data-mode="fixed"][aria-pressed="true"] { color: var(--green); }
+    .stage { max-width: 720px; margin: 16px auto 0; }
+    canvas { display: block; width: 100%; height: 570px; }
+    .caption { min-height: 94px; margin-top: 8px; padding: 13px 15px; border-left: 3px solid var(--blue); background: var(--blue-bg); border-radius: 0 5px 5px 0; }
+    .caption strong { display: block; margin-bottom: 4px; font-size: 13px; }
+    .caption p { margin: 0; color: var(--muted); font-size: 12px; }
+    .caption[data-tone="danger"] { border-color: var(--red); background: var(--red-bg); }
+    .caption[data-tone="success"] { border-color: var(--green); background: var(--green-bg); }
+    .transport { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+    input[type="range"] { width: 100%; min-width: 0; margin: 0; accent-color: var(--blue); cursor: pointer; }
+    .progress { flex-shrink: 0; color: var(--muted); font: 11px ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .controls { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .controls button { padding: 6px 12px; border: 1px solid var(--line); border-radius: 5px; background: var(--bg); font-size: 12px; }
+    .controls .primary { min-width: 76px; background: var(--text); color: var(--bg); border-color: var(--text); }
+    .note { margin: 14px 0 0; color: var(--muted); font-size: 11px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .fallback { margin: 20px 0; padding-left: 22px; font-size: 13px; }
+    .fallback li { margin-bottom: 10px; }
+    [hidden] { display: none !important; }
+    @media (max-width: 420px) {
+      .demo { padding: 17px 12px; }
+      h1 { font-size: 18px; }
+      .caption { min-height: 116px; }
+      .controls { gap: 6px; }
+      .controls button { padding: 7px 9px; }
+    }
+    @media print { .modes, .controls, .transport { display: none !important; } }
+  </style>
+</head>
+<body>
+  <main class="demo">
+    <p class="eyebrow">Spring Boot · Armeria DocService</p>
+    <h1>closed된 Shared JarFile이 Spring Boot 클래스 로더 캐시에 남는 과정</h1>
+    <div class="modes" role="group" aria-label="비교할 흐름" hidden>
+      <button type="button" data-mode="normal" aria-pressed="false">정상 동작</button>
+      <button type="button" data-mode="race" aria-pressed="true">문제 발생</button>
+      <button type="button" data-mode="fixed" aria-pressed="false">수정 후</button>
+    </div>
+    <div class="stage" hidden>
+      <canvas id="flow" role="img" aria-label="클래스 로더와 DocService의 JarFile 사용, close 호출, 캐시 등록을 보여주는 애니메이션. 아래에 현재 단계의 설명이 있습니다."></canvas>
+    </div>
+    <ol class="fallback" id="fallback">
+      <li>Spring Boot 클래스 로더와 Reflections가 Shared JarFile A 인스턴스를 함께 사용합니다.</li>
+      <li>캐시 등록 전에 Reflections가 A 인스턴스를 닫습니다. 캐시에 A 인스턴스가 없어 제거하지 못합니다.</li>
+      <li>닫힌 A 인스턴스가 뒤늦게 캐시에 등록되어 남을 수 있습니다.</li>
+      <li>이후 해당 Jar의 클래스 로딩이 ClassNotFoundException으로 실패할 수 있습니다.</li>
+    </ol>
+    <div class="sr-only" aria-label="현재 상태">
+      <span id="jar-value">A 인스턴스 · CLOSED</span>
+      <span id="cache-value">jar → A 인스턴스 (CLOSED)</span>
+    </div>
+    <div class="caption" id="caption" data-tone="danger" role="status" aria-live="polite" aria-atomic="true">
+      <strong id="caption-title">ClassNotFoundException 발생</strong>
+      <p id="caption-body">다음 요청도 캐시에 남은 닫힌 A 인스턴스를 쓰려다가 ClassNotFoundException이 발생할 수 있습니다. JVM을 다시 시작할 때까지 문제가 이어질 수 있습니다.</p>
+    </div>
+    <div class="transport" hidden>
+      <input id="seek" type="range" min="0" max="16000" step="1" value="0" aria-label="애니메이션 진행 위치">
+      <span class="progress" id="progress">1 / 4</span>
+    </div>
+    <div class="controls" hidden>
+      <button type="button" id="play" class="primary">일시정지</button>
+      <button type="button" id="previous" aria-label="이전 단계">← 이전</button>
+      <button type="button" id="next" aria-label="다음 단계">다음 →</button>
+      <button type="button" id="reset">처음부터</button>
+    </div>
+  </main>
+  <script>
+    (() => {
+
+      const scenarios = {
+        normal: [
+          {
+            boot: ['Shared JarFile A 인스턴스 준비', '캐시 등록 전'],
+            scan: ['동일한 A 인스턴스로 스캐닝', '공유 인스턴스 사용'],
+            jar: 'A 인스턴스 · OPEN', cache: '비어 있음',
+            title: '동일한 JarFile A 인스턴스를 씁니다',
+            body: '클래스 로더와 Reflections는 각각 URL 연결을 만듭니다. getJarFile() 안에서 connect()가 실행되며 캐시를 함께 쓰면 동일한 JarFile A 인스턴스를 얻을 수 있습니다.'
+          },
+          {
+            boot: ['열린 A 인스턴스를 캐시에 등록', 'close보다 먼저 등록'], scan: null,
+            jar: 'A 인스턴스 · OPEN', cache: 'jar → A 인스턴스 (OPEN)',
+            title: '현재 JarFile 인스턴스를 캐시에 넣습니다',
+            body: '나중에도 동일한 A 인스턴스를 쓸 수 있도록 캐시에 넣어 둡니다. A 인스턴스를 닫으면 미리 연결해 둔 onClose가 캐시에서도 A 인스턴스를 지웁니다.'
+          },
+          {
+            boot: ['캐시에서 A 인스턴스 제거', 'close 시 제거 로직 동작'],
+            scan: ['A.close()', '스캐닝 후 공유 인스턴스 닫기'],
+            jar: 'A 인스턴스 · CLOSED', cache: '비어 있음',
+            title: 'A 인스턴스가 close되는 경우',
+            body: 'Reflections가 A 인스턴스를 닫으려고 close()를 부르면 onClose가 먼저 캐시에서 A 인스턴스를 지웁니다. 그다음 A 인스턴스를 닫습니다.',
+            tone: 'success'
+          },
+          {
+            boot: ['새 JarFile A′ 인스턴스 열기', '캐시 미스 후 동일한 Jar 파일 다시 열기'], scan: null,
+            jar: 'A 인스턴스 · CLOSED / A′ 인스턴스 · OPEN', cache: '비어 있음',
+            title: '캐시에 없으면 같은 Jar를 다시 엽니다',
+            body: '다음 요청도 URL 연결을 만든 뒤 getJarFile()을 부릅니다. connect()에서 캐시에 A 인스턴스가 없음을 확인하면 같은 Jar를 다시 열어 A′ 인스턴스를 만듭니다.',
+            tone: 'success'
+          },
+          {
+            boot: ['열린 A′ 인스턴스를 캐시에 등록', '새 인스턴스 정상 캐싱'], scan: null,
+            jar: 'A 인스턴스 · CLOSED / A′ 인스턴스 · OPEN', cache: 'jar → A′ 인스턴스 (OPEN)',
+            title: '새로 연 JarFile을 캐시에 넣습니다',
+            body: '새로 연 A′ 인스턴스는 아직 열려 있으므로 캐시에 넣어 두고 사용할 수 있습니다.',
+            tone: 'success'
+          },
+          {
+            boot: ['클래스 로딩 성공', '캐시에 등록된 열린 A′ 인스턴스 사용'], scan: null,
+            jar: 'A 인스턴스 · CLOSED / A′ 인스턴스 · OPEN', cache: 'jar → A′ 인스턴스 (OPEN)',
+            title: '이제 클래스를 읽을 수 있습니다',
+            body: '열린 A′ 인스턴스에서 클래스를 정상적으로 읽습니다. 다음 요청도 캐시에 있는 A′ 인스턴스를 그대로 씁니다.',
+            tone: 'success'
+          }
+        ],
+        race: [
+          {
+            boot: ['Shared JarFile A 인스턴스 준비', '캐시 등록 전'],
+            scan: ['동일한 A 인스턴스로 스캐닝', '공유 인스턴스 사용'],
+            jar: 'A 인스턴스 · OPEN', cache: '비어 있음',
+            title: '캐시에 넣기 전에 같은 JarFile을 씁니다',
+            body: 'Reflections도 getJarFile() 안의 connect()를 거쳐 동일한 A 인스턴스를 얻습니다. onClose 콜백은 등록되어 있지만 클래스 로더가 A 인스턴스를 캐시에 넣기 전입니다.'
+          },
+          {
+            boot: null, scan: ['A.close()', '아직 캐시에 A 인스턴스가 없음'],
+            jar: 'A 인스턴스 · CLOSED', cache: '비어 있음',
+            title: '지우려고 했지만 캐시에 아직 없습니다',
+            body: 'Reflections가 A 인스턴스를 닫으면서 onClose도 실행됩니다. 아직 캐시에 적재되지 않아 아무런 동작도 하지 않습니다.',
+            danger: 'scan', tone: 'danger'
+          },
+          {
+            boot: ['닫힌 A 인스턴스를 캐시에 등록', 'close 이후에 캐시 등록'], scan: null,
+            jar: 'A 인스턴스 · CLOSED', cache: 'jar → A 인스턴스 (CLOSED)',
+            title: '이미 closed된 JarFile이 캐시에 들어갑니다',
+            body: 'onClose가 끝난 뒤 Spring Boot가 A 인스턴스를 캐시에 넣습니다. A 인스턴스는 이미 닫혔지만 캐시에 남게 될 수 있습니다.',
+            danger: 'boot', tone: 'danger'
+          },
+          {
+            boot: ['클래스 로딩 실패', '캐시에 남은 닫힌 A 인스턴스 사용'], scan: null,
+            jar: 'A 인스턴스 · CLOSED', cache: 'jar → A 인스턴스 (CLOSED)',
+            title: 'ClassNotFoundException 발생',
+            body: '다음 요청도 캐시에 남은 닫힌 A 인스턴스를 쓰려다가 ClassNotFoundException이 발생할 수 있습니다. JVM을 다시 시작할 때까지 문제가 이어질 수 있습니다.',
+            danger: 'boot', tone: 'danger'
+          }
+        ],
+        fixed: [
+          {
+            boot: ['Shared JarFile A 인스턴스 준비', '클래스 로더가 사용하는 인스턴스'],
+            scan: ['별도 JarFile B 인스턴스로 스캐닝', '공유 인스턴스 대신 B 인스턴스 사용'],
+            jar: 'A 인스턴스 · OPEN / B 인스턴스 · OPEN', cache: '비어 있음',
+            title: '같은 Jar를 별도의 JarFile 인스턴스로 만들어 사용합니다',
+            body: 'JarFile을 가져오는 과정은 같고, Reflections 쪽은 setUseCaches(false)로 캐시 사용을 끕니다. 같은 Jar 파일에서 클래스 로더와 별도의 JarFile B 인스턴스를 만들어 사용합니다.'
+          },
+          {
+            boot: null, scan: ['B.close()', '스캐닝용 인스턴스만 닫기'],
+            jar: 'A 인스턴스 · OPEN / B 인스턴스 · CLOSED', cache: '비어 있음',
+            title: '클래스 정보를 다 읽으면 B 인스턴스만 닫습니다',
+            body: 'Reflections는 클래스 정보를 다 읽고 자신이 쓴 B 인스턴스만 닫습니다. 클래스 로더가 쓰는 A 인스턴스는 그대로 열려 있습니다.',
+            tone: 'success'
+          },
+          {
+            boot: ['열린 A 인스턴스를 캐시에 등록', 'B 인스턴스의 close와 충돌하지 않음'], scan: null,
+            jar: 'A 인스턴스 · OPEN / B 인스턴스 · CLOSED', cache: 'jar → A 인스턴스 (OPEN)',
+            title: 'A 인스턴스는 열린 채로 캐시에 들어갑니다',
+            body: 'B 인스턴스를 먼저 닫아도 A 인스턴스에는 영향이 없습니다. 클래스 로더는 열린 A 인스턴스를 캐시에 넣어 두고 씁니다.',
+            tone: 'success'
+          },
+          {
+            boot: ['클래스 로딩 가능', '열린 A 인스턴스 사용'], scan: null,
+            jar: 'A 인스턴스 · OPEN / B 인스턴스 · CLOSED', cache: 'jar → A 인스턴스 (OPEN)',
+            title: 'closed된 JarFile이 스프링 부트 클래스 로더에 영향을 주지 않는다',
+            body: 'Reflections가 닫은 것은 B 인스턴스이므로 클래스 로더는 A 인스턴스에서 클래스를 정상적으로 읽을 수 있습니다.',
+            tone: 'success'
+          }
+        ]
+      };
+
+      const $ = id => document.getElementById(id);
+      const canvas = $('flow');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      const sceneHeight = 570;
+      const duration = () => mode === 'normal' ? 24000 : 16000;
+      const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+      const systemTheme = matchMedia('(prefers-color-scheme: dark)');
+      const modeButtons = Array.from(document.querySelectorAll('[data-mode]'));
+      let mode = 'race';
+      let elapsed = 0;
+      let playing = !reducedMotion.matches;
+      let visible = false;
+      let raf = null;
+      let lastTime = null;
+      let lastStage = '';
+      let width = 0;
+      let colors = {};
+      const clamp = v => Math.max(0, Math.min(1, v));
+      const ease = v => v * v * (3 - 2 * v);
+      const anchors = () => mode === 'normal' ? [0, .23, .44, .62, .78, .90] : [0, .36, .66, .85];
+      const stageAt = p => (mode === 'normal' ? [0, .20, .38, .60, .74, .86] : [0, .34, .62, .80])
+        .reduce((stage, start, index) => p >= start ? index : stage, 0);
+      const point = (path, t) => ({
+        x: (1-t)*(1-t)*path[0] + 2*(1-t)*t*path[2] + t*t*path[4],
+        y: (1-t)*(1-t)*path[1] + 2*(1-t)*t*path[3] + t*t*path[5]
+      });
+
+      function line(path, color, dashed = false) {
+        ctx.beginPath();
+        ctx.moveTo(path[0], path[1]);
+        ctx.quadraticCurveTo(path[2], path[3], path[4], path[5]);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash(dashed ? [4, 5] : []);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+      function text(label, x, y, color, size = 12, weight = 400) {
+        ctx.fillStyle = color;
+        ctx.font = weight + ' ' + size + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(label, x, y);
+      }
+      function box(x, y, w, h, fill, border, radius = 8) {
+        ctx.beginPath();
+        ctx.roundRect(x-w/2, y-h/2, w, h, radius);
+        ctx.fillStyle = fill;
+        ctx.fill();
+        ctx.strokeStyle = border;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+      function glow(x, y, radius, color, alpha) {
+        ctx.save();
+        ctx.globalAlpha *= alpha;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI*2);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.restore();
+      }
+      function stream(path, p, start, end, color, label = '') {
+        if (p < start || p > end) return;
+        const t = (p-start)/(end-start);
+        // The head and its fading trail move continuously along the same curve.
+        for (let i = 10; i >= 0; i--) {
+          const tail = t - i*.019;
+          if (tail < 0) continue;
+          const pos = point(path, tail);
+          ctx.save();
+          ctx.globalAlpha *= (1-i/11)*.85;
+          ctx.beginPath();
+          ctx.arc(pos.x, pos.y, i === 0 ? 4.5 : 3, 0, Math.PI*2);
+          ctx.fillStyle = color;
+          ctx.fill();
+          ctx.restore();
+        }
+        if (label) {
+          const pos = point(path, t);
+          const x = Math.max(45, Math.min(width-45, pos.x));
+          box(x, pos.y-18, 78, 23, colors.bg, colors.line, 5);
+          text(label, x, pos.y-18, color, 11, 600);
+        }
+      }
+      function jar(x, y, w, id, closed, pulse, role = '') {
+        const accent = closed ? colors.red : colors.blue;
+        const fill = closed ? colors.redBg : colors.blueBg;
+        if (pulse > 0 && pulse < 1) glow(x, y, 31+pulse*25, accent, (1-pulse)*.7);
+        box(x, y, w, 64, fill, accent);
+        text(role || 'JarFile', x, y-17, colors.text, 11, 600);
+        text(id + ' 인스턴스', x, y, colors.muted, 11);
+        text(closed ? 'CLOSED' : 'OPEN', x, y+18, accent, 10, 600);
+      }
+
+      function draw(p) {
+        if (!width) return;
+        ctx.clearRect(0, 0, width, sceneHeight);
+        const fixed = mode === 'fixed';
+        const normal = mode === 'normal';
+        const left = width*.23;
+        const right = width*.77;
+        const ax = width*(fixed ? .32 : .5);
+        const bx = width*.79;
+        const cx = width*.5;
+        const jarWidth = Math.min(124, width*.33);
+        const closeAt = normal ? .38 : .34;
+        const registerAt = normal ? .20 : .62;
+        const reopened = normal && p >= .60;
+        const jarId = reopened ? 'A′' : 'A';
+        const aClosed = !fixed && p >= closeAt && !reopened;
+        const bClosed = fixed && p >= closeAt;
+        const cached = normal ? (p >= .20 && p < .38) || p >= .74 : p >= registerAt;
+        const badCache = cached && aClosed;
+        const bootConnectionPath = [left, 65, left, 91, left, 117];
+        const scanConnectionPath = [right, 65, right, 91, right, 117];
+        const bootPath = [left, 231, left, 244, ax, 254];
+        const scanPath = fixed
+          ? [right, 231, bx, 244, bx, 254]
+          : [right, 231, right, 260, ax+jarWidth/2, 286];
+        const cachePath = [ax, 318, ax, 366, cx, 403];
+        const resultPath = [cx, 477, cx, 497, cx, 517];
+        const cacheMissPath = [cx-Math.min(230, width*.74)/2, 440, left-36, 380, left, 231];
+        if (fixed) {
+          const groupLeft = ax-jarWidth/2-12;
+          const groupRight = bx+Math.min(104, width*.30)/2+12;
+          ctx.setLineDash([4, 4]);
+          box((groupLeft+groupRight)/2, 286, groupRight-groupLeft, 112, colors.surface, colors.line);
+          ctx.setLineDash([]);
+          text('동일한 Jar 파일', (groupLeft+groupRight)/2, 240, colors.muted, 11, 600);
+          text('각각 연 JarFile 인스턴스', (groupLeft+groupRight)/2, 331, colors.muted, 10);
+        }
+        line(bootConnectionPath, colors.line);
+        line(scanConnectionPath, colors.line);
+        line(bootPath, colors.line);
+        line(scanPath, colors.line);
+        line(cachePath, colors.line);
+        if (cached && p >= (normal ? .76 : .68)) {
+          const resultColor = badCache ? colors.red : colors.green;
+          line(resultPath, resultColor);
+          ctx.beginPath();
+          ctx.moveTo(cx-4, 511);
+          ctx.lineTo(cx, 517);
+          ctx.lineTo(cx+4, 511);
+          ctx.strokeStyle = resultColor;
+          ctx.stroke();
+          text('클래스 로딩', cx+48, 497, colors.muted, 11);
+        }
+        if (normal && p >= .38) line(cacheMissPath, colors.line, true);
+        text(reopened ? '다시 캐시 등록' : '캐시 등록', (ax+cx)/2-42, 386, colors.muted, 11);
+
+        // Fade in once; keep the completed diagram visible when playback finishes.
+        const fade = p < .025 ? clamp(p/.025) : 1;
+        ctx.save();
+        ctx.globalAlpha = p >= 1 ? 0 : fade;
+        stream(bootConnectionPath, p, .005, .035, colors.blue);
+        stream(scanConnectionPath, p, .03, .07, colors.purple);
+        stream(bootPath, p, .035, normal ? .10 : .16, colors.blue);
+        stream(scanPath, p, .07, normal ? .16 : .21, colors.purple);
+        stream(scanPath, p, normal ? .26 : .20, closeAt, colors.red, 'close()');
+        stream(cachePath, p, normal ? .10 : .45, registerAt, aClosed ? colors.red : colors.blue);
+        if (mode === 'race') stream(cachePath, p, .34, .42, colors.red, 'onClose()');
+        if (normal) {
+          stream(cachePath, p, .38, .43, colors.red, 'onClose()');
+          stream(cacheMissPath, p, .48, .55, colors.blue, '캐시 미스');
+          stream(bootConnectionPath, p, .535, .55, colors.blue);
+          stream(bootPath, p, .55, .60, colors.blue, '다시 열기');
+          stream(cachePath, p, .63, .74, colors.blue);
+        }
+        if ((!normal && p >= .68) || (normal && p >= .76)) {
+          // Requests keep flowing, so the persistent effect of a cached closed jar is visible.
+          for (let i = 0; i < 3; i++) {
+            const start = normal ? .76+i*.075 : .68+i*.085;
+            stream(resultPath, p, start, start+.10, badCache ? colors.red : colors.green);
+          }
+        }
+        ctx.restore();
+
+        const actorWidth = Math.min(168, width*.42);
+        box(left, 37, actorWidth, 56, colors.blueBg, colors.line);
+        text('Spring Boot', left, 27, colors.blue, 12, 600);
+        text('클래스 로더', left, 46, colors.muted, 11);
+        box(right, 37, actorWidth, 56, colors.purpleBg, colors.line);
+        text('DocService', right, 27, colors.purple, 12, 600);
+        text('Reflections', right, 46, colors.muted, 11);
+        [left, right].forEach((x, index) => {
+          const bypassCache = index === 1 && fixed;
+          const accent = index === 0 ? colors.blue : colors.purple;
+          box(x, 88, actorWidth, 32, colors.bg, colors.line, 5);
+          text('url.openConnection()', x, 82, colors.text, 10);
+          text('연결 객체 생성', x, 96, colors.muted, 9);
+          box(x, 174, actorWidth, 114, colors.bg, bypassCache ? colors.green : colors.line);
+          text('JarUrlConnection', x, 130, accent, 11, 600);
+          text(bypassCache ? 'setUseCaches(false)' : 'useCaches = true', x, 151, bypassCache ? colors.green : colors.muted, 10, bypassCache ? 600 : 400);
+          text('getJarFile()', x, 173, colors.text, 10);
+          text('↓ connect()', x, 195, colors.text, 10);
+          text('↓ JarFile 조회/열기', x, 216, colors.text, 10);
+        });
+        jar(ax, 286, jarWidth, jarId, aClosed, reopened ? (p-.60)/.09 : aClosed ? (p-closeAt)/.09 : 0, fixed ? '클래스 로더용' : '');
+        if (fixed) jar(bx, 286, Math.min(104, width*.30), 'B', bClosed, bClosed ? (p-closeAt)/.09 : 0, '스캐닝용');
+        box(ax, 358, 112, 20, colors.bg, colors.line, 4);
+        text('onClose 콜백', ax, 358, colors.muted, 10);
+
+        const cacheColor = badCache ? colors.red : cached ? colors.blue : colors.line;
+        box(cx, 440, Math.min(230, width*.74), 74, badCache ? colors.redBg : colors.surface, cacheColor);
+        text('Spring Boot 캐시', cx, 422, colors.muted, 11);
+        text(cached ? 'jar → ' + jarId + ' 인스턴스 (' + (aClosed ? 'CLOSED' : 'OPEN') + ')' : '비어 있음', cx, 450, cached ? cacheColor : colors.muted, 12, 600);
+        const latestRegistration = normal && p >= .74 ? .74 : registerAt;
+        if (p >= latestRegistration && p < latestRegistration+.08) {
+          const pulse = (p-latestRegistration)/.08;
+          ctx.save();
+          ctx.globalAlpha = (1-pulse)*.4;
+          box(cx, 440, Math.min(230, width*.74)+pulse*14, 74+pulse*14, 'transparent', cacheColor);
+          ctx.restore();
+        }
+        const resultVisible = ease(clamp((p-(normal ? .42 : .76))/.05));
+        ctx.save();
+        ctx.globalAlpha = resultVisible;
+        const waiting = normal && p < .86;
+        const resultColor = waiting ? colors.blue : mode === 'race' ? colors.red : colors.green;
+        box(cx, 536, Math.min(280, width-4), 38, waiting ? colors.blueBg : mode === 'race' ? colors.redBg : colors.greenBg, resultColor);
+        const resultText = waiting ? '클래스 로딩 요청' : mode === 'race' ? 'ClassNotFoundException 발생' : '클래스 로딩 성공';
+        text(resultText, cx, 536, resultColor, width < 350 ? 11 : 12, 600);
+        ctx.restore();
+        canvas.dataset.time = elapsed.toFixed(1);
+      }
+
+      function render() {
+        const p = elapsed/duration();
+        const stage = stageAt(p);
+        const key = mode + ':' + stage;
+        if (key !== lastStage) {
+          lastStage = key;
+          const current = scenarios[mode][stage];
+          $('jar-value').textContent = current.jar;
+          $('cache-value').textContent = current.cache;
+          $('caption').dataset.tone = current.tone || '';
+          $('caption-title').textContent = current.title;
+          $('caption-body').textContent = current.body;
+          $('progress').textContent = (stage+1) + ' / ' + scenarios[mode].length;
+          $('previous').disabled = stage === 0;
+          $('next').disabled = stage === scenarios[mode].length-1;
+        }
+        $('seek').max = String(duration());
+        $('seek').value = String(Math.round(elapsed));
+        $('seek').setAttribute('aria-valuetext', (stage+1) + '단계: ' + scenarios[mode][stage].title);
+        $('play').textContent = playing ? '일시정지' : elapsed >= duration() ? '다시 재생' : '재생';
+        draw(p);
+      }
+      function tick(time) {
+        raf = null;
+        if (!playing || !visible || document.hidden) { lastTime = null; return; }
+        if (lastTime !== null) elapsed = Math.min(duration(), elapsed + Math.min(80, time-lastTime));
+        lastTime = time;
+        if (elapsed >= duration()) {
+          playing = false;
+          lastTime = null;
+          render();
+          return;
+        }
+        render();
+        raf = requestAnimationFrame(tick);
+      }
+      function syncPlayback() {
+        if (raf !== null) cancelAnimationFrame(raf);
+        raf = null;
+        lastTime = null;
+        if (playing && visible && !document.hidden) raf = requestAnimationFrame(tick);
+        render();
+      }
+      function seek(value) {
+        elapsed = Math.max(0, Math.min(duration(), value));
+        playing = false;
+        syncPlayback();
+      }
+      modeButtons.forEach(button => button.addEventListener('click', () => {
+        mode = button.dataset.mode;
+        elapsed = 0;
+        playing = !reducedMotion.matches;
+        modeButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+        syncPlayback();
+      }));
+      $('play').addEventListener('click', () => {
+        if (elapsed >= duration()) elapsed = 0;
+        playing = !playing;
+        syncPlayback();
+      });
+      $('previous').addEventListener('click', () => seek(anchors()[Math.max(0, stageAt(elapsed/duration())-1)]*duration()));
+      $('next').addEventListener('click', () => seek(anchors()[Math.min(scenarios[mode].length-1, stageAt(elapsed/duration())+1)]*duration()));
+      $('reset').addEventListener('click', () => { elapsed = 0; playing = !reducedMotion.matches; syncPlayback(); });
+      $('seek').addEventListener('input', event => seek(Number(event.target.value)));
+      reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) playing = false; syncPlayback(); });
+      document.addEventListener('visibilitychange', syncPlayback);
+      window.addEventListener('pagehide', () => { playing = false; syncPlayback(); });
+      document.querySelectorAll('.modes, .stage, .transport, .controls').forEach(el => { el.hidden = false; });
+      $('fallback').hidden = true;
+
+      function resize() {
+        width = canvas.getBoundingClientRect().width;
+        const dpr = Math.min(window.devicePixelRatio || 1, 3);
+        canvas.width = Math.round(width*dpr);
+        canvas.height = sceneHeight*dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        render();
+      }
+      function syncTheme() {
+        let theme = systemTheme.matches ? 'dark' : 'light';
+        try { theme = window.parent.document.documentElement.dataset.theme || theme; } catch (_) { /* Standalone preview. */ }
+        document.documentElement.dataset.theme = theme;
+        const style = getComputedStyle(document.documentElement);
+        ['bg', 'surface', 'text', 'muted', 'line', 'blue', 'blue-bg', 'purple', 'purple-bg', 'red', 'red-bg', 'green', 'green-bg'].forEach(name => {
+          colors[name.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase())] = style.getPropertyValue('--'+name).trim();
+        });
+        render();
+      }
+      syncTheme();
+      systemTheme.addEventListener('change', syncTheme);
+      new ResizeObserver(resize).observe(canvas);
+      try {
+        if (window.parent !== window) {
+          new MutationObserver(syncTheme).observe(window.parent.document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+          new window.parent.IntersectionObserver(entries => {
+            visible = entries[0].isIntersecting;
+            syncPlayback();
+          }, { threshold: .1 }).observe(window.frameElement);
+        } else throw new Error('Standalone view');
+      } catch (_) {
+        new IntersectionObserver(entries => { visible = entries[0].isIntersecting; syncPlayback(); }, { threshold: .1 }).observe(canvas);
+      }
+      new ResizeObserver(() => {
+        try {
+          if (window.frameElement) window.frameElement.style.height = Math.ceil(document.querySelector('.demo').getBoundingClientRect().height)+2+'px';
+        } catch (_) { /* Retain the fallback height in a cross-origin preview. */ }
+      }).observe(document.querySelector('.demo'));
+    })();
+  </script>
+</body>
+</html>
