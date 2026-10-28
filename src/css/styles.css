@@ -1003,8 +1003,11 @@ textarea {
   }
 
   .about-avatar.ui.image {
+    display: block;
     width: 120px;
     height: 120px;
+    margin-right: auto;
+    margin-left: 0;
   }
 
   .about-details {
