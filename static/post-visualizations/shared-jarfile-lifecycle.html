@@ -399,10 +399,10 @@
           const accent = index === 0 ? colors.blue : colors.purple;
           box(x, 88, actorWidth, 32, colors.bg, colors.line, 5);
           text('url.openConnection()', x, 82, colors.text, 10);
-          text('연결 객체 생성', x, 96, colors.muted, 9);
+          text('Connection 객체 생성', x, 96, colors.muted, 9);
           box(x, 174, actorWidth, 114, colors.bg, bypassCache ? colors.green : colors.line);
           text('JarUrlConnection', x, 130, accent, 11, 600);
-          text(bypassCache ? 'setUseCaches(false)' : 'useCaches = true', x, 151, bypassCache ? colors.green : colors.muted, 10, bypassCache ? 600 : 400);
+          text(bypassCache ? 'useCaches = false' : 'useCaches = true', x, 151, bypassCache ? colors.green : colors.muted, 10, bypassCache ? 600 : 400);
           text('getJarFile()', x, 173, colors.text, 10);
           text('↓ connect()', x, 195, colors.text, 10);
           text('↓ JarFile 조회/열기', x, 216, colors.text, 10);
