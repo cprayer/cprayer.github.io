@@ -22,7 +22,7 @@ SIGTERM 은 프로세스 그룹 전송이라 앱까지 도달하지만 sh 는 SI
 
 ## dumb-init 을 쓰는 이유
 
-Dockerfile 을 아래처럼 쓰면 종료 신호가 앱까지 전달되지 않는다
+Dockerfile 을 아래처럼 쓰면 종료 시그널이 앱까지 전달되지 않는다
 
 ```dockerfile
 FROM eclipse-temurin:21-jre
@@ -34,9 +34,9 @@ ENTRYPOINT java -jar /app/app.jar
 
 shell form 으로 쓰면 Docker 가 `/bin/sh -c` 로 감싸기 때문에 sh 가 PID 1 이 된다 \
 컨테이너의 PID 1 은 PID namespace 의 init 이라 핸들러를 등록하지 않은 시그널은 커널이 전달하지 않으므로 sh 는 SIGTERM 을 받고도 그대로 살아 있고 자식에게 전달하지도 않는다 \
-앱은 아무 신호도 못 받은 채 유예시간이 만료될 때까지 살아 있다가 예외인 SIGKILL 로 죽는다
+앱은 아무 시그널도 못 받은 채 유예시간이 만료될 때까지 살아 있다가 예외인 SIGKILL 로 죽는다
 
-그래서 PID 1 자리에 dumb-init 을 두고 신호 전달을 맡긴다
+그래서 PID 1 자리에 dumb-init 을 두고 시그널 전달을 맡긴다
 
 ```dockerfile
 FROM eclipse-temurin:21-jre
@@ -70,10 +70,10 @@ PID 9  java -jar /app/app.jar
 
 ## 시그널은 앱까지 도달한다
 
-신호가 앱에 전달되지 않은 것이라면 dumb-init 이 없을 때처럼 유예시간 만료까지 기다리다 SIGKILL 로 끝났어야 한다 \
+시그널이 앱에 전달되지 않은 것이라면 dumb-init 이 없을 때처럼 유예시간 만료까지 기다리다 SIGKILL 로 끝났어야 한다 \
 165ms 에 143 으로 끝났으니 전달은 됐고 앱이 종료 절차를 밟지 못한 것이다
 
-dumb-init 은 기본 모드에서 자식을 새 세션으로 띄우고 신호를 프로세스 그룹 전체에 보낸다 \
+dumb-init 은 기본 모드에서 자식을 새 세션으로 띄우고 시그널을 프로세스 그룹 전체에 보낸다 \
 [소스](https://github.com/Yelp/dumb-init/blob/v1.2.5/dumb-init.c#L47-L66) 에서 `use_setsid` 기본값이 1 이라 `kill()` 에 음수 pid 를 넘긴다. `kill()` 에 음수 pid 를 넘기면 절댓값이 프로세스 그룹 ID 로 해석되어 해당 그룹의 모든 프로세스에 시그널이 전달된다
 
 ```c
@@ -115,9 +115,16 @@ sh 가 종료되면 dumb-init 이 자신의 자식이 종료된 것을 감지해
 * SIGTERM 없이 중간 sh 만 3초 뒤 스스로 `exit 0` 하게 했더니 sh 가 끝나는 순간 컨테이너가 종료되고 앱은 훅도 못 돌고 사라졌다
 
 시그널은 앱에 전달됐지만 PID 1 인 dumb-init 이 종료되면서 컨테이너도 종료되었다 \
-dumb-init 의 버그가 아니라 사용 계약이고 [README 의 shell 경유 항목](https://github.com/Yelp/dumb-init/tree/v1.2.5#using-a-shell-for-pre-start-hooks) 이 shell 을 거치는 경우를 다루면서 `exec` 를 강조한다
+dumb-init 의 버그가 아니라 사용 계약이고 [README 의 pre-start hook 항목](https://github.com/Yelp/dumb-init/tree/v1.2.5#using-a-shell-for-pre-start-hooks) 에서도 shell 을 거치는 경우 `exec` 를 강조한다
 
-> The `exec` portion of the bash command is important because it **replaces the bash process** with your server, so that the shell only exists momentarily at start.
+시작 전에 환경 변수로 설정 파일을 만드는 등의 작업이 필요할 때 공식 문서에서 권장하는 구성은 다음과 같다
+
+```dockerfile
+ENTRYPOINT ["/bin/dumb-init", "--"]
+CMD ["sh", "-c", "do-some-pre-start-thing && exec java -jar /app/app.jar"]
+```
+
+마지막 명령에 `exec` 를 붙이면 준비 작업을 마친 sh 가 앱 프로세스로 교체되어 앱이 dumb-init 의 직접 자식이 된다
 
 ## 판정 방법
 
@@ -140,32 +147,6 @@ ps -ef | grep -c '[/]bin/sh -c java'   # 1 이면 깨진 구조, 0 이면 정상
 ```
 
 dumb-init 의 자식이 앱이어야 하고 `/bin/sh -c ...` 가 끼어 있으면 안 된다
-
-## 고치는 법
-
-`CMD` 의 실행 명령 앞에 `exec` 를 붙인다
-
-```diff
--CMD java -jar /app/app.jar
-+CMD exec java -jar /app/app.jar
-```
-
-sh 가 앱으로 치환되어 중간 계층이 사라지고 앱이 dumb-init 의 자식이 되므로 dumb-init 이 앱의 종료를 기다린다
-
-shell 기능이 필요 없다면 처음부터 배열로 쓰면 된다
-
-```dockerfile
-ENTRYPOINT ["/bin/dumb-init", "--"]
-CMD ["java", "-jar", "/app/app.jar"]
-```
-
-다만 shell 기능에 기대고 있으면 배열로는 표현되지 않는다
-
-```dockerfile
-CMD java `if [ "$APM_ENABLED" = "true" ]; then echo "-javaagent:/app/agent.jar"; fi` -jar /app/app.jar
-```
-
-명령 치환을 쓰더라도 `java` 앞에 `exec` 를 붙이면 치환은 그대로 두고 sh 만 없앨 수 있다
 
 ---
 
