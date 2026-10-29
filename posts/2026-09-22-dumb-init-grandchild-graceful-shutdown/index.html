@@ -86,7 +86,7 @@
 SIGTERM 은 프로세스 그룹 전송이라 앱까지 도달하지만 sh 는 SIGTERM 을 받자마자 바로 종료되고 dumb-init 은 모든 자식의 종료를 기다리는 것이 아니라 자신의 자식만 고려하고 손자는 고려하지 않아 그대로 exit 하면서 앱은 종료 훅을 시작하기도 전에 SIGKILL 된다 <br>
 <code class="language-text">CMD</code> 의 실행 명령 앞에 <code class="language-text">exec</code> 를 붙이면 앱이 dumb-init 의 자식이 되도록 설정할 수 있다</p>
 <h2 id="dumb-init-을-쓰는-이유" style="position:relative;"><a href="#dumb-init-%EC%9D%84-%EC%93%B0%EB%8A%94-%EC%9D%B4%EC%9C%A0" aria-label="dumb init 을 쓰는 이유 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dumb-init 을 쓰는 이유</h2>
-<p>Dockerfile 을 아래처럼 쓰면 종료 신호가 앱까지 전달되지 않는다</p>
+<p>Dockerfile 을 아래처럼 쓰면 종료 시그널이 앱까지 전달되지 않는다</p>
 <div class="gatsby-highlight" data-language="dockerfile"><pre class="language-dockerfile"><code class="language-dockerfile"><span class="token instruction"><span class="token keyword">FROM</span> eclipse-temurin:21-jre</span>
 
 <span class="token instruction"><span class="token keyword">COPY</span> build/libs/app.jar /app/app.jar</span>
@@ -94,8 +94,8 @@ SIGTERM 은 프로세스 그룹 전송이라 앱까지 도달하지만 sh 는 SI
 <span class="token instruction"><span class="token keyword">ENTRYPOINT</span> java -jar /app/app.jar</span></code></pre></div>
 <p>shell form 으로 쓰면 Docker 가 <code class="language-text">/bin/sh -c</code> 로 감싸기 때문에 sh 가 PID 1 이 된다 <br>
 컨테이너의 PID 1 은 PID namespace 의 init 이라 핸들러를 등록하지 않은 시그널은 커널이 전달하지 않으므로 sh 는 SIGTERM 을 받고도 그대로 살아 있고 자식에게 전달하지도 않는다 <br>
-앱은 아무 신호도 못 받은 채 유예시간이 만료될 때까지 살아 있다가 예외인 SIGKILL 로 죽는다</p>
-<p>그래서 PID 1 자리에 dumb-init 을 두고 신호 전달을 맡긴다</p>
+앱은 아무 시그널도 못 받은 채 유예시간이 만료될 때까지 살아 있다가 예외인 SIGKILL 로 죽는다</p>
+<p>그래서 PID 1 자리에 dumb-init 을 두고 시그널 전달을 맡긴다</p>
 <div class="gatsby-highlight" data-language="dockerfile"><pre class="language-dockerfile"><code class="language-dockerfile"><span class="token instruction"><span class="token keyword">FROM</span> eclipse-temurin:21-jre</span>
 
 <span class="token instruction"><span class="token keyword">RUN</span> apt-get update &amp;&amp; apt-get install -y --no-install-recommends dumb-init</span>
@@ -136,9 +136,9 @@ PID 9  java -jar /app/app.jar</code></pre></div>
 </table>
 <p>종료 코드는 둘 다 143 이라 밖에서 보면 똑같이 정상적인 SIGTERM 종료로 보인다</p>
 <h2 id="시그널은-앱까지-도달한다" style="position:relative;"><a href="#%EC%8B%9C%EA%B7%B8%EB%84%90%EC%9D%80-%EC%95%B1%EA%B9%8C%EC%A7%80-%EB%8F%84%EB%8B%AC%ED%95%9C%EB%8B%A4" aria-label="시그널은 앱까지 도달한다 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>시그널은 앱까지 도달한다</h2>
-<p>신호가 앱에 전달되지 않은 것이라면 dumb-init 이 없을 때처럼 유예시간 만료까지 기다리다 SIGKILL 로 끝났어야 한다 <br>
+<p>시그널이 앱에 전달되지 않은 것이라면 dumb-init 이 없을 때처럼 유예시간 만료까지 기다리다 SIGKILL 로 끝났어야 한다 <br>
 165ms 에 143 으로 끝났으니 전달은 됐고 앱이 종료 절차를 밟지 못한 것이다</p>
-<p>dumb-init 은 기본 모드에서 자식을 새 세션으로 띄우고 신호를 프로세스 그룹 전체에 보낸다 <br>
+<p>dumb-init 은 기본 모드에서 자식을 새 세션으로 띄우고 시그널을 프로세스 그룹 전체에 보낸다 <br>
 <a href="https://github.com/Yelp/dumb-init/blob/v1.2.5/dumb-init.c#L47-L66">소스</a> 에서 <code class="language-text">use_setsid</code> 기본값이 1 이라 <code class="language-text">kill()</code> 에 음수 pid 를 넘긴다. <code class="language-text">kill()</code> 에 음수 pid 를 넘기면 절댓값이 프로세스 그룹 ID 로 해석되어 해당 그룹의 모든 프로세스에 시그널이 전달된다</p>
 <div class="gatsby-highlight" data-language="c"><pre class="language-c"><code class="language-c"><span class="token keyword">char</span> use_setsid <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>                                    <span class="token comment">// L47</span>
 
@@ -168,10 +168,11 @@ sh 가 종료되면 dumb-init 이 자신의 자식이 종료된 것을 감지해
 <li>SIGTERM 없이 중간 sh 만 3초 뒤 스스로 <code class="language-text">exit 0</code> 하게 했더니 sh 가 끝나는 순간 컨테이너가 종료되고 앱은 훅도 못 돌고 사라졌다</li>
 </ul>
 <p>시그널은 앱에 전달됐지만 PID 1 인 dumb-init 이 종료되면서 컨테이너도 종료되었다 <br>
-dumb-init 의 버그가 아니라 사용 계약이고 <a href="https://github.com/Yelp/dumb-init/tree/v1.2.5#using-a-shell-for-pre-start-hooks">README 의 shell 경유 항목</a> 이 shell 을 거치는 경우를 다루면서 <code class="language-text">exec</code> 를 강조한다</p>
-<blockquote>
-<p>The <code class="language-text">exec</code> portion of the bash command is important because it <strong>replaces the bash process</strong> with your server, so that the shell only exists momentarily at start.</p>
-</blockquote>
+dumb-init 의 버그가 아니라 사용 계약이고 <a href="https://github.com/Yelp/dumb-init/tree/v1.2.5#using-a-shell-for-pre-start-hooks">README 의 pre-start hook 항목</a> 에서도 shell 을 거치는 경우 <code class="language-text">exec</code> 를 강조한다</p>
+<p>시작 전에 환경 변수로 설정 파일을 만드는 등의 작업이 필요할 때 공식 문서에서 권장하는 구성은 다음과 같다</p>
+<div class="gatsby-highlight" data-language="dockerfile"><pre class="language-dockerfile"><code class="language-dockerfile"><span class="token instruction"><span class="token keyword">ENTRYPOINT</span> [<span class="token string">"/bin/dumb-init"</span>, <span class="token string">"--"</span>]</span>
+<span class="token instruction"><span class="token keyword">CMD</span> [<span class="token string">"sh"</span>, <span class="token string">"-c"</span>, <span class="token string">"do-some-pre-start-thing &amp;&amp; exec java -jar /app/app.jar"</span>]</span></code></pre></div>
+<p>마지막 명령에 <code class="language-text">exec</code> 를 붙이면 준비 작업을 마친 sh 가 앱 프로세스로 교체되어 앱이 dumb-init 의 직접 자식이 된다</p>
 <h2 id="판정-방법" style="position:relative;"><a href="#%ED%8C%90%EC%A0%95-%EB%B0%A9%EB%B2%95" aria-label="판정 방법 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>판정 방법</h2>
 <p>dumb-init 이 없으면 유예시간 만료까지 기다리고 dumb-init 과 sh 를 함께 쓴 쪽은 반대로 165ms 에 끝나는데 둘 다 훅을 못 돌린 것이라 stop 시간만으로는 구분되지 않는다</p>
 <p>같은 이미지에서 훅 길이만 바꿔보면 확실하다</p>
@@ -201,17 +202,6 @@ dumb-init 의 버그가 아니라 사용 계약이고 <a href="https://github.co
 <p>더 빠른 판정은 프로세스 트리다</p>
 <div class="gatsby-highlight" data-language="bash"><pre class="language-bash"><code class="language-bash"><span class="token function">ps</span> <span class="token parameter variable">-ef</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token parameter variable">-c</span> <span class="token string">'[/]bin/sh -c java'</span>   <span class="token comment"># 1 이면 깨진 구조, 0 이면 정상</span></code></pre></div>
 <p>dumb-init 의 자식이 앱이어야 하고 <code class="language-text">/bin/sh -c ...</code> 가 끼어 있으면 안 된다</p>
-<h2 id="고치는-법" style="position:relative;"><a href="#%EA%B3%A0%EC%B9%98%EB%8A%94-%EB%B2%95" aria-label="고치는 법 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>고치는 법</h2>
-<p><code class="language-text">CMD</code> 의 실행 명령 앞에 <code class="language-text">exec</code> 를 붙인다</p>
-<div class="gatsby-highlight" data-language="diff"><pre class="language-diff"><code class="language-diff"><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span>CMD java -jar /app/app.jar
-</span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span>CMD exec java -jar /app/app.jar</span></code></pre></div>
-<p>sh 가 앱으로 치환되어 중간 계층이 사라지고 앱이 dumb-init 의 자식이 되므로 dumb-init 이 앱의 종료를 기다린다</p>
-<p>shell 기능이 필요 없다면 처음부터 배열로 쓰면 된다</p>
-<div class="gatsby-highlight" data-language="dockerfile"><pre class="language-dockerfile"><code class="language-dockerfile"><span class="token instruction"><span class="token keyword">ENTRYPOINT</span> [<span class="token string">"/bin/dumb-init"</span>, <span class="token string">"--"</span>]</span>
-<span class="token instruction"><span class="token keyword">CMD</span> [<span class="token string">"java"</span>, <span class="token string">"-jar"</span>, <span class="token string">"/app/app.jar"</span>]</span></code></pre></div>
-<p>다만 shell 기능에 기대고 있으면 배열로는 표현되지 않는다</p>
-<div class="gatsby-highlight" data-language="dockerfile"><pre class="language-dockerfile"><code class="language-dockerfile"><span class="token instruction"><span class="token keyword">CMD</span> java `if [ <span class="token string">"$APM_ENABLED"</span> = <span class="token string">"true"</span> ]; then echo <span class="token string">"-javaagent:/app/agent.jar"</span>; fi` -jar /app/app.jar</span></code></pre></div>
-<p>명령 치환을 쓰더라도 <code class="language-text">java</code> 앞에 <code class="language-text">exec</code> 를 붙이면 치환은 그대로 두고 sh 만 없앨 수 있다</p>
 <hr>
 <h2 id="그동안-드러나지-않은-이유" style="position:relative;"><a href="#%EA%B7%B8%EB%8F%99%EC%95%88-%EB%93%9C%EB%9F%AC%EB%82%98%EC%A7%80-%EC%95%8A%EC%9D%80-%EC%9D%B4%EC%9C%A0" aria-label="그동안 드러나지 않은 이유 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>그동안 드러나지 않은 이유</h2>
 <p>해당 구조가 2년 넘게 유지됐는데 종료 시 SIGTERM 을 제대로 처리하지 못하고 있다는 사실은 인지하지 못했다 <br>
@@ -262,6 +252,6 @@ Spring Boot 는 2.x 와 3.3 까지 <code class="language-text">server.shutdown</
           <script
             id="gatsby-chunk-mapping"
           >
-            window.___chunkMapping="{\"app\":[\"/app-fc1926b4a14acff68261.js\"],\"component---src-pages-404-tsx\":[\"/component---src-pages-404-tsx-13308b7878ec72206e67.js\"],\"component---src-pages-about-tsx\":[\"/component---src-pages-about-tsx-1c180606e8d72ae813a5.js\"],\"component---src-pages-index-tsx\":[\"/component---src-pages-index-tsx-86fd19437d6b2659cdfc.js\"],\"component---src-templates-blog-page-tsx\":[\"/component---src-templates-blog-page-tsx-6293ffeb8cff169ed003.js\"],\"component---src-templates-blog-post-tsx\":[\"/component---src-templates-blog-post-tsx-506984ecc2469eb59d16.js\"],\"component---src-templates-tags-page-tsx\":[\"/component---src-templates-tags-page-tsx-5bd51cd46cc9c1fa428f.js\"]}";
+            window.___chunkMapping="{\"app\":[\"/app-f9194f70e1eff9e92d3f.js\"],\"component---src-pages-404-tsx\":[\"/component---src-pages-404-tsx-13308b7878ec72206e67.js\"],\"component---src-pages-about-tsx\":[\"/component---src-pages-about-tsx-1c180606e8d72ae813a5.js\"],\"component---src-pages-index-tsx\":[\"/component---src-pages-index-tsx-86fd19437d6b2659cdfc.js\"],\"component---src-templates-blog-page-tsx\":[\"/component---src-templates-blog-page-tsx-6293ffeb8cff169ed003.js\"],\"component---src-templates-blog-post-tsx\":[\"/component---src-templates-blog-post-tsx-506984ecc2469eb59d16.js\"],\"component---src-templates-tags-page-tsx\":[\"/component---src-templates-tags-page-tsx-5bd51cd46cc9c1fa428f.js\"]}";
           </script>
-        <script>window.___webpackCompilationHash="4b2dd516c96d31555e82";</script><script src="/webpack-runtime-45187ad2e3066ec303d0.js" async></script><script src="/framework-e6a0067f1bc109bf0ebe.js" async></script><script src="/app-fc1926b4a14acff68261.js" async></script><!-- slice-end id="_gatsby-scripts-1" --></body></html>
+        <script>window.___webpackCompilationHash="8d4275dc2d27b5ed9dfe";</script><script src="/webpack-runtime-45187ad2e3066ec303d0.js" async></script><script src="/framework-e6a0067f1bc109bf0ebe.js" async></script><script src="/app-f9194f70e1eff9e92d3f.js" async></script><!-- slice-end id="_gatsby-scripts-1" --></body></html>
