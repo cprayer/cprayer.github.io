@@ -13,7 +13,7 @@ draft: false
 ---
 
 팀에서 운영하는 서비스 중 작년 7월에 Spring Boot 버전을 3.2로 올린 서비스가 있었습니다.
-지난 주 평일 새벽에 k8s 워커 노드가 scale-in 되는 과정에서 해당 서비스의 pod이 재배치되었는데요.
+이후 약 15개월간 버전 업그레이드와 관련된 큰 이슈 없이 운영해 왔는데 지난 주 평일 새벽에 k8s 워커 노드가 scale-in 되는 과정에서 해당 서비스의 pod이 재배치되었는데요.
 재배치된 pod 중 하나에서 특정 Jar의 클래스를 로딩하지 못해 ClassNotFoundException이 발생하며 관련 요청이 모두 실패하는 이슈가 있었습니다. 해당 pod을 재기동한 이후에는 ClassNotFoundException이 발생하지 않았습니다.
 
 해당 이슈의 원인을 추적하는 과정에서 Armeria의 DocService와 Spring Boot 클래스 로더 사이의 TOCTOU 이슈가 유력한 원인으로 보여 upstream에 [수정 PR](https://github.com/line/armeria/pull/7057)을 올렸고 현재 머지되었습니다.
