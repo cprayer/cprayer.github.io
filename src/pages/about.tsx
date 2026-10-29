@@ -20,6 +20,13 @@ const contributions = [
   },
   {
     items: [
+      { title: "Upgrade Reflections to 0.9.12 to avoid closing shared JarFiles", type: "PR",
+        url: "https://github.com/line/armeria/pull/7057" },
+    ],
+    project: "armeria",
+  },
+  {
+    items: [
       { title: "Avoid replaying unread body data on retry", type: "PR",
         url: "https://github.com/linkerd/linkerd2-proxy/pull/4621" },
     ],
@@ -264,7 +271,7 @@ const AboutPage = ({ data }: AboutPageProps) => {
           </div>
         </section>
 
-        <section className="about-contributions">
+        <section id="open-source-contributions" className="about-contributions">
           <p className="section-eyebrow">OPEN SOURCE CONTRIBUTIONS</p>
           <div className="contribution-list">
             {contributions.map(({ project, items }) => (
@@ -283,7 +290,7 @@ const AboutPage = ({ data }: AboutPageProps) => {
           </div>
         </section>
 
-        <section className="about-competitions">
+        <section id="competitions-and-awards" className="about-competitions">
           <p className="section-eyebrow">COMPETITIONS &amp; AWARDS</p>
           <div className="competition-group">
             <h2>수상 경력</h2>
